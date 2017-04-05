@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    class State<T>
+    public class State<T>
     {
         private T state; // the state represented by a string
         private double cost; // cost to reach this state (set by a setter)
@@ -19,7 +19,7 @@ namespace SearchAlgorithmsLib
 
         public double Cost { get; }
 
-        public State<T> GetParentState { get; }
+        public State<T> CameFrom { get { return prevState; } internal set { prevState = value; } }
 
         public bool Equals(State<T> s)
         {
@@ -30,6 +30,16 @@ namespace SearchAlgorithmsLib
         {
             State<T> s = (State<T>)obj;
             return s != null && Equals(s);
+        }
+
+        public override string ToString()
+        {
+            return state.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

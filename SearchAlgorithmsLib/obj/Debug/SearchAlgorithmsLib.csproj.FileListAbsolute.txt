@@ -1,0 +1,8 @@
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.exe
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Priority Queue.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Priority Queue.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Priority Queue.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.exe
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb

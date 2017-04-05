@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    public abstract class Searcher<T> : ISearcher
+    public abstract class Searcher<T> : ISearcher<T>
     {
         private SimplePriorityQueue<State<T>, double> openList;
         private int evaluatedNodes;
@@ -50,6 +50,6 @@ namespace SearchAlgorithmsLib
             openList.UpdatePriority(s, priority);
         }
         
-        public abstract Solution<T> Search(ISearchable searchable);
+        public abstract Solution<T> Search(ISearchable<T> searchable);
     }
 }

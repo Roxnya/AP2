@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    interface ISearcher
+    public interface ISearcher<T>
     {
         // the search method
-        Solution<T> Search<T>(ISearchable searchable);
+        Solution<T> Search(ISearchable<T> searchable);
         // get how many nodes were evaluated by the algorithm
         int GetNumberOfNodesEvaluated();
     }
