@@ -1,0 +1,11 @@
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\obj\Debug\Server.csproj.Server.exe.config
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\Server.exe.config
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\Server.exe
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\Server.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\MazeGeneratorLib.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\MazeLib.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\bin\Debug\Newtonsoft.Json.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\obj\Debug\Server.exe
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\Server\obj\Debug\Server.pdb
