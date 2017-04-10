@@ -1,0 +1,8 @@
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\CompareSolvers.exe.config
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\CompareSolvers.exe
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\CompareSolvers.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\MazeGeneratorLib.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\MazeLib.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.exe
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.pdb
