@@ -1,5 +1,4 @@
-﻿using Priority_Queue;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,25 +8,11 @@ namespace SearchAlgorithmsLib
 {
     public abstract class Searcher<T> : ISearcher<T>
     {
-        private SimplePriorityQueue<State<T>, double> openList;
-        private int evaluatedNodes;
+        protected int evaluatedNodes;
         
         public Searcher()
         {
-            openList = new SimplePriorityQueue<State<T>, double>();
             evaluatedNodes = 0;
-        }
-        
-        protected State<T> PopOpenList() {
-            evaluatedNodes++;
-            if (openList.Count == 0) return null;
-            return openList.Dequeue();
-        }
-        
-        // a property of openList
-        public int OpenListSize
-        { // it is a read-only property :)
-            get{ return openList.Count; }
         }
         
         // ISearcher’s methods:
@@ -35,21 +20,19 @@ namespace SearchAlgorithmsLib
             return evaluatedNodes;
         }
 
-        protected void AddToOpenList(State<T> s, double cost)
-        {
-            openList.Enqueue(s, cost);
-        }
-
-        protected bool OpenListContains(State<T> s)
-        {
-            return openList.Contains(s);
-        }
-
-        protected void UpdateStatePriority(State<T> s, double priority)
-        {
-            openList.UpdatePriority(s, priority);
-        }
-        
         public abstract Solution<T> Search(ISearchable<T> searchable);
+
+        protected Solution<T> BackTrace(State<T> goalState, State<T> initialState = null)
+        {
+            Solution<T> solution = new Solution<T>();
+            while (goalState != null)
+            {
+                solution.AddState(goalState);
+                //if (goalState.Equals(initialState)) break;
+                goalState = goalState.CameFrom;
+            }
+
+            return solution;
+        }
     }
 }

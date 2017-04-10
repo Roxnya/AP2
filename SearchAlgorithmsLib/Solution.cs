@@ -9,6 +9,7 @@ namespace SearchAlgorithmsLib
 {
     public class Solution<T>
     {
+        //Convert to action
         private List<State<T>> states;
 
         public Solution()
@@ -25,7 +26,16 @@ namespace SearchAlgorithmsLib
         {
             states.Insert(0, state);
         }
-        
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(State<T> state in states)
+            {
+                state.ToString();
+            }
+            return sb.ToString();
+        }
         public State<T> this[int key]
         {
             get

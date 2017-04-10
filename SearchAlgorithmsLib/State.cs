@@ -9,15 +9,14 @@ namespace SearchAlgorithmsLib
     public class State<T>
     {
         private T state; // the state represented by a string
-        private double cost; // cost to reach this state (set by a setter)
         private State<T> prevState; // the state we came from to this state (setter)
-        
-        public State(T state)
+
+        private State(T state)
         {
-            this.state= state;
+            this.state = state;
         }
 
-        public double Cost { get; }
+        public double Cost { get; set; }
 
         public State<T> CameFrom { get { return prevState; } internal set { prevState = value; } }
 
@@ -39,7 +38,22 @@ namespace SearchAlgorithmsLib
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return state.ToString().GetHashCode();
+        }
+
+        public static class StatePool
+        {
+            private static Dictionary<T, State<T>> states = new Dictionary<T, State<T>>();
+
+            public static State<T> GetState(T state)
+            {
+
+                if (!states.ContainsKey(state))
+                {
+                    states.Add(state, new State<T>(state));
+                }
+                return states[state];
+            }
         }
     }
 }
