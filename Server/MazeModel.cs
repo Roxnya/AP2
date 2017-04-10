@@ -12,21 +12,21 @@ namespace Server
     class MazeModel : IModel
     {
         private Dictionary<string, Maze> mazes;
-        private Dictionary<Solution<string>, Maze> solutions;
-        private List<GameRoom> rooms;
+        private Dictionary<Maze, Solution<string>> solutions;
+        private Dictionary<string,GameRoom> rooms;
 
         public MazeModel()
         {
             mazes = new Dictionary<string, Maze>();
-            solutions = new Dictionary<Solution<string>, Maze>();
-            rooms = new List<GameRoom>();
+            solutions = new Dictionary<Maze, Solution<string>>();
+            rooms = new Dictionary<string, GameRoom>();
         }
 
         public Maze GenerateMaze(string name, int rows, int cols)
         {
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
-            this.mazes.Add(name, maze);
+            mazes.Add(name, maze);
             return maze;
         }
 
@@ -37,8 +37,9 @@ namespace Server
 
         public Maze OpenRoom(string name, int rows, int cols)
         {
+            //check that maze name is unique...
             Maze m = GenerateMaze(name, rows, cols);
-            rooms.Add(new GameRoom(m));
+            rooms.Add(m.Name, new GameRoom(m));
             //
             //ToDo:wait for another player
             //
@@ -47,7 +48,7 @@ namespace Server
 
         public List<string> GetJoinableGamesList()
         {
-            return rooms.Where(r => r.mode == Mode.WaitingForPlayer)
+            return rooms.Values.Where(r => r.mode == Mode.WaitingForPlayer)
                                                 .Select(r => r.maze.Name).ToList();
         }
 
