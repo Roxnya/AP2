@@ -11,6 +11,7 @@ namespace Server
     {
         private Dictionary<string, ICommand> commands;
         private IModel model;
+        private ICommand lastCommand;
 
         public Controller()
         {
@@ -19,8 +20,8 @@ namespace Server
             {
                 { "generate", new GenerateMazeCommand(model) },
                 { "solve", new SolveMazeCommand(model) },
-                { "start", new CreateMultiplayerGameCommand() },
-                { "list", new GetJoinableGamesCommand() },
+                { "start", new CreateMultiplayerGameCommand(model) },
+                { "list", new GetJoinableGamesCommand(model) },
                 { "join", new JoinRequestCommand() },
                 { "play", new TurnPerformedCommand() },
                 { "close", new PlayerQuitMultGameCommand() }
@@ -36,10 +37,15 @@ namespace Server
                 return "Command not found";
 
             string[] args = arr.Skip(1).ToArray();
-            ICommand command = commands[commandKey];
-            string result = command.Execute(args, client);
-            command.Finish(client);
+            lastCommand = commands[commandKey];
+            string result = lastCommand.Execute(args, client);
             return result;
+        }
+
+        public void Finish(System.Net.Sockets.TcpClient client)
+        {
+            lastCommand.Finish(client);
+            lastCommand = null;
         }
     }
 }

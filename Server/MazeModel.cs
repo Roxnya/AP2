@@ -15,11 +15,18 @@ namespace Server
         private Dictionary<Solution<string>, Maze> solutions;
         private List<GameRoom> rooms;
 
+        public MazeModel()
+        {
+            mazes = new Dictionary<string, Maze>();
+            solutions = new Dictionary<Solution<string>, Maze>();
+            rooms = new List<GameRoom>();
+        }
+
         public Maze GenerateMaze(string name, int rows, int cols)
         {
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
-            mazes.Add(maze.Name, maze);
+            this.mazes.Add(name, maze);
             return maze;
         }
 

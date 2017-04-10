@@ -23,11 +23,12 @@ namespace Server
                 {
                     string commandLine = reader.ReadLine();
                     Console.WriteLine("Got command: {0}", commandLine);
+                    writer.Flush();
                     string result = controller.ExecuteCommand(commandLine, client);
                     writer.WriteLine(result);
                     writer.Flush();
                 }
-                //client.Close();
+                controller.Finish(client);
             }).Start();
         }
     }

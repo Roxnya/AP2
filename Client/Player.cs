@@ -25,8 +25,25 @@ namespace Client
 
         public void Menu()
         {
+            int option = GetCommand();
+
+            while (option != 0)
+            {
+                switch (option)
+                {
+                    case 1:
+                        GenerateRequest();
+                        break;
+
+                }
+                option = GetCommand();
+            }
+        }
+
+        private int GetCommand()
+        {
             Console.WriteLine("Please Select Your Action Number:");
-            Console.WriteLine("1.generate\n2.solve\n3.start\n4.list\n5.join\n");
+            Console.WriteLine("0.exit\n1.generate\n2.solve\n3.start\n4.list\n5.join");
             string line = Console.ReadLine();
             int option;
             bool isNum = int.TryParse(line, out option);
@@ -36,14 +53,7 @@ namespace Client
                 Console.WriteLine("1.generate\n2.solve\n3.start\n4.list\n5.join\n");
                 isNum = int.TryParse(line, out option);
             }
-
-            switch (option)
-            {
-                case 1:
-                    GenerateRequest();
-                break;
-
-            }
+            return option;
         }
 
         private void GenerateRequest()
@@ -62,8 +72,12 @@ namespace Client
                     writer.WriteLine("generate " + line);
                     writer.Flush();
                     // Get result from server
-                    line = reader.ReadLine();
-                    Maze maze = ParseMaze(line);
+                    StringBuilder sb = new StringBuilder();
+                    while (reader.Peek() > 0)
+                    {
+                        sb.Append(reader.ReadLine());
+                    }
+                    Maze maze = ParseMaze(sb.ToString());
                     if (maze != null)
                     {
                         Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}", maze.Name,
