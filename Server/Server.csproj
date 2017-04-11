@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CompareSolvers\CompareSolvers.csproj">
+      <Project>{32ec0dc2-d019-47dd-9822-d85c18ebdad3}</Project>
+      <Name>CompareSolvers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SearchAlgorithmsLib\SearchAlgorithmsLib.csproj">
       <Project>{240D5D5D-E325-41E4-AC8F-1649CCB36262}</Project>
       <Name>SearchAlgorithmsLib</Name>

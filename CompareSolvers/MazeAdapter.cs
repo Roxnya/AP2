@@ -7,9 +7,9 @@ using SearchAlgorithmsLib;
 using MazeLib;
 
 
-namespace main
+namespace CompareSolvers
 {
-    class MazeAdapter : ISearchable<Position>
+    public class MazeAdapter : ISearchable<Position>
     {
 
         private Maze maze;

@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using MazeLib;
 using MazeGeneratorLib;
 using SearchAlgorithmsLib;
-
+using CompareSolvers;
 namespace Server
 {
     class MazeModel : IModel
     {
         private Dictionary<string, Maze> mazes;
-        private Dictionary<Maze, Solution<string>> solutions;
+        private Dictionary<Maze, Solution<Position>> solutions;
         private Dictionary<string,GameRoom> rooms;
 
         public MazeModel()
         {
             mazes = new Dictionary<string, Maze>();
-            solutions = new Dictionary<Maze, Solution<string>>();
+            solutions = new Dictionary<Maze, Solution<Position>>();
             rooms = new Dictionary<string, GameRoom>();
         }
 
@@ -30,10 +30,38 @@ namespace Server
             return maze;
         }
 
-        //public Solution<string> SolveMaze(string name, Algorithm alg)
-        //{
+        public Solution<Position> Solve(string name, Algorithm alg)
+        {
+            if (mazes.ContainsKey(name))
+            {
+                Maze m = mazes[name];
+                if (solutions.ContainsKey(m))
+                {
+                    return solutions[m];
+                }
+                MazeAdapter ma = new MazeAdapter(m);
+                if(alg == Algorithm.BFS)
+                {
+                    ISearcher<Position> bfs = new BFS<Position>();
+                    Solution<Position> sol = bfs.Search(ma);
+                    solutions.Add(m, sol);
+                    return sol;
 
-        //}
+                }
+                if (alg == Algorithm.DFS)
+                {
+                    ISearcher<Position> dfs = new DFS<Position>();
+                    Solution<Position> sol = dfs.Search(ma);
+                    solutions.Add(m, sol);
+                    return sol;
+                 
+
+                }
+            }
+            
+            return new Solution<Position>();
+            
+        }
 
         public Maze OpenRoom(string name, int rows, int cols)
         {

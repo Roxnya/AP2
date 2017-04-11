@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SearchAlgorithmsLib;
 using MazeGeneratorLib;
 using MazeLib;
-using main;
+using CompareSolvers;
 class Program
 {
     static void Main(string[] args)
