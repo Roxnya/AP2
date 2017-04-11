@@ -8,13 +8,15 @@ namespace SearchAlgorithmsLib
 {
     public class State<T>
     {
-        private T state; // the state represented by a string
+        //private T state; // the state represented by a string
         private State<T> prevState; // the state we came from to this state (setter)
 
-        private State(T state)
+        public State(T state)
         {
             this.state = state;
         }
+
+        public T state { get;}
 
         public double Cost { get; set; }
 
