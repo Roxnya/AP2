@@ -12,7 +12,7 @@ namespace Server
     {
         public Maze maze;
         public Mode mode;
-        public Solution<string> solution;
+        public Solution<Position> solution;
         public Position Player1;
         public Position Player2;
 
@@ -26,6 +26,6 @@ namespace Server
     internal enum Mode
     {
         WaitingForPlayer,
-        InProgrss
+        InProgress
     }
 }

@@ -28,3 +28,6 @@ C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.csprojResolveAssem
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.csproj.Server.exe.config
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.exe
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.pdb
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.exe
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.pdb
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.exe.config
