@@ -14,6 +14,7 @@ namespace Server.Commands
     {
         public string Execute(string[] args, TcpClient client = null)
         {
+            string move = args[0];
             throw new NotImplementedException();
         }
 

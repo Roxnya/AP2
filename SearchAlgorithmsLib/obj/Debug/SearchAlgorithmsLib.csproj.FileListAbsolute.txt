@@ -6,3 +6,11 @@ C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAl
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.exe
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Queue.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Queue.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Queue.xml
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.exe
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb

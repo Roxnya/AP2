@@ -3,24 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace CompareSolvers
+using SearchAlgorithmsLib;
+using MazeGeneratorLib;
+using MazeLib;
+using CompareSolvers;
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        private void CompareSolvers()
-        {
-            //maze via maze dfs generator
-            //print maze
-            //solve via bfs
-            //print
-            //solve via dfs
-            //print
-            //print number of states for each solution  - generate a maze bif enough to feel the difference
-        }
+        CompareSolvers();
 
-        static void Main(string[] args)
-        {
-        }
+    }
+
+    private static void CompareSolvers()
+    {
+
+        Maze m = new Maze(7, 7);
+        IMazeGenerator maze = new DFSMazeGenerator();
+        m = maze.Generate(7, 7);
+        Console.WriteLine(m.ToString());
+
+        MazeAdapter ma = new MazeAdapter(m);
+        ISearcher<Position> dfs = new DFS<Position>();
+        ISearcher<Position> bfs = new BFS<Position>();
+        Solution<Position> sol1 = dfs.Search(ma);
+        Console.WriteLine("The number of nodes evaluated by dfs is:" + dfs.GetNumberOfNodesEvaluated());
+        Solution<Position> sol2 = bfs.Search(ma);
+        Console.WriteLine("The number of nodes evaluated by bfs is:" + bfs.GetNumberOfNodesEvaluated());
+
+
+
+
     }
 }
+

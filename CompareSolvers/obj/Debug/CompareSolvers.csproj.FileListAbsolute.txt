@@ -6,3 +6,15 @@ C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareS
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.pdb
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.exe.config
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.exe
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.pdb
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\MazeLib.dll
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.exe
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.pdb
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.exe
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Priority Queue.dll
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.pdb
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Priority Queue.pdb
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Priority Queue.xml

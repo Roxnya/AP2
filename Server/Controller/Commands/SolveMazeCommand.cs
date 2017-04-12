@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using MazeLib;
+using SearchAlgorithmsLib;
 
 namespace Server.Commands
 {
@@ -20,9 +22,10 @@ namespace Server.Commands
         {
             string name = args[0];
             Algorithm algorithm = (Algorithm)int.Parse(args[1]);
-            //Maze maze = model.SolveMaze(name, rows, cols);
-            //return maze.ToJSON();
-            return "";
+            Solution<Position> sol = model.Solve(name, algorithm);
+            //serialize the solution to a string 
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(sol);
+            return json;
         }
 
         public void Finish(TcpClient client)

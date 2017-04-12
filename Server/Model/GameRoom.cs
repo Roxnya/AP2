@@ -3,7 +3,7 @@ using SearchAlgorithmsLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
+ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace Server
     {
         public Maze maze;
         public Mode Mode { get; private set; }
-        public Solution<string> solution;
+        public Solution<Position> solution;
         public Position host;
         public Position Player2;
 
@@ -38,6 +38,6 @@ namespace Server
     internal enum Mode
     {
         WaitingForPlayer,
-        InProgrss
+        InProgress
     }
 }

@@ -20,6 +20,8 @@ namespace Server
                 {
                     string commandLine = reader.ReadLine();
                     Console.WriteLine("Got command: {0}", commandLine);
+                    //Clears all buffers for the current writer and causes
+                    //any buffered data to be written to the underlying stream.
                     writer.Flush();
                     string result = controller.ExecuteCommand(commandLine, client);
                     writer.WriteLine(result);

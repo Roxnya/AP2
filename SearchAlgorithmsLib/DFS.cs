@@ -1,26 +1,28 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-
 namespace SearchAlgorithmsLib
 {
-    public class DFSSearcher<T> : Searcher<T>
+    public class DFS<T> : StackSearcher<T>
     {
-        public DFSSearcher()
+
+
+        public DFS()
         {
         }
 
         public override Solution<T> Search(ISearchable<T> searchable)
         {
-            Stack<State<T>> stack = new Stack<State<T>>();
             HashSet<State<T>> discovered = new HashSet<State<T>>();
             State<T> v = searchable.GetInitialState();
             v.CameFrom = null;
             bool found = false;
-            stack.Push(v);
+            Push(v);
 
-            while (stack.Count > 0)
+            while (Count() > 0)
             {
-                v = stack.Pop();
+                v = Pop();
+                evaluatedNodes += 1;
                 if (!discovered.Contains(v))
                 {
                     discovered.Add(v);
@@ -35,13 +37,19 @@ namespace SearchAlgorithmsLib
                         {
                             //update the path list
                             s.CameFrom = v;
-                            stack.Push(s);
+                            Push(s);
                         }
                     }
 
                 }
+
+
             }
-            return found? BackTrace(v) : new Solution<T>();
+
+            return found ? BackTrace(v) : new Solution<T>();
+
+
+
         }
     }
 }

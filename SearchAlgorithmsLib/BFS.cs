@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    class BFS<T> : PrioritySearcher<T>
+    public class BFS<T> : PrioritySearcher<T>
     {
         public BFS()
         {
