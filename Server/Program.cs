@@ -12,7 +12,7 @@ namespace Server
         static void Main(string[] args)
         {
             int port = Int32.Parse(ConfigurationManager.AppSettings["Server_Port"]);
-            
+
             Server s = new Server(port, new ClientHandler());
             s.Start();
             Console.WriteLine("Press any key to kill server");

@@ -8,12 +8,9 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    /**
-     * A class for handling clients - our view in mvc
-     **/
     class ClientHandler : IClientHandler
     {
-        public void HandleClient(TcpClient client, Controller controller)
+        public void HandleClient(TcpClient client, IController controller)
         {
             new Task(() =>
             {

@@ -12,6 +12,6 @@ namespace Server
         /**
          * 
          **/
-        void HandleClient(TcpClient client, Controller controller);
+        void HandleClient(TcpClient client, IController controller);
     }
 }

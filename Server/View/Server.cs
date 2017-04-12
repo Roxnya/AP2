@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class Server
+    class Server : IView
     {
         private int port;
         private TcpListener listener;
         private IClientHandler ch;
-        private Controller controller;
+        private GameData data;
 
         public Server(int port, IClientHandler ch)
         {
             this.port = port;
             this.ch = ch;
-            controller = new Controller();
+            this.data = new GameData();
         }
 
         public void Start()
@@ -36,6 +36,9 @@ namespace Server
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         Console.WriteLine("Got new connection");
+                        IController controller = new Controller();
+                        IModel model = new MazeModel(controller, this.data);
+                        controller.SetModel(model);
                         ch.HandleClient(client, controller);
                     }
                     catch (SocketException ex)

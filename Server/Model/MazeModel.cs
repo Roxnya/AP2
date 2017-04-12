@@ -6,27 +6,26 @@ using System.Threading.Tasks;
 using MazeLib;
 using MazeGeneratorLib;
 using SearchAlgorithmsLib;
+using System.Net.Sockets;
 
 namespace Server
 {
     class MazeModel : IModel
     {
-        private Dictionary<string, Maze> mazes;
-        private Dictionary<Maze, Solution<string>> solutions;
-        private Dictionary<string,GameRoom> rooms;
+        IController controller;
+        GameData gameData;
 
-        public MazeModel()
+        public MazeModel(IController controller, GameData gameData)
         {
-            mazes = new Dictionary<string, Maze>();
-            solutions = new Dictionary<Maze, Solution<string>>();
-            rooms = new Dictionary<string, GameRoom>();
+            this.controller = controller;
+            this.gameData = gameData;
         }
 
         public Maze GenerateMaze(string name, int rows, int cols)
         {
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
-            mazes.Add(name, maze);
+            gameData.AddMaze(maze);
             return maze;
         }
 
@@ -35,26 +34,19 @@ namespace Server
 
         //}
 
-        public Maze OpenRoom(string name, int rows, int cols)
+        public void OpenRoom(string name, int rows, int cols)
         {
             //check that maze name is unique...
             Maze m = GenerateMaze(name, rows, cols);
-            rooms.Add(m.Name, new GameRoom(m));
-            //
-            //ToDo:wait for another player
-            //
-            return m;
+            IGameRoom room = new GameRoom(m);
+            gameData.AddGame(room);
+            room.Notify += controller.Update;
         }
 
         public List<string> GetJoinableGamesList()
         {
-            return rooms.Values.Where(r => r.mode == Mode.WaitingForPlayer)
-                                                .Select(r => r.maze.Name).ToList();
+            return gameData.GetJoinableRooms();
         }
-
-
-
-
     }
 
     public enum Algorithm
