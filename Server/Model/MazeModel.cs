@@ -32,19 +32,19 @@ namespace Server
 
         public Solution<Position> Solve(string name, Algorithm alg)
         {
-            if (mazes.ContainsKey(name))
+            if (gameData.mazes.ContainsKey(name))
             {
-                Maze m = mazes[name];
-                if (solutions.ContainsKey(m))
+                Maze m = gameData.mazes[name];
+                if (gameData.solutions.ContainsKey(m))
                 {
-                    return solutions[m];
+                    return gameData.solutions[m];
                 }
                 MazeAdapter ma = new MazeAdapter(m);
                 if(alg == Algorithm.BFS)
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
                     Solution<Position> sol = bfs.Search(ma);
-                    solutions.Add(m, sol);
+                    gameData.solutions.Add(m, sol);
                     return sol;
 
                 }
@@ -52,7 +52,7 @@ namespace Server
                 {
                     ISearcher<Position> dfs = new DFS<Position>();
                     Solution<Position> sol = dfs.Search(ma);
-                    solutions.Add(m, sol);
+                    gameData.solutions.Add(m, sol);
                     return sol;
                  
 

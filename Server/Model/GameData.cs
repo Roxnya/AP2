@@ -13,8 +13,8 @@ namespace Server
     /// </summary>
     class GameData
     {
-        private Dictionary<string, Maze> mazes;
-        private Dictionary<Maze, Solution<Position>> solutions;
+        //private Dictionary<string, Maze> mazes;
+       // private Dictionary<Maze, Solution<Position>> solutions;
         private Dictionary<string, IGameRoom> rooms;
 
         /// <summary>
@@ -27,6 +27,12 @@ namespace Server
             rooms = new Dictionary<string, IGameRoom>();
         }
 
+        public Dictionary<string, Maze> mazes { get; }
+
+        public Dictionary<Maze, Solution<Position>> solutions
+        {
+            get;
+        }
         /// <summary>
         /// 
         /// </summary>

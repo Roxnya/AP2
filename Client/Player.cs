@@ -17,7 +17,6 @@ namespace Client
         //private Mode mode;
         private TcpClient ConnectToServer()
         {
-            Console.WriteLine("Roni");
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
             TcpClient client = new TcpClient();
             client.Connect(ep);
