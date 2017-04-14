@@ -1,10 +1,5 @@
-C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.pdb
-C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Priority Queue.dll
-C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Priority Queue.pdb
-C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Priority Queue.xml
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
-C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.exe
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.pdb
@@ -14,3 +9,27 @@ C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Que
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.exe
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Collections.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Numerics.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Collections.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Collections.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Numerics.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Numerics.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\C5.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\DIBRIS.Hippie.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Finsa.CodeServices.Common.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\PommaLabs.Thrower.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Troschuetz.Random.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\C5.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\C5.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\DIBRIS.Hippie.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\DIBRIS.Hippie.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Finsa.CodeServices.Common.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Finsa.CodeServices.Common.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\PommaLabs.Thrower.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\PommaLabs.Thrower.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Troschuetz.Random.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Troschuetz.Random.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.dll.config
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.dll

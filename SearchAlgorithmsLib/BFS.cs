@@ -6,18 +6,27 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// A Class for Best First Search Search algorithm
+    /// </summary>
+    /// <typeparam name="T">Type of State</typeparam>
     public class BFS<T> : PrioritySearcher<T>
     {
-        public BFS()
-        {
-            comperator = new CostComperator();
-        }
+        /// <summary>
+        /// Ctor. Initializes cost comperator that is relevant for the algorithm.
+        /// </summary>
+        public BFS() : base (new CostComperator<T>())
+        { }
 
-        // Searcher's abstract method overriding
+        /// <summary>
+        /// Searcher's abstract method overriding
+        /// </summary>
+        /// <param name="searchable">Search problem</param>
+        /// <returns>Solution of search problem</returns>
         public override Solution<T> Search(ISearchable<T> searchable)
         {
             State<T> initialState = searchable.GetInitialState();
-            AddToOpenList(initialState, 0); // inherited from Searcher
+            AddToOpenList(initialState); // inherited from Searcher
             HashSet<State<T>> closed = new HashSet<State<T>>();
 
             while (OpenListSize > 0)
@@ -31,19 +40,33 @@ namespace SearchAlgorithmsLib
 
                 foreach (State<T> s in succerssors)
                 {
+                    double interStateCost = searchable.GetInterStateCost(n, s);
                     if (!closed.Contains(s) && !OpenListContains(s))
                     {
                         s.CameFrom = n;
-                        AddToOpenList(s, s.Cost);
+                        UpdateCost(s, n.Cost + interStateCost);
+                        AddToOpenList(s);
                     }
-                    else if(IsBetterRoute(s))
+                    else if((interStateCost + n.Cost) < s.Cost)
                     {
-                        if (!OpenListContains(s)) AddToOpenList(s, s.Cost);
-                        else UpdateStatePriority(s, s.Cost);
+                        UpdateCost(s, n.Cost + interStateCost);
+                        s.CameFrom = n;
+                        if (!OpenListContains(s)) AddToOpenList(s);
+                        else UpdateStatePriority(s);
                     }
                 }
             }
             return new Solution<T>();
+        }
+
+        /// <summary>
+        /// Updates cost with new cost
+        /// </summary>
+        /// <param name="successor">successor to update</param>
+        /// <param name="newCost">new cost</param>
+        private void UpdateCost(State<T> successor, double newCost)
+        {
+            successor.Cost = newCost;
         }
     }
 }

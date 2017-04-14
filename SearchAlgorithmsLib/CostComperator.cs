@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
-    public class CostComperator : IComparer<double>, IComparable<double>, IComparable
+    /// <summary>
+    /// A Cost Comperator Class For State
+    /// </summary>
+    /// <typeparam name="T">State Type</typeparam>
+    public class CostComperator<T> : IComparer<State<T>>
     {
-        public int Compare(double x, double y)
+        /// <summary>
+        /// Compares two states by their cost
+        /// </summary>
+        /// <param name="cFrom">State to compare by</param>
+        /// <param name="cTo">State to compare cFrom to</param>
+        /// <returns>A value that is > 0 if from is greater, < 0 if to is greater, 0 if they are equal(by cost)</returns>
+        public int Compare(State<T> cFrom, State<T> cTo)
         {
-            throw new NotImplementedException();
+            return cFrom.Cost.CompareTo(cTo.Cost);
         }
 
-        public int CompareTo(double other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CompareTo(object obj)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
