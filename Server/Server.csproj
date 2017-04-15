@@ -57,6 +57,8 @@
     <Compile Include="Model\IObserver.cs" />
     <Compile Include="Model\IObservable.cs" />
     <Compile Include="Controller\IController.cs" />
+    <Compile Include="Model\PathDetails.cs" />
+    <Compile Include="Model\SolutionDetails.cs" />
     <Compile Include="View\ClientHandler.cs" />
     <Compile Include="Controller\Commands\CreateMultiplayerGameCommand.cs" />
     <Compile Include="Controller\Commands\GetJoinableGamesCommand.cs" />

@@ -17,16 +17,7 @@ namespace Server
 
         public Controller()
         {
-            commands = new Dictionary<string, ICommand>
-            {
-                { "generate", new GenerateMazeCommand(model) },
-                { "solve", new SolveMazeCommand(model) },
-                { "start", new CreateMultiplayerGameCommand(model) },
-                { "list", new GetJoinableGamesCommand(model) },
-                { "join", new JoinRequestCommand() },
-                { "play", new TurnPerformedCommand() },
-                { "close", new PlayerQuitMultGameCommand() }
-            };
+           
         }
         
         
@@ -53,6 +44,16 @@ namespace Server
         public void SetModel(IModel model)
         {
             this.model = model;
+            commands = new Dictionary<string, ICommand>
+            {
+                { "generate", new GenerateMazeCommand(model) },
+                { "solve", new SolveMazeCommand(model) },
+                { "start", new CreateMultiplayerGameCommand(model) },
+                { "list", new GetJoinableGamesCommand(model) },
+                { "join", new JoinRequestCommand() },
+                { "play", new TurnPerformedCommand() },
+                { "close", new PlayerQuitMultGameCommand() }
+            };
         }
 
         public void Update(object sender, EventArgs e)

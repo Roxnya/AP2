@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MazeLib;
 using SearchAlgorithmsLib;
+using Newtonsoft.Json.Linq;
+using Server.Model;
 
 namespace Server.Commands
 {
@@ -22,10 +24,22 @@ namespace Server.Commands
         {
             string name = args[0];
             Algorithm algorithm = (Algorithm)int.Parse(args[1]);
-            Solution<Position> sol = model.Solve(name, algorithm);
-            //serialize the solution to a string 
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(sol);
-            return json;
+            SolutionDetails sol = model.Solve(name, algorithm);
+
+            //convert the solution to the needed form
+            string result = model.GetPathAsString(sol.solution);
+
+            return ToJSON(result, sol);
+
+        }
+
+        private string ToJSON(string result, SolutionDetails sd)
+        {
+            JObject mazeObj = new JObject();
+            mazeObj["path"] = result;
+            mazeObj["name"] = sd.name;
+            mazeObj["NodesEvaluated"] = sd.nodesEvaluated;
+            return mazeObj.ToString();
         }
 
         public void Finish(TcpClient client)

@@ -8,6 +8,7 @@ using MazeGeneratorLib;
 using SearchAlgorithmsLib;
 using System.Net.Sockets;
 using CompareSolvers;
+using Server.Model;
 
 namespace Server
 {
@@ -24,13 +25,17 @@ namespace Server
 
         public Maze GenerateMaze(string name, int rows, int cols)
         {
+            if (gameData.mazes.ContainsKey(name))
+            {
+                return null;
+            }
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
             gameData.AddMaze(maze);
             return maze;
         }
 
-        public Solution<Position> Solve(string name, Algorithm alg)
+        public SolutionDetails Solve(string name, Algorithm alg)
         {
             if (gameData.mazes.ContainsKey(name))
             {
@@ -44,22 +49,26 @@ namespace Server
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
                     Solution<Position> sol = bfs.Search(ma);
-                    gameData.solutions.Add(m, sol);
-                    return sol;
+                    SolutionDetails sd = new SolutionDetails(name, bfs.GetNumberOfNodesEvaluated(), sol);
+                    gameData.solutions.Add(m, sd);
+
+                    return sd;
 
                 }
                 if (alg == Algorithm.DFS)
                 {
                     ISearcher<Position> dfs = new DFS<Position>();
                     Solution<Position> sol = dfs.Search(ma);
-                    gameData.solutions.Add(m, sol);
-                    return sol;
+                    SolutionDetails sd = new SolutionDetails(name, dfs.GetNumberOfNodesEvaluated(), sol);
+                    gameData.solutions.Add(m, sd);
+
+                    return sd;
                  
 
                 }
             }
-            
-            return new Solution<Position>();
+            //think about that
+            return new SolutionDetails("", 0, new Solution<Position>());
             
         }
 
@@ -75,6 +84,12 @@ namespace Server
         public List<string> GetJoinableGamesList()
         {
             return gameData.GetJoinableRooms();
+        }
+        
+        public string GetPathAsString(Solution<Position> sol)
+        {
+            string result = Model.PathDetails.ConvertSolutionToString(sol);
+            return result;
         }
     }
 

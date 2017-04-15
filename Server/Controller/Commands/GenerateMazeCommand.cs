@@ -23,6 +23,7 @@ namespace Server
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
             Maze maze = model.GenerateMaze(name, rows, cols);
+            if (maze == null) return "Error. Game name already exists".ToString();
             return maze.ToJSON();
         }
 

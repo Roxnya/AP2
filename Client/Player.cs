@@ -34,6 +34,10 @@ namespace Client
                     case 1:
                         GenerateRequest();
                         break;
+                    case 2:
+                        SolveRequest();
+                        break;
+                
 
                 }
                 option = GetCommand();
@@ -77,12 +81,20 @@ namespace Client
                     {
                         sb.Append(reader.ReadLine());
                     }
-                    Maze maze = ParseMaze(sb.ToString());
-                    if (maze != null)
+                    if (sb.ToString() == "Error. Game name already exists")
                     {
-                        Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}", maze.Name,
-                            maze.Rows, maze.Cols);
+                        Console.WriteLine("Error. Game name already exists");
                     }
+                    else
+                    {
+                        Maze maze = ParseMaze(sb.ToString());
+                        if (maze != null)
+                        {
+                            Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}", maze.Name,
+                                maze.Rows, maze.Cols);
+                        }
+                    }
+            
                 }
                 client.Close();
             }
@@ -99,6 +111,55 @@ namespace Client
             }
 
         }
+
+
+        private void SolveRequest()
+        {
+            Console.WriteLine("Insert maze name and type of algorithm:");
+            string line = Console.ReadLine();
+
+            TcpClient client = null;
+            try
+            {
+                client = ConnectToServer();
+                using (NetworkStream stream = client.GetStream())
+                using (StreamReader reader = new StreamReader(stream))
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine("solve " + line);
+                    writer.Flush();
+                    // Get result from server
+                    StringBuilder sb = new StringBuilder();
+                    while (reader.Peek() > 0)
+                    {
+                        sb.Append(reader.ReadLine());
+                    }
+
+                    JObject mazeObj = JObject.Parse(sb.ToString());
+                    string name = (string)mazeObj["name"];
+                    string solution = (string)mazeObj["path"];
+                    int nodesEvaluated = (int)mazeObj["NodesEvaluated"];
+                    //maybe need to check of the strings are not empty
+                    Console.WriteLine("Name: {0}, Solution: {1}, NodesEvaluated: {2} ", name, solution, nodesEvaluated);
+
+                }
+                client.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An Error Has Occured");
+            }
+            finally
+            {
+                if (client != null)
+                {
+                    client.Close();
+                }
+            }
+
+        }
+
+
 
         private Maze ParseMaze(String str)
         {

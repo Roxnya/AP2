@@ -1,5 +1,6 @@
 ﻿using MazeLib;
 using SearchAlgorithmsLib;
+using Server.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,13 @@ namespace Server
         public GameData()
         {
             mazes = new Dictionary<string, Maze>();
-            solutions = new Dictionary<Maze, Solution<Position>>();
+            solutions = new Dictionary<Maze, SolutionDetails>();
             rooms = new Dictionary<string, IGameRoom>();
         }
 
         public Dictionary<string, Maze> mazes { get; }
 
-        public Dictionary<Maze, Solution<Position>> solutions
+        public Dictionary<Maze, SolutionDetails> solutions
         {
             get;
         }
