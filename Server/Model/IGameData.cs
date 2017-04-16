@@ -23,7 +23,7 @@ namespace Server
         /// Adds given room to game's room list
         /// </summary>
         /// <param name="room">room to add</param>
-        bool AddGame(IGameRoom room);
+        void AddGame(IGameRoom room);
 
         /// <summary>
         /// Adds given solution to game data
