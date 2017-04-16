@@ -23,7 +23,7 @@ namespace Server
         /// Adds given room to game's room list
         /// </summary>
         /// <param name="room">room to add</param>
-        void AddGame(IGameRoom room);
+        bool AddGame(IGameRoom room);
 
         /// <summary>
         /// Adds given solution to game data
@@ -44,6 +44,20 @@ namespace Server
         /// </summary>
         /// <param name="maze">maze to add</param>
         void AddSinglePlayerMaze(Maze maze);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">game name to find</param>
+        /// <returns>true if exists, false otherwise</returns>
+        bool ContainsMultGame(string name);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">game name to find</param>
+        /// <returns>true if exists, false otherwise</returns>
+        bool ContainsSingleGame(string name);
 
         /// <summary>
         /// 

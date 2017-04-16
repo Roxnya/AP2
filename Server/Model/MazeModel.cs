@@ -24,6 +24,7 @@ namespace Server
 
         public Maze GenerateMaze(string name, int rows, int cols)
         {
+            if (gameData.ContainsSingleGame(name)) return null;
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
             gameData.AddSinglePlayerMaze(maze);
@@ -32,10 +33,10 @@ namespace Server
 
         public Solution<Position> Solve(string name, Algorithm alg)
         {
-            Maze m = gameData.GetSinglePlayertMaze(name);
 
-            if (m != null)
+            if (gameData.ContainsSingleGame(name))
             {
+                Maze m = gameData.GetSinglePlayertMaze(name);
                 Solution<Position> sol = gameData.GetSinglePlayertSolution(m);
                 if (sol != null)
                 {
@@ -63,12 +64,17 @@ namespace Server
             
         }
 
-        public void OpenRoom(string name, int rows, int cols)
+        public bool OpenRoom(string name, int rows, int cols)
         {
-            //check that maze name is unique...
+            if (gameData.ContainsMultGame(name)) return false;
             Maze m = GenerateMaze(name, rows, cols);
             IGameRoom room = new GameRoom(m);
-            room.Notify += controller.Update;
+            bool result = gameData.AddGame(room);
+            if (result)
+            {
+                room.Notify += controller.Update;
+            }
+            return result;
         }
 
         public List<string> GetJoinableGamesList()

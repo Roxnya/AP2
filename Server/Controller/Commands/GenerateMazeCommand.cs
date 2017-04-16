@@ -23,7 +23,7 @@ namespace Server
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
             Maze maze = model.GenerateMaze(name, rows, cols);
-            return maze.ToJSON();
+            return maze != null ? maze.ToJSON() : "Maze name already exists";
         }
 
         public void Finish(TcpClient client)

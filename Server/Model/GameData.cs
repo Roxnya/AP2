@@ -41,9 +41,30 @@ namespace Server
         /// Adds given room to game's room list
         /// </summary>
         /// <param name="room">room to add</param>
+        /// <returns>true if game was added, false otherwise</returns>
         public void AddGame(IGameRoom room)
         {
             rooms.Add(room.Name, room);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">game name to find</param>
+        /// <returns>true if exists, false otherwise</returns>
+        public bool ContainsMultGame(string name)
+        {
+            return rooms.ContainsKey(name);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">game name to find</param>
+        /// <returns>true if exists, false otherwise</returns>
+        public bool ContainsSingleGame(string name)
+        {
+            return singlePlayerMazeList.ContainsKey(name);
         }
 
         /// <summary>
@@ -70,6 +91,7 @@ namespace Server
         /// Adds given maze to maze list
         /// </summary>
         /// <param name="maze">maze to add</param>
+        /// <returns>true if maze was added, false otherwise</returns>
         public void AddSinglePlayerMaze(Maze maze)
         {
             singlePlayerMazeList.Add(maze.Name, maze);
