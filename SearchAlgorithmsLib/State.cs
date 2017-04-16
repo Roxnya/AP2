@@ -36,7 +36,7 @@ namespace SearchAlgorithmsLib
         /// <returns>True if they are equal. False otherwise.</returns>
         public bool Equals(State<T> s)
         {
-            return state.Equals(s.state);
+            return s != null &&  state.Equals(s.state);
         }
 
         /// <summary>
@@ -46,8 +46,9 @@ namespace SearchAlgorithmsLib
         /// <returns>True if they are equal(the object is the same state). False otherwise.</returns>
         public override bool Equals(object obj)
         {
+            if (obj == null) return false;
             State<T> s = (State<T>)obj;
-            return s != null && Equals(s);
+            return Equals(s);
         }
 
         /// <summary>
