@@ -14,9 +14,9 @@ namespace Server
     class MazeModel : IModel
     {
         IController controller;
-        GameData gameData;
+        IGameData gameData;
 
-        public MazeModel(IController controller, GameData gameData)
+        public MazeModel(IController controller, IGameData gameData)
         {
             this.controller = controller;
             this.gameData = gameData;
@@ -26,37 +26,37 @@ namespace Server
         {
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
-            gameData.AddMaze(maze);
+            gameData.AddSinglePlayerMaze(maze);
             return maze;
         }
 
         public Solution<Position> Solve(string name, Algorithm alg)
         {
-            if (gameData.mazes.ContainsKey(name))
+            Maze m = gameData.GetSinglePlayertMaze(name);
+
+            if (m != null)
             {
-                Maze m = gameData.mazes[name];
-                if (gameData.solutions.ContainsKey(m))
+                Solution<Position> sol = gameData.GetSinglePlayertSolution(m);
+                if (sol != null)
                 {
-                    return gameData.solutions[m];
+                    return sol;
                 }
+
                 MazeAdapter ma = new MazeAdapter(m);
-                if(alg == Algorithm.BFS)
+                if (alg == Algorithm.BFS)
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
-                    Solution<Position> sol = bfs.Search(ma);
-                    gameData.solutions.Add(m, sol);
-                    return sol;
-
+                    sol = bfs.Search(ma);
+                    gameData.AddSinglePlayerSolution(m, sol);
                 }
                 if (alg == Algorithm.DFS)
                 {
                     ISearcher<Position> dfs = new DFS<Position>();
-                    Solution<Position> sol = dfs.Search(ma);
-                    gameData.solutions.Add(m, sol);
-                    return sol;
-                 
-
+                    sol = dfs.Search(ma);
+                    gameData.AddSinglePlayerSolution(m, sol);
                 }
+
+                return sol;
             }
             
             return new Solution<Position>();
@@ -68,7 +68,6 @@ namespace Server
             //check that maze name is unique...
             Maze m = GenerateMaze(name, rows, cols);
             IGameRoom room = new GameRoom(m);
-            gameData.AddGame(room);
             room.Notify += controller.Update;
         }
 

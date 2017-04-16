@@ -11,10 +11,10 @@ namespace Server
     /// <summary>
     /// Container Class for relevant game data such as rooms, maze list, solutions, etc.
     /// </summary>
-    class GameData
+    class GameData : IGameData
     {
-        //private Dictionary<string, Maze> mazes;
-       // private Dictionary<Maze, Solution<Position>> solutions;
+        private Dictionary<string, Maze> singlePlayerMazeList;
+        private Dictionary<Maze, Solution<Position>> singlePlayerSolutions;
         private Dictionary<string, IGameRoom> rooms;
 
         /// <summary>
@@ -22,17 +22,11 @@ namespace Server
         /// </summary>
         public GameData()
         {
-            mazes = new Dictionary<string, Maze>();
-            solutions = new Dictionary<Maze, Solution<Position>>();
+            singlePlayerMazeList = new Dictionary<string, Maze>();
+            singlePlayerSolutions = new Dictionary<Maze, Solution<Position>>();
             rooms = new Dictionary<string, IGameRoom>();
         }
 
-        public Dictionary<string, Maze> mazes { get; }
-
-        public Dictionary<Maze, Solution<Position>> solutions
-        {
-            get;
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -53,12 +47,32 @@ namespace Server
         }
 
         /// <summary>
+        /// Adds given solution to game data
+        /// </summary>
+        /// <param name="m">the maze that was solved</param>
+        /// <param name="sol">solution to add</param>
+        public void AddSinglePlayerSolution(Maze m, Solution<Position> sol)
+        {
+            singlePlayerSolutions.Add(m, sol);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maze">the maze for which we want the solution</param>
+        /// <returns>If given maze has a solution, returns it's solution. Otherwise, returns null.</returns>
+        public Solution<Position> GetSinglePlayertSolution(Maze maze)
+        {
+            return singlePlayerSolutions.ContainsKey(maze) ? singlePlayerSolutions[maze] : null;
+        }
+
+        /// <summary>
         /// Adds given maze to maze list
         /// </summary>
         /// <param name="maze">maze to add</param>
-        public void AddMaze(Maze maze)
+        public void AddSinglePlayerMaze(Maze maze)
         {
-            mazes.Add(maze.Name, maze);
+            singlePlayerMazeList.Add(maze.Name, maze);
         }
 
         /// <summary>
@@ -66,9 +80,9 @@ namespace Server
         /// </summary>
         /// <param name="maze">maze to find</param>
         /// <returns>If given maze name exists, returns a maze with that name. Otherwise, returns null.</returns>
-        public Maze GetMaze(string maze)
+        public Maze GetSinglePlayertMaze(string maze)
         {
-            return mazes.ContainsKey(maze) ? mazes[maze] : null;
+            return singlePlayerMazeList.ContainsKey(maze) ? singlePlayerMazeList[maze] : null;
         }
     }
 }

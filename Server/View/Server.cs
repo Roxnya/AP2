@@ -16,7 +16,7 @@ namespace Server
         private int port;
         private TcpListener listener;
         private IClientHandler ch;
-        private GameData data;
+        private IGameData data;
 
         /// <summary>
         /// Ctor
