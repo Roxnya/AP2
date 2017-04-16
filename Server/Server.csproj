@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\GameData.cs" />
+    <Compile Include="Model\IGameData.cs" />
     <Compile Include="Model\IGameRoom.cs" />
     <Compile Include="Model\IObserver.cs" />
     <Compile Include="Model\IObservable.cs" />

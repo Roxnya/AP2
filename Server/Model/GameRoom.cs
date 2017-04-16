@@ -14,16 +14,17 @@ namespace Server
     /// </summary>
     class GameRoom : IGameRoom
     {
-        public Maze maze;
+        public Maze Maze { get; private set; }
         public Mode Mode { get; private set; }
-        public Solution<Position> solution;
-        public Position host;
-        public Position Player2;
+        private Position host_pos;
+        private Position player2_pos;
+        private TcpClient host;
+        private TcpClient player2;
 
         //event through which listeners will be notified of relevant room events such as game started, move was made, etc.
         public event EventHandler<EventArgs> Notify;
 
-        public string Name { get { return maze.Name; } }
+        public string Name { get { return Maze.Name; } }
 
         /// <summary>
         /// Ctor. Initializes Game Room with game's maze and room's mode.
@@ -31,7 +32,7 @@ namespace Server
         /// <param name="maze"></param>
         public GameRoom(Maze maze)
         {
-            this.maze = maze;
+            this.Maze = maze;
             Mode = Mode.WaitingForPlayer;
         }
 
@@ -41,6 +42,7 @@ namespace Server
         /// <param name="player2">The player that wants to join game</param>
         public void Join(TcpClient player2)
         {
+            //if room already reached players capacity return
             if (Mode != Mode.WaitingForPlayer) return;
             this.Mode = Mode.InProgress;
             //init position
