@@ -23,7 +23,7 @@ namespace Server
                 { "solve", new SolveMazeCommand(model) },
                 { "start", new CreateMultiplayerGameCommand(model) },
                 { "list", new GetJoinableGamesCommand(model) },
-                { "join", new JoinRequestCommand() },
+                { "join", new JoinRequestCommand(model) },
                 { "play", new TurnPerformedCommand() },
                 { "close", new PlayerQuitMultGameCommand() }
             };

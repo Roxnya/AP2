@@ -22,7 +22,7 @@ namespace Server.Commands
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
-            bool result =  model.OpenRoom(name, rows, cols);
+            bool result =  model.OpenRoom(name, rows, cols, client);
             return result ? "" : "Game name already exists";
         }
 

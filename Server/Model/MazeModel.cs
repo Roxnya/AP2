@@ -64,17 +64,14 @@ namespace Server
             
         }
 
-        public bool OpenRoom(string name, int rows, int cols)
+        public bool OpenRoom(string name, int rows, int cols, TcpClient host)
         {
             if (gameData.ContainsMultGame(name)) return false;
             Maze m = GenerateMaze(name, rows, cols);
-            IGameRoom room = new GameRoom(m);
-            bool result = gameData.AddGame(room);
-            if (result)
-            {
-                room.Notify += controller.Update;
-            }
-            return result;
+            IGameRoom room = new GameRoom(m, host);
+            gameData.AddGame(room);
+            room.Notify += controller.Update;
+            return true;
         }
 
         public List<string> GetJoinableGamesList()

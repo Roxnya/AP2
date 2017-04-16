@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DIBRIS.Hippie;
-using C5;
 
 namespace SearchAlgorithmsLib
 {

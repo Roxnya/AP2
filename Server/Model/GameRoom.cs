@@ -30,9 +30,10 @@ namespace Server
         /// Ctor. Initializes Game Room with game's maze and room's mode.
         /// </summary>
         /// <param name="maze"></param>
-        public GameRoom(Maze maze)
+        public GameRoom(Maze maze, TcpClient host)
         {
             this.Maze = maze;
+            this.host = host;
             Mode = Mode.WaitingForPlayer;
         }
 
