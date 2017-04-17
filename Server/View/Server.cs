@@ -17,6 +17,7 @@ namespace Server
         private TcpListener listener;
         private IClientHandler ch;
         private IGameData data;
+        private bool stop;
 
         /// <summary>
         /// Ctor
@@ -43,7 +44,7 @@ namespace Server
             listener.Start();
             Console.WriteLine("Waiting for connections...");
             Task task = new Task(() => {
-                while (true)
+                while (stop)
                 {
                     try
                     {
@@ -53,7 +54,7 @@ namespace Server
                         IController controller = new Controller();
                         IModel model = new MazeModel(controller, this.data);
                         controller.SetModel(model);
-
+                        controller.SetView(ch);
                         //delegate client handling
                         ch.HandleClient(client, controller);
                     }
@@ -74,6 +75,7 @@ namespace Server
         public void Stop()
         {
             listener.Stop();
+            stop = true;
         }
 
     }

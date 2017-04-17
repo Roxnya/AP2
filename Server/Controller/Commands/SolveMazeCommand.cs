@@ -18,19 +18,14 @@ namespace Server.Commands
             this.model = model;
         }
 
-        public string Execute(string[] args, TcpClient client = null)
+        public Result Execute(string[] args, TcpClient client = null)
         {
             string name = args[0];
             Algorithm algorithm = (Algorithm)int.Parse(args[1]);
             Solution<Position> sol = model.Solve(name, algorithm);
             //serialize the solution to a string 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(sol);
-            return json;
-        }
-
-        public void Finish(TcpClient client)
-        {
-            //Shouldn't close communication with client
+            return new Result(json, Status.Close);
         }
     }
 }

@@ -9,12 +9,7 @@ namespace Server.Commands
 {
     class PlayerQuitMultGameCommand : ICommand
     {
-        public string Execute(string[] args, TcpClient client = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Finish(TcpClient client)
+        public Result Execute(string[] args, TcpClient client = null)
         {
             throw new NotImplementedException();
         }

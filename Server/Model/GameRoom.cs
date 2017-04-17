@@ -46,8 +46,12 @@ namespace Server
             //if room already reached players capacity return
             if (Mode != Mode.WaitingForPlayer) return;
             this.Mode = Mode.InProgress;
+            this.player2 = player2;
             //init position
-            Notify?.Invoke(this, EventArgs.Empty);
+            Result res = new Result(Maze.ToJSON(), Status.Communicating);
+            Notify?.Invoke(this, new ResultEventArgs(res, host));
+            Notify?.Invoke(this, new ResultEventArgs(res, player2));
+
         }
     }
 

@@ -8,6 +8,6 @@ namespace Server
 {
     interface IObserver
     {
-        void Update(Object sender, EventArgs args);
+        void Update(Object sender, ResultEventArgs args);
     }
 }

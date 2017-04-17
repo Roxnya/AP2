@@ -17,18 +17,17 @@ namespace Server
             this.model = model;
         }
 
-        public string Execute(string[] args, TcpClient client)
+        public Result Execute(string[] args, TcpClient client)
         {
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
             Maze maze = model.GenerateMaze(name, rows, cols);
-            return maze != null ? maze.ToJSON() : "Maze name already exists";
-        }
-
-        public void Finish(TcpClient client)
-        {
-            client.Close();
+            if (maze != null)
+            {
+                return new Result(maze.ToJSON(), Status.Close);
+            }
+            return new Result("Maze name already exists", Status.Close);
         }
     }
 }
