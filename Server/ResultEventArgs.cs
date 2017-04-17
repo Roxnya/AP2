@@ -9,14 +9,11 @@ namespace Server
 {
     class ResultEventArgs : EventArgs
     {
-        public ResultEventArgs(Result result, TcpClient client)
+        public ResultEventArgs(Result result)
         {
             this.Result = result;
-            this.Client = client;
         }
 
         public Result Result { get; private set; }
-
-        public TcpClient Client { get; private set; }
     }
 }

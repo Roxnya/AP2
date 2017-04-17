@@ -15,6 +15,9 @@ namespace Server
         private IModel model;
         private ICommand lastCommand;
         private IClientHandler clientHandler;
+        private IGameRoom gameRoom;
+        private Player player;
+        private TcpClient client;
 
         public Controller()
         {
@@ -24,18 +27,18 @@ namespace Server
                 { "solve", new SolveMazeCommand(model) },
                 { "start", new CreateMultiplayerGameCommand(model) },
                 { "list", new GetJoinableGamesCommand(model) },
-                { "join", new JoinRequestCommand(model) },
-                { "play", new TurnPerformedCommand() },
-                { "close", new PlayerQuitMultGameCommand() }
+                { "join", new JoinRequestCommand(model) }
             };
         }
         
         
         public Status ExecuteCommand(string commandLine, TcpClient client)
         {
+            this.client = client;
             string[] arr = commandLine.Split(' ');
             string commandKey = arr[0];
 
+            //if there is no such command
             if (!commands.ContainsKey(commandKey))
             {
                 clientHandler.SendResponseToClient(client, GetErrorResult());
@@ -52,9 +55,22 @@ namespace Server
             return result.Status;
         }
 
+        public void SetGame(IGameRoom room)
+        {
+            this.gameRoom = room;
+            //These commands should be available only if there is a room to play in
+            commands.Add("play", new TurnPerformedCommand());
+            commands.Add("close", new PlayerQuitMultGameCommand());
+        }
+
         public void SetModel(IModel model)
         {
             this.model = model;
+        }
+
+        public void SetPlayer(Player player)
+        {
+            this.player = player;
         }
 
         public void SetView(IClientHandler view)
@@ -65,7 +81,7 @@ namespace Server
         public void Update(object sender, ResultEventArgs e)
         {
             if (e == null) return;
-            clientHandler.SendResponseToClient(e.Client, e.Result);
+            clientHandler.SendResponseToClient(this.client, e.Result);
         }
 
         private Result GetErrorResult()

@@ -27,7 +27,7 @@ namespace Server
                         //Clears all buffers for the current writer and causes
                         //any buffered data to be written to the underlying stream.
                         writer.Flush();
-                        writer.WriteLine(result);
+                        writer.WriteLine(result.Json);
                         writer.Flush();
                         if(result.Status == Status.Close)
                         {

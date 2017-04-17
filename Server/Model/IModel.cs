@@ -14,6 +14,6 @@ namespace Server
         Maze GenerateMaze(string name, int rows, int cols);
         Solution<Position> Solve(string name, Algorithm alg);
         List<string> GetJoinableGamesList();
-        bool OpenRoom(string name, int rows, int cols, TcpClient host);
+        bool OpenRoom(string name, int rows, int cols);
     }
  }
