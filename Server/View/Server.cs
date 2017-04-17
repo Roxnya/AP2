@@ -30,6 +30,7 @@ namespace Server
             this.ch = ch;
             //initialize game's content class (maze list, solutions, game romms..)
             this.data = new GameData();
+            stop = false;
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace Server
             listener.Start();
             Console.WriteLine("Waiting for connections...");
             Task task = new Task(() => {
-                while (stop)
+                while (!stop)
                 {
                     try
                     {
