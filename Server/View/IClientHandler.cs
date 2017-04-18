@@ -9,9 +9,8 @@ namespace Server
 {
     interface IClientHandler
     {
-        /**
-         * 
-         **/
         void HandleClient(TcpClient client, IController controller);
+
+        void SendResponseToClient(TcpClient client, Result result);
     }
 }

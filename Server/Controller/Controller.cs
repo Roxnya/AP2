@@ -1,4 +1,5 @@
-﻿using Server.Commands;
+﻿using Newtonsoft.Json;
+using Server.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,32 +14,44 @@ namespace Server
         private Dictionary<string, ICommand> commands;
         private IModel model;
         private ICommand lastCommand;
-        private IClientHandler client;
+        private IClientHandler clientHandler;
+        private TcpClient cl;
 
-        public Controller()
+        public Controller(TcpClient cl)
         {
-           
+            this.cl = cl;
+            commands = new Dictionary<string, ICommand>
+            {
+                { "generate", new GenerateMazeCommand(model) },
+                { "solve", new SolveMazeCommand(model) },
+                { "start", new CreateMultiplayerGameCommand(model) },
+                { "list", new GetJoinableGamesCommand(model) },
+                { "join", new JoinRequestCommand(model) },
+                { "play", new TurnPerformedCommand() },
+                { "close", new PlayerQuitMultGameCommand() }
+            };
         }
-        
-        
-        public string ExecuteCommand(string commandLine, TcpClient client)
+
+
+        public Status ExecuteCommand(string commandLine, TcpClient client)
         {
             string[] arr = commandLine.Split(' ');
             string commandKey = arr[0];
 
             if (!commands.ContainsKey(commandKey))
-                return "Command not found";
+            {
+                clientHandler.SendResponseToClient(client, GetErrorResult());
+                return Status.Close;
+            }
 
             string[] args = arr.Skip(1).ToArray();
             lastCommand = commands[commandKey];
-            string result = lastCommand.Execute(args, client);
-            return result;
-        }
-
-        public void Finish(TcpClient client)
-        {
-            lastCommand.Finish(client);
-            lastCommand = null;
+            Result result = lastCommand.Execute(args, client);
+            if (result.Status == Status.Close)
+            {
+                clientHandler.SendResponseToClient(client, result);
+            }
+            return result.Status;
         }
 
         public void SetModel(IModel model)
@@ -50,16 +63,26 @@ namespace Server
                 { "solve", new SolveMazeCommand(model) },
                 { "start", new CreateMultiplayerGameCommand(model) },
                 { "list", new GetJoinableGamesCommand(model) },
-                { "join", new JoinRequestCommand() },
+                { "join", new JoinRequestCommand(model) },
                 { "play", new TurnPerformedCommand() },
                 { "close", new PlayerQuitMultGameCommand() }
             };
         }
 
-        public void Update(object sender, EventArgs e)
+        public void SetView(IClientHandler view)
         {
-            //cast event args to something that contains maze
-            //return maze.ToJson();
+            this.clientHandler = view;
+        }
+
+        public void Update(object sender, ResultEventArgs e)
+        {
+            if (e == null) return;
+            clientHandler.SendResponseToClient(cl, e.Result);
+        }
+
+        private Result GetErrorResult()
+        {
+            return new Result("Command not found", Status.Close);
         }
     }
 }

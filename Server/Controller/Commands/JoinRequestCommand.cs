@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -9,14 +10,18 @@ namespace Server.Commands
 {
     class JoinRequestCommand : ICommand
     {
-        public string Execute(string[] args, TcpClient client = null)
+        private IModel model;
+
+        public JoinRequestCommand(IModel model)
         {
-            throw new NotImplementedException();
+            this.model = model;
         }
 
-        public void Finish(TcpClient client)
+        public Result Execute(string[] args, TcpClient client = null)
         {
-            throw new NotImplementedException();
+            List<string> list = model.GetJoinableGamesList();
+            return new Result(JsonConvert.SerializeObject(list), Status.Close);
+
         }
     }
 }

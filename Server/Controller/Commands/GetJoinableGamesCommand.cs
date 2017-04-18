@@ -17,16 +17,11 @@ namespace Server.Commands
         {
             this.model = model;
         }
-            
-        public string Execute(string[] args, TcpClient client = null)
+
+        public Result Execute(string[] args, TcpClient client = null)
         {
             List<string> rooms = model.GetJoinableGamesList();
-            return JsonConvert.SerializeObject(rooms);
-        }
-
-        public void Finish(TcpClient client)
-        {
-            client.Close();
+            return new Result(JsonConvert.SerializeObject(rooms), Status.Close);
         }
     }
 }

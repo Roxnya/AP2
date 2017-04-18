@@ -25,61 +25,58 @@ namespace Server
 
         public Maze GenerateMaze(string name, int rows, int cols)
         {
-            if (gameData.mazes.ContainsKey(name))
-            {
-                return null;
-            }
+            if (gameData.ContainsSingleGame(name)) return null;
             Maze maze = new DFSMazeGenerator().Generate(rows, cols);
             maze.Name = name;
-            gameData.AddMaze(maze);
+            gameData.AddSinglePlayerMaze(maze);
             return maze;
         }
 
         public SolutionDetails Solve(string name, Algorithm alg)
         {
-            if (gameData.mazes.ContainsKey(name))
+            if (gameData.ContainsSingleGame(name))
             {
-                Maze m = gameData.mazes[name];
-                if (gameData.solutions.ContainsKey(m))
+                Maze m = gameData.GetSinglePlayertMaze(name);
+                SolutionDetails sd = gameData.GetSinglePlayertSolution(m);
+                if (sd != null)
                 {
-                    return gameData.solutions[m];
+                    return sd;
                 }
                 MazeAdapter ma = new MazeAdapter(m);
                 if(alg == Algorithm.BFS)
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
                     Solution<Position> sol = bfs.Search(ma);
-                    SolutionDetails sd = new SolutionDetails(name, bfs.GetNumberOfNodesEvaluated(), sol);
-                    gameData.solutions.Add(m, sd);
-
-                    return sd;
+                    sd = new SolutionDetails(name, bfs.GetNumberOfNodesEvaluated(), sol);
+                    gameData.AddSinglePlayerSolution(m, sd);
 
                 }
                 if (alg == Algorithm.DFS)
                 {
                     ISearcher<Position> dfs = new DFS<Position>();
                     Solution<Position> sol = dfs.Search(ma);
-                    SolutionDetails sd = new SolutionDetails(name, dfs.GetNumberOfNodesEvaluated(), sol);
-                    gameData.solutions.Add(m, sd);
-
-                    return sd;
-                 
+                    sd = new SolutionDetails(name, dfs.GetNumberOfNodesEvaluated(), sol);
+                    gameData.AddSinglePlayerSolution(m, sd);                 
 
                 }
+                return sd;
+
             }
-            //think about that
             return new SolutionDetails("", 0, new Solution<Position>());
             
         }
 
-        public void OpenRoom(string name, int rows, int cols)
+
+        public bool OpenRoom(string name, int rows, int cols, TcpClient host)
         {
-            //check that maze name is unique...
-            Maze m = GenerateMaze(name, rows, cols);
-            IGameRoom room = new GameRoom(m);
+            if (gameData.ContainsMultGame(name)) return false;
+            Maze m = new DFSMazeGenerator().Generate(rows, cols);
+            IGameRoom room = new GameRoom(m, host);
             gameData.AddGame(room);
             room.Notify += controller.Update;
+            return true;
         }
+
 
         public List<string> GetJoinableGamesList()
         {

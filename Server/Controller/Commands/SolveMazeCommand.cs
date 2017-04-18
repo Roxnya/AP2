@@ -20,7 +20,7 @@ namespace Server.Commands
             this.model = model;
         }
 
-        public string Execute(string[] args, TcpClient client = null)
+        public Result Execute(string[] args, TcpClient client = null)
         {
             string name = args[0];
             Algorithm algorithm = (Algorithm)int.Parse(args[1]);
@@ -29,7 +29,7 @@ namespace Server.Commands
             //convert the solution to the needed form
             string result = model.GetPathAsString(sol.solution);
 
-            return ToJSON(result, sol);
+            return new Result(ToJSON(result, sol), Status.Close);
 
         }
 

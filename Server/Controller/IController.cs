@@ -19,14 +19,13 @@ namespace Server
         /// <param name="commandLine">user input</param>
         /// <param name="client">user</param>
         /// <returns>result of requested command</returns>
-        string ExecuteCommand(string commandLine, TcpClient client);
+        Status ExecuteCommand(string commandLine, TcpClient client);
 
         /// <summary>
-        /// Method that indicates view is done with client's request,
-        /// thus the controller needs to terminate relevant data.
+        /// Set's controller's view
         /// </summary>
-        /// <param name="client"></param>
-        void Finish(TcpClient client);
+        /// <param name="view">view to set</param>
+        void SetView(IClientHandler view);
 
         /// <summary>
         /// Set's controller's model

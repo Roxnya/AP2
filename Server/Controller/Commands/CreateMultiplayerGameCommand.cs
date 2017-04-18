@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Server.Commands
 {
@@ -17,18 +18,18 @@ namespace Server.Commands
             this.model = model;
         }
 
-        public string Execute(string[] args, TcpClient client = null)
+        public Result Execute(string[] args, TcpClient client = null)
         {
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
-            /*Maze maze =*/ model.OpenRoom(name, rows, cols);
-            return /*maze.ToJSON()*/"";
+            bool result = model.OpenRoom(name, rows, cols, client);
+            if (result)
+            {
+                return new Result("", Status.Communicating);
+            }
+            return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
         }
 
-        public void Finish(TcpClient client)
-        {
-            
-        }
     }
 }

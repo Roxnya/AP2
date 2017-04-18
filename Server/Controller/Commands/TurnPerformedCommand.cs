@@ -12,7 +12,7 @@ namespace Server.Commands
      **/
     class TurnPerformedCommand : ICommand
     {
-        public string Execute(string[] args, TcpClient client = null)
+        public Result Execute(string[] args, TcpClient client = null)
         {
             string move = args[0];
             throw new NotImplementedException();

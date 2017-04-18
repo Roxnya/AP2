@@ -3,7 +3,7 @@ using SearchAlgorithmsLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
- using System.Net.Sockets;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,24 +14,26 @@ namespace Server
     /// </summary>
     class GameRoom : IGameRoom
     {
-        public Maze maze;
+        public Maze Maze { get; private set; }
         public Mode Mode { get; private set; }
-        public Solution<Position> solution;
-        public Position host;
-        public Position Player2;
+        private Position host_pos;
+        private Position player2_pos;
+        private TcpClient host;
+        private TcpClient player2;
 
         //event through which listeners will be notified of relevant room events such as game started, move was made, etc.
         public event EventHandler<EventArgs> Notify;
 
-        public string Name { get { return maze.Name; } }
+        public string Name { get { return Maze.Name; } }
 
         /// <summary>
         /// Ctor. Initializes Game Room with game's maze and room's mode.
         /// </summary>
         /// <param name="maze"></param>
-        public GameRoom(Maze maze)
+        public GameRoom(Maze maze, TcpClient host)
         {
-            this.maze = maze;
+            this.Maze = maze;
+            this.host = host;
             Mode = Mode.WaitingForPlayer;
         }
 
@@ -41,10 +43,15 @@ namespace Server
         /// <param name="player2">The player that wants to join game</param>
         public void Join(TcpClient player2)
         {
+            //if room already reached players capacity return
             if (Mode != Mode.WaitingForPlayer) return;
             this.Mode = Mode.InProgress;
+            this.player2 = player2;
             //init position
-            Notify?.Invoke(this, EventArgs.Empty);
+            Result res = new Result(Maze.ToJSON(), Status.Communicating);
+            //Notify?.Invoke(this, new ResultEventArgs(res, host));
+            Notify?.Invoke(this, new ResultEventArgs(res));
+
         }
     }
 

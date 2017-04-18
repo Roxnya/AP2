@@ -1,10 +1,8 @@
 ﻿using MazeLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SearchAlgorithmsLib;
+using System.Net.Sockets;
 using Server.Model;
 
 namespace Server
@@ -15,6 +13,6 @@ namespace Server
         SolutionDetails Solve(string name, Algorithm alg);
         List<string> GetJoinableGamesList();
         string GetPathAsString(Solution<Position> sol);
-        void OpenRoom(string name, int rows, int cols);
+        bool OpenRoom(string name, int rows, int cols, TcpClient host);
     }
- }
+}
