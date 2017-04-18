@@ -19,6 +19,6 @@ namespace Server.Model
         public int nodesEvaluated { get; set; }
         public string name { get; set; }
 
-        
+
     }
 }

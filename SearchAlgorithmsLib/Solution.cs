@@ -60,7 +60,7 @@ namespace SearchAlgorithmsLib
         {
             get
             {
-                if(key > 0 && key < RouteSize)
+                if(key >= 0 && key < RouteSize)
                     return states[key];
                 return null;
             }

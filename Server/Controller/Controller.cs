@@ -14,12 +14,13 @@ namespace Server
         private Dictionary<string, ICommand> commands;
         private IModel model;
         private ICommand lastCommand;
-        private IClientHandler client;
+        private IClientHandler clientHandler;
+        TcpClient cl;
 
         public Controller(TcpClient cl)
         {
             this.cl = cl;
-            commands = new Dictionary<string, ICommand>
+           /* commands = new Dictionary<string, ICommand>
             {
                 { "generate", new GenerateMazeCommand(model) },
                 { "solve", new SolveMazeCommand(model) },
@@ -28,7 +29,7 @@ namespace Server
                 { "join", new JoinRequestCommand(model) },
                 { "play", new TurnPerformedCommand() },
                 { "close", new PlayerQuitMultGameCommand() }
-            };
+            };*/
         }
 
 

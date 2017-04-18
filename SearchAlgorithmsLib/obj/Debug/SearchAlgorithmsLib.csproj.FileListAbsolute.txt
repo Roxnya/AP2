@@ -1,13 +1,8 @@
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.pdb
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb
-C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.exe
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.pdb
-C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Queue.dll
-C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Queue.pdb
-C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Priority Queue.xml
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.csprojResolveAssemblyReference.cache
-C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.exe
 C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.pdb
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Collections.dll
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\Academy.Numerics.dll
@@ -33,3 +28,18 @@ C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAl
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.dll.config
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.dll
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.dll.config
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\SearchAlgorithmsLib.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\DIBRIS.Hippie.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Finsa.CodeServices.Common.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\PommaLabs.Thrower.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Troschuetz.Random.dll
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\DIBRIS.Hippie.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\DIBRIS.Hippie.xml
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Finsa.CodeServices.Common.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Finsa.CodeServices.Common.xml
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\PommaLabs.Thrower.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\PommaLabs.Thrower.xml
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Troschuetz.Random.pdb
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\bin\Debug\Troschuetz.Random.xml
+C:\Users\Виктория\Desktop\AP2\SearchAlgorithmsLib\obj\Debug\SearchAlgorithmsLib.dll
