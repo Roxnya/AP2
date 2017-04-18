@@ -2,7 +2,6 @@ C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareS
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\CompareSolvers.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\CompareSolvers.pdb
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\MazeGeneratorLib.dll
-C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\MazeLib.dll
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.pdb
@@ -18,3 +17,18 @@ C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Priority Queue.dl
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.pdb
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Priority Queue.pdb
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Priority Queue.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\DIBRIS.Hippie.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\PommaLabs.Thrower.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Finsa.CodeServices.Common.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Troschuetz.Random.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\SearchAlgorithmsLib.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\DIBRIS.Hippie.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\DIBRIS.Hippie.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\PommaLabs.Thrower.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\PommaLabs.Thrower.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Finsa.CodeServices.Common.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Finsa.CodeServices.Common.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Troschuetz.Random.pdb
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Troschuetz.Random.xml
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\SearchAlgorithmsLib.dll
+C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\SearchAlgorithmsLib.dll.config

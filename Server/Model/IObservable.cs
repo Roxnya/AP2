@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Server
 {
 
-    delegate void EventHandler<EventArgs>(object sender, EventArgs e);
+    delegate void EventHandler<EventArgs>(object sender, ResultEventArgs e);
     interface IObservable
     {
         event EventHandler<EventArgs> Notify;

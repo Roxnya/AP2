@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// Class for solution representation
+    /// </summary>
+    /// <typeparam name="T">states type</typeparam>
     public class Solution<T>
     {
-        //Convert to action
         private List<State<T>> states;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public Solution()
         {
             states = new List<State<T>>();
@@ -22,11 +28,19 @@ namespace SearchAlgorithmsLib
             get { return states.Count; }
         }
 
+        /// <summary>
+        /// Adds given state to solution
+        /// </summary>
+        /// <param name="state">state to add</param>
         internal void AddState(State<T> state)
         {
             states.Insert(0, state);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A string representation of this solution. Specifically, solution's states, ordered.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -36,11 +50,19 @@ namespace SearchAlgorithmsLib
             }
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Allows access to a specific State in this solution
+        /// </summary>
+        /// <param name="key">index of state to access</param>
+        /// <returns>required state if exists, null otherwise.</returns>
         public State<T> this[int key]
         {
             get
             {
-                return states[key];
+                if(key > 0 && key < RouteSize)
+                    return states[key];
+                return null;
             }
         }
     }

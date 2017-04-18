@@ -14,8 +14,7 @@ namespace Server
         private Dictionary<string, ICommand> commands;
         private IModel model;
         private ICommand lastCommand;
-        private IClientHandler clientHandler;
-        private TcpClient cl;
+        private IClientHandler client;
 
         public Controller(TcpClient cl)
         {

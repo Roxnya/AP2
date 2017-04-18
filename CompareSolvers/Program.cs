@@ -17,10 +17,9 @@ class Program
 
     private static void CompareSolvers()
     {
-
-        Maze m = new Maze(7, 7);
+        Maze m = new Maze(40, 40);
         IMazeGenerator maze = new DFSMazeGenerator();
-        m = maze.Generate(7, 7);
+        m = maze.Generate(40, 40);
         Console.WriteLine(m.ToString());
 
         MazeAdapter ma = new MazeAdapter(m);
@@ -30,10 +29,7 @@ class Program
         Console.WriteLine("The number of nodes evaluated by dfs is:" + dfs.GetNumberOfNodesEvaluated());
         Solution<Position> sol2 = bfs.Search(ma);
         Console.WriteLine("The number of nodes evaluated by bfs is:" + bfs.GetNumberOfNodesEvaluated());
-
-
-
-
+        Console.ReadLine();
     }
 }
 

@@ -15,9 +15,9 @@ namespace Server
     class MazeModel : IModel
     {
         IController controller;
-        GameData gameData;
+        IGameData gameData;
 
-        public MazeModel(IController controller, GameData gameData)
+        public MazeModel(IController controller, IGameData gameData)
         {
             this.controller = controller;
             this.gameData = gameData;
@@ -42,8 +42,9 @@ namespace Server
                 {
                     return sd;
                 }
+
                 MazeAdapter ma = new MazeAdapter(m);
-                if(alg == Algorithm.BFS)
+                if (alg == Algorithm.BFS)
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
                     Solution<Position> sol = bfs.Search(ma);

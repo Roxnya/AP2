@@ -3,61 +3,80 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Priority_Queue;
+using DIBRIS.Hippie;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// Class for PrioritySearcher
+    /// </summary>
+    /// <typeparam name="T">State type</typeparam>
     public abstract class PrioritySearcher<T> : Searcher<T>
     {
-        private SimplePriorityQueue<State<T>, double> openList;
-        protected IComparable comperator;
+        private IHeap<State<T>> openList; 
 
-        public PrioritySearcher()
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="comperator">comperator by which OpenList will prioritize states</param>
+        public PrioritySearcher(IComparer<State<T>> comperator)
         {
-            openList = new SimplePriorityQueue<State<T>, double>();
+            openList = HeapFactory.NewBinaryHeap<State<T>>(comperator);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>OpenList next state (the one with the lowest priority)</returns>
         protected State<T> PopOpenList()
         {
             evaluatedNodes++;
             if (openList.Count == 0) return null;
-            return openList.Dequeue();
+            return openList.RemoveMin();
         }
-
-        protected double GetPriority(State<T> state)
-        {
-            //not working, temporary
-            return openList.Where(s => s.Equals(state)).First().Cost;
-        }
-
-        protected bool IsBetterRoute(State<T> state)
-        {
-            //return comperator.Compare(state.Cost, GetPriority(state)) > 0;
-            return true;
-        }
-
-        // a property of openList
+        
+        /// <summary>
+        /// Read-only property. Returns OpenList Size.
+        /// </summary>
         public int OpenListSize
-        { // it is a read-only property :)
+        {
             get { return openList.Count; }
         }
 
-        protected void AddToOpenList(State<T> s, double cost)
+        /// <summary>
+        /// Adds given state to open list
+        /// </summary>
+        /// <param name="s">state to add</param>
+        protected void AddToOpenList(State<T> s)
         {
-            openList.Enqueue(s, cost);
+            openList.Add(s);
         }
 
+        /// <summary>
+        /// looks up given state in open list
+        /// </summary>
+        /// <param name="s">state to look up</param>
+        /// <returns>true if given state exists, false otherwise.</returns>
         protected bool OpenListContains(State<T> s)
         {
             return openList.Contains(s);
         }
 
-        protected void UpdateStatePriority(State<T> s, double priority)
+        /// <summary>
+        /// Updates the priority of a given state
+        /// </summary>
+        /// <param name="s">state to update</param>
+        protected void UpdateStatePriority(State<T> s)
         {
             openList.Remove(s);
-            AddToOpenList(s, priority);
+            AddToOpenList(s);
         }
 
+        /// <summary>
+        /// Searcher's method.
+        /// </summary>
+        /// <param name="searchable"></param>
+        /// <returns></returns>
         public override abstract Solution<T> Search(ISearchable<T> searchable);
 
     }

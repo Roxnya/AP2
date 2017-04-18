@@ -29,7 +29,7 @@ namespace Server
                         writer.Flush();
                         writer.WriteLine(result);
                         writer.Flush();
-                        if (result.Status == Status.Close)
+                        if(result.Status == Status.Close)
                         {
                             client.Close();
                             break;
@@ -52,7 +52,7 @@ namespace Server
             {
                 NetworkStream stream = null;
                 StreamReader reader = null;
-                // StreamWriter writer = null;
+               // StreamWriter writer = null;
                 try
                 {
                     stream = client.GetStream();
@@ -73,11 +73,11 @@ namespace Server
                         writer.Flush();*/
                     }
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     if (stream != null) stream.Dispose();
                     if (reader != null) stream.Dispose();
-                    // if (writer != null) stream.Dispose();
+                   // if (writer != null) stream.Dispose();
                     client.Close();
                 }
             }).Start();

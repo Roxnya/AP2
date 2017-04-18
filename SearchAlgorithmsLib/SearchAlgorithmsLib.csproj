@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{240D5D5D-E325-41E4-AC8F-1649CCB36262}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SearchAlgorithmsLib</RootNamespace>
     <AssemblyName>SearchAlgorithmsLib</AssemblyName>
@@ -34,8 +34,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Priority Queue">
-      <HintPath>..\packages\OptimizedPriorityQueue.4.0.3\lib\net45\Priority Queue.dll</HintPath>
+    <Reference Include="DIBRIS.Hippie, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hippie.2.10.1\lib\net40-client\DIBRIS.Hippie.dll</HintPath>
+    </Reference>
+    <Reference Include="Finsa.CodeServices.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=db894830fb4e4dbb, processorArchitecture=MSIL">
+      <HintPath>..\packages\Finsa.CodeServices.Common.4.1.1\lib\net45\Finsa.CodeServices.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="PommaLabs.Thrower, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2f204b7110a52060, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thrower.2.2.1\lib\net45\PommaLabs.Thrower.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,13 +50,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Troschuetz.Random, Version=4.0.3.0, Culture=neutral, PublicKeyToken=2f204b7110a52060, processorArchitecture=MSIL">
+      <HintPath>..\packages\Troschuetz.Random.4.0.3\lib\net45\Troschuetz.Random.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BFS.cs" />
     <Compile Include="CostComperator.cs" />
     <Compile Include="DFS.cs" />
     <Compile Include="PrioritySearcher.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Searcher.cs" />
     <Compile Include="ISearchable.cs" />
     <Compile Include="ISearcher.cs" />
@@ -58,9 +66,9 @@
     <Compile Include="Solution.cs" />
     <Compile Include="StackSearcher.cs" />
     <Compile Include="State.cs" />
-    <Compile Include="TestSearchable.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

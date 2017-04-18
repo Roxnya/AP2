@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Server/Model/MazeModel.cs.orig
+/Server/Model/GameRoom_REMOTE_58332.cs
+/Server/Model/GameRoom_LOCAL_58332.cs
+/Server/Model/GameRoom_BASE_58332.cs
+/Server/Model/GameRoom_BACKUP_58332.cs
+/Server/Model/GameRoom.cs.orig

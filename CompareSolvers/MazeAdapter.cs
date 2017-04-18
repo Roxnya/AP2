@@ -60,5 +60,10 @@ namespace CompareSolvers
             return new State<Position>(maze.GoalPos);
 
         }
+
+        public double GetInterStateCost(State<Position> from, State<Position> to)
+        {
+            return 1;
+        }
     }
 }

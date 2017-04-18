@@ -1,4 +1,5 @@
 ﻿using MazeLib;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,12 @@ namespace Server.Commands
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
-            bool result = model.OpenRoom(name, rows, cols, client);
+            bool result =  model.OpenRoom(name, rows, cols, client);
             if (result)
             {
                 return new Result("", Status.Communicating);
             }
             return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
         }
-
     }
 }
