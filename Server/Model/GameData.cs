@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Server.Model;
+using System.Net.Sockets;
+
 namespace Server
 {
     /// <summary>
@@ -16,7 +18,7 @@ namespace Server
         private Dictionary<string, Maze> singlePlayerMazeList;
         private Dictionary<Maze, SolutionDetails> singlePlayerSolutions;
         private Dictionary<string, IGameRoom> rooms;
-
+        
         /// <summary>
         /// Ctor. Inits containers.
         /// </summary>
@@ -106,5 +108,21 @@ namespace Server
         {
             return singlePlayerMazeList.ContainsKey(maze) ? singlePlayerMazeList[maze] : null;
         }
+
+        public IGameRoom GetPlayerGame(TcpClient client)
+        {
+            foreach(KeyValuePair<string, IGameRoom> gm in rooms)
+            {
+                if(gm.Value.GetFirstPlayer() == client||gm.Value.GetSecondPlayer() == client)
+                {
+                    return gm.Value;
+                  
+                }
+            }
+            return null;
+        }
+        
+            
+    
     }
 }

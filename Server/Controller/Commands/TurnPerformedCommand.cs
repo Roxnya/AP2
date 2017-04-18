@@ -11,10 +11,19 @@ namespace Server.Commands
      * Relevant only for multiplayer game.
      **/
     class TurnPerformedCommand : ICommand
+    
     {
+        IModel model; 
+
+        public TurnPerformedCommand(IModel model)
+        {
+            this.model = model;
+        }
         public Result Execute(string[] args, TcpClient client = null)
         {
-            string move = args[0];
+
+            string direction = args[0];
+            model.Move(direction, client);
             return new Result("", Status.Communicating);
         }
     }

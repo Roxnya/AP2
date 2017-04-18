@@ -14,5 +14,6 @@ namespace Server
         List<string> GetJoinableGamesList();
         string GetPathAsString(Solution<Position> sol);
         bool OpenRoom(string name, int rows, int cols, TcpClient host);
+        void Move(string direction, TcpClient client);
     }
 }

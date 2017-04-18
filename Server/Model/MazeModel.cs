@@ -89,6 +89,15 @@ namespace Server
             string result = Model.PathDetails.ConvertSolutionToString(sol);
             return result;
         }
+
+        public void Move(string direction, TcpClient client)
+        {
+            //find the right game room 
+            IGameRoom room = this.gameData.GetPlayerGame(client);
+            //check which client wants to move
+            //update the position 
+            // tell the other client where he moved
+        }
     }
 
     public enum Algorithm
