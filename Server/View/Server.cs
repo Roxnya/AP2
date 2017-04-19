@@ -52,7 +52,7 @@ namespace Server
                         TcpClient client = listener.AcceptTcpClient();
                         Console.WriteLine("Got new connection");
                         //Init controller and model for new specific client
-                        IController controller = new Controller(client);
+                        IController controller = new Controller();
                         IModel model = new MazeModel(controller, this.data);
                         controller.SetModel(model);
                         controller.SetView(ch);

@@ -13,6 +13,6 @@ namespace Server
         SolutionDetails Solve(string name, Algorithm alg);
         List<string> GetJoinableGamesList();
         string GetPathAsString(Solution<Position> sol);
-        bool OpenRoom(string name, int rows, int cols, TcpClient host);
+        bool OpenRoom(string name, int rows, int cols);
     }
 }
