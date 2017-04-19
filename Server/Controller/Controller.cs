@@ -64,7 +64,7 @@ namespace Server
                 { "start", new CreateMultiplayerGameCommand(model) },
                 { "list", new GetJoinableGamesCommand(model) },
                 { "join", new JoinRequestCommand(model) },
-                { "play", new TurnPerformedCommand() },
+                { "play", new TurnPerformedCommand(model) },
                 { "close", new PlayerQuitMultGameCommand() }
             };
         }

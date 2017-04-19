@@ -92,11 +92,44 @@ namespace Server
 
         public void Move(string direction, TcpClient client)
         {
+            Position posToChange;
+
             //find the right game room 
             IGameRoom room = this.gameData.GetPlayerGame(client);
+
             //check which client wants to move
+            if(client == room.host)
+            {
+                posToChange = room.host_pos;
+            }
+            else
+            {
+                posToChange = room.player2_pos;
+            }
+
             //update the position 
+            if (direction == "left")
+            {
+                posToChange = new Position(posToChange.Row, posToChange.Col - 1);
+            }
+            if(direction == "right")
+            {
+                posToChange = new Position(posToChange.Row, posToChange.Col + 1);
+            }
+            if(direction == "up")
+            {
+                posToChange = new Position(posToChange.Row + 1, posToChange.Col);
+            }
+            if(direction == "down")
+            {
+                posToChange = new Position(posToChange.Row - 1, posToChange.Col);
+            }
+            
             // tell the other client where he moved
+            //is that how we do that ?
+            room.Notify += controller.Update;
+
+
         }
     }
 

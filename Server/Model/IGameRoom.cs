@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using MazeLib;
 
 namespace Server
 {
@@ -16,6 +17,10 @@ namespace Server
     {
         string Name { get; }
         Mode Mode { get; }
+        Position host_pos { get; set; }
+        Position player2_pos { get; set; }
+        TcpClient host { get; }
+        TcpClient player2 { get; }
         TcpClient GetFirstPlayer();
         TcpClient GetSecondPlayer();
     }

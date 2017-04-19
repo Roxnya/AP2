@@ -16,10 +16,10 @@ namespace Server
     {
         public Maze Maze { get; private set; }
         public Mode Mode { get; private set; }
-        private Position host_pos { get; set; }
-        private Position player2_pos { get; set; }
-        private TcpClient host { get; set; }
-        private TcpClient player2 { get; set; }
+        public Position host_pos { get; set; }
+        public Position player2_pos { get; set; }
+        public TcpClient host { get; private set; }
+        public TcpClient player2 { get; private set; }
 
         //event through which listeners will be notified of relevant room events such as game started, move was made, etc.
         public event EventHandler<EventArgs> Notify;
