@@ -24,7 +24,7 @@ namespace Server.Commands
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
-            bool result =  model.OpenRoom(name, rows, cols, client);
+            bool result =  model.OpenRoom(name, rows, cols);
             if (result)
             {
                 return new Result("", Status.Communicating);

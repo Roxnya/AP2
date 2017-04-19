@@ -15,7 +15,5 @@ namespace Server
         }
 
         public Result Result { get; private set; }
-
-        public TcpClient Client { get; private set; }
     }
 }

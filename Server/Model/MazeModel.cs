@@ -67,12 +67,15 @@ namespace Server
             
         }
 
-
-        public bool OpenRoom(string name, int rows, int cols, TcpClient host)
+        public bool OpenRoom(string name, int rows, int cols)
         {
             if (gameData.ContainsMultGame(name)) return false;
             Maze m = new DFSMazeGenerator().Generate(rows, cols);
+            Player host = new Player();
             IGameRoom room = new GameRoom(m, host);
+
+            controller.SetPlayer(host);
+            controller.SetGame(room);
             gameData.AddGame(room);
             room.Notify += controller.Update;
             return true;

@@ -32,5 +32,7 @@ namespace Server
         /// </summary>
         /// <param name="model">model to set</param>
         void SetModel(IModel model);
+        void SetPlayer(Player player);
+        void SetGame(IGameRoom room);
     }
 }

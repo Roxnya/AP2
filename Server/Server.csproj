@@ -60,6 +60,7 @@
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Model\PathDetailes.cs" />
     <Compile Include="Model\SolutionDetails.cs" />
+    <Compile Include="Model\Player.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="ResultEventArgs.cs" />
     <Compile Include="View\ClientHandler.cs" />
