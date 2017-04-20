@@ -18,9 +18,13 @@ namespace Client
         private StreamWriter writer;
         private TcpClient client;
         private NetworkStream stream;
+        private IPEndPoint ep;
+        private int port;
 
-        public Player()
+        public Player(int port, string ip)
         {
+            this.ep = new IPEndPoint(IPAddress.Parse(ip), 5555);
+            this.port = port;
             this.client = ConnectToServer();
             this.reader = new StreamReader(this.stream);
             this.writer = new StreamWriter(this.stream);
@@ -29,9 +33,8 @@ namespace Client
 
         private TcpClient ConnectToServer()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
             TcpClient client = new TcpClient();
-            client.Connect(ep);
+            client.Connect(this.ep);
             this.stream = client.GetStream();
             return client;
         }
