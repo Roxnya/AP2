@@ -21,14 +21,6 @@ namespace Server
 
         public Controller()
         {
-            commands = new Dictionary<string, ICommand>
-            {
-                { "generate", new GenerateMazeCommand(model) },
-                { "solve", new SolveMazeCommand(model) },
-                { "start", new CreateMultiplayerGameCommand(model) },
-                { "list", new GetJoinableGamesCommand(model) },
-                { "join", new JoinRequestCommand(model) }
-            };
         }
         
         
@@ -44,7 +36,7 @@ namespace Server
                 clientHandler.SendResponseToClient(client, GetErrorResult());
                 return Status.Close;
             }
-
+            
             string[] args = arr.Skip(1).ToArray();
             lastCommand = commands[commandKey];
             Result result = lastCommand.Execute(args, client);
@@ -66,6 +58,19 @@ namespace Server
         public void SetModel(IModel model)
         {
             this.model = model;
+            InitCommands();
+        }
+
+        private void InitCommands()
+        {
+            commands = new Dictionary<string, ICommand>
+            {
+                { "generate", new GenerateMazeCommand(model) },
+                { "solve", new SolveMazeCommand(model) },
+                { "start", new CreateMultiplayerGameCommand(model) },
+                { "list", new GetJoinableGamesCommand(model) },
+                { "join", new JoinRequestCommand(model) }
+            };
         }
 
         public void SetPlayer(Player player)

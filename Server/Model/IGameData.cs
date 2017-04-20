@@ -65,5 +65,7 @@ namespace Server
         /// <param name="maze">maze to find</param>
         /// <returns>If given maze name exists, returns a maze with that name. Otherwise, returns null.</returns>
         Maze GetSinglePlayertMaze(string maze);
+
+        IGameRoom GetRoom(string name);
     }
 }

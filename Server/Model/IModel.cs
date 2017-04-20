@@ -15,5 +15,6 @@ namespace Server
         Solution<Position> Solve(string name, Algorithm alg);
         List<string> GetJoinableGamesList();
         bool OpenRoom(string name, int rows, int cols);
+        void Join(string name);
     }
  }

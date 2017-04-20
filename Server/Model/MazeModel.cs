@@ -64,11 +64,22 @@ namespace Server
             
         }
 
+        public void Join(string name)
+        {
+            Player p = new Player();
+            IGameRoom room = gameData.GetRoom(name);
+            room.Join(p);
+            controller.SetGame(room);
+            controller.SetPlayer(p);
+        }
+
         public bool OpenRoom(string name, int rows, int cols)
         {
             if (gameData.ContainsMultGame(name)) return false;
 
-            Maze m = GenerateMaze(name, rows, cols);
+            Maze m = new DFSMazeGenerator().Generate(rows, cols);
+            m.Name = name;
+
             Player host = new Player();
             IGameRoom room = new GameRoom(m, host);
 

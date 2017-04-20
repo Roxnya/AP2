@@ -106,5 +106,10 @@ namespace Server
         {
             return singlePlayerMazeList.ContainsKey(maze) ? singlePlayerMazeList[maze] : null;
         }
+
+        public IGameRoom GetRoom(string name)
+        {
+            return rooms[name];
+        }
     }
 }

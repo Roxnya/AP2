@@ -14,77 +14,60 @@ namespace Client
 {
     class Player
     {
+        TcpClient client;
+
         //private Mode mode;
         private TcpClient ConnectToServer()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
             TcpClient client = new TcpClient();
             client.Connect(ep);
+            TcpClient cl = new TcpClient();
+            cl.Connect(ep);
             return client;
         }
 
         public void Menu()
         {
-            int option = GetCommand();
-
-            while (option != 0)
-            {
-                switch (option)
-                {
-                    case 1:
-                        GenerateRequest();
-                        break;
-
-                }
-                option = GetCommand();
-            }
+            client = ConnectToServer();
+            //while (true)
+            //{
+                Console.WriteLine("Please Select Your Command:");
+                bool res = GenerateRequest();
+              //  if (!res) break;
+            //}
         }
 
-        private int GetCommand()
+        private bool GenerateRequest()
         {
-            Console.WriteLine("Please Select Your Action Number:");
-            Console.WriteLine("0.exit\n1.generate\n2.solve\n3.start\n4.list\n5.join");
-            string line = Console.ReadLine();
-            int option;
-            bool isNum = int.TryParse(line, out option);
-            while (!isNum || !IsInitialCommandValid(option))
-            {
-                Console.WriteLine("Invalid Input, Please Insert A Valid Option");
-                Console.WriteLine("1.generate\n2.solve\n3.start\n4.list\n5.join\n");
-                isNum = int.TryParse(line, out option);
-            }
-            return option;
-        }
-
-        private void GenerateRequest()
-        {
-            Console.WriteLine("Insert maze name, number of rows, number of columns:");
-            string line = Console.ReadLine();
-
-            TcpClient client = null;
+            
             try
             {
-                client = ConnectToServer();
                 using (NetworkStream stream = client.GetStream())
                 using (StreamReader reader = new StreamReader(stream))
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
-                    writer.WriteLine("generate " + line);
-                    writer.Flush();
-                    // Get result from server
-                    StringBuilder sb = new StringBuilder();
-                    while (reader.Peek() > 0)
+                    while (true)
                     {
-                        sb.Append(reader.ReadLine());
-                    }
-                    Maze maze = ParseMaze(sb.ToString());
-                    if (maze != null)
-                    {
-                        Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}", maze.Name,
-                            maze.Rows, maze.Cols);
+
+                        string line = Console.ReadLine();
+                        writer.WriteLine(line);
+                        writer.Flush();
+                        // Get result from server
+                        //StringBuilder sb = new StringBuilder();
+                        //while (reader.Peek() > 0)
+                        //{
+                        //    sb.Append(reader.ReadLine());
+                        //}
+                        //Maze maze = ParseMaze(sb.ToString());
+                        //if (maze != null)
+                        //{
+                        //    Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}", maze.Name,
+                        //        maze.Rows, maze.Cols);
+                        //}
                     }
                 }
-                client.Close();
+                //client.Close();
             }
             catch (Exception e)
             {
@@ -97,7 +80,8 @@ namespace Client
                     client.Close();
                 }
             }
-
+            //if (line.Equals("exit")) return false;
+            return true;
         }
 
         private Maze ParseMaze(String str)

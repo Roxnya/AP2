@@ -14,7 +14,7 @@ namespace Server
         public Result(string json, Status status)
         {
             this.Json = json;
-            this.Status = Status;
+            this.Status = status;
         }
     }
 
