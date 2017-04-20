@@ -37,14 +37,9 @@ namespace Server.Commands
         {
             JObject mazeObj = new JObject();
             mazeObj["path"] = result;
-            mazeObj["name"] = sd.name;
-            mazeObj["NodesEvaluated"] = sd.nodesEvaluated;
+            mazeObj["name"] = sd.Name;
+            mazeObj["NodesEvaluated"] = sd.NodesEvaluated;
             return mazeObj.ToString();
-        }
-
-        public void Finish(TcpClient client)
-        {
-            //Shouldn't close communication with client
         }
     }
 }

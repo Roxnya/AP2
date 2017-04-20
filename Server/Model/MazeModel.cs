@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using CompareSolvers;
 using Server.Model;
 
-namespace Server
+namespace Server.Model
 {
     class MazeModel : IModel
     {
@@ -26,9 +26,8 @@ namespace Server
         public Maze GenerateMaze(string name, int rows, int cols)
         {
             if (gameData.ContainsSingleGame(name)) return null;
-            Maze maze = new DFSMazeGenerator().Generate(rows, cols);
-            maze.Name = name;
-            gameData.AddSinglePlayerMaze(maze);
+            Maze maze = CreateMaze(name, rows, cols);
+            gameData.AddSinglePlayerRoom(new SinglePlayerGameRoom(maze));
             return maze;
         }
 
@@ -36,8 +35,8 @@ namespace Server
         {
             if (gameData.ContainsSingleGame(name))
             {
-                Maze m = gameData.GetSinglePlayertMaze(name);
-                SolutionDetails sd = gameData.GetSinglePlayertSolution(m);
+                Maze m = gameData.GetSinglePlayertRoom(name).Maze;
+                SolutionDetails sd = gameData.GetSinglePlayertSolution(m.Name);
                 if (sd != null)
                 {
                     return sd;
@@ -48,41 +47,31 @@ namespace Server
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
                     Solution<Position> sol = bfs.Search(ma);
-                    sd = new SolutionDetails(name, bfs.GetNumberOfNodesEvaluated(), sol);
-                    gameData.AddSinglePlayerSolution(m, sd);
+                    sd = new SolutionDetails(name, sol);
+                    gameData.AddSinglePlayerSolution(m.Name, sd);
 
                 }
                 if (alg == Algorithm.DFS)
                 {
                     ISearcher<Position> dfs = new DFS<Position>();
                     Solution<Position> sol = dfs.Search(ma);
-                    sd = new SolutionDetails(name, dfs.GetNumberOfNodesEvaluated(), sol);
-                    gameData.AddSinglePlayerSolution(m, sd);
+                    sd = new SolutionDetails(name, sol);
+                    gameData.AddSinglePlayerSolution(m.Name, sd);
 
                 }
                 return sd;
 
             }
-            return new SolutionDetails("", 0, new Solution<Position>());
+            return new SolutionDetails("", new Solution<Position>(0));
 
-        }
-
-        public void Join(string name)
-        {
-            Player p = new Player();
-            IGameRoom room = gameData.GetRoom(name);
-            room.Join(p);
-            controller.SetGame(room);
-            controller.SetPlayer(p);
         }
 
         public bool OpenRoom(string name, int rows, int cols)
         {
             if (gameData.ContainsMultGame(name)) return false;
-            Maze m = new DFSMazeGenerator().Generate(rows, cols);
-            m.Name = name;
+            Maze m = CreateMaze(name, rows, cols);
             Player host = new Player();
-            IGameRoom room = new GameRoom(m, host);
+            IMultiPlayerGameRoom room = new GameRoom(m, host);
 
             controller.SetPlayer(host);
             controller.SetGame(room);
@@ -94,18 +83,14 @@ namespace Server
         public bool Join(string name)
         {
             if (!gameData.ContainsMultGame(name)) return false;
+
+            IMultiPlayerGameRoom room = gameData.GetMultiPlayerRoom(name);
             Player player2 = new Player();
-            IGameRoom room = gameData.GetMultiPlayerRoom(name);
-            room.player2 = player2;
             controller.SetPlayer(player2);
             controller.SetGame(room);
+            //test if join successeded
             room.Join(player2);
             return true;
-        }
-
-        public void TurnStep()
-        {
-
         }
 
         public List<string> GetJoinableGamesList()
@@ -119,7 +104,21 @@ namespace Server
             return result;
         }
 
+        public void Quit(string name)
+        {
+            if (this.gameData.ContainsMultGame(name))
+            {
+                this.gameData.GetMultiPlayerRoom(name).Quit();
+                this.gameData.RemoveMultiplayerRoom(name);
+            }
+        }
 
+        private Maze CreateMaze(string name, int rows, int cols)
+        {
+            Maze m = new DFSMazeGenerator().Generate(rows, cols);
+            m.Name = name;
+            return m;
+        }
     }
 
     public enum Algorithm

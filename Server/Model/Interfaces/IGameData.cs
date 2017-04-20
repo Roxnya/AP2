@@ -9,7 +9,7 @@ using Server.Commands;
 using Server.Model;
 using System.Net.Sockets;
 
-namespace Server
+namespace Server.Model
 {
     /// <summary>
     /// Interface for Game Data. GameData is a container for game's containers.
@@ -26,27 +26,27 @@ namespace Server
         /// Adds given room to game's room list
         /// </summary>
         /// <param name="room">room to add</param>
-        void AddGame(IGameRoom room);
+        void AddGame(IMultiPlayerGameRoom room);
 
         /// <summary>
         /// Adds given solution to game data
         /// </summary>
-        /// <param name="m">the maze that was solved</param>
+        /// <param name="name">the name of maze that was solved</param>
         /// <param name="sol">solution to add</param>
-        void AddSinglePlayerSolution(Maze m, SolutionDetails sol);
+        void AddSinglePlayerSolution(string name, SolutionDetails sol);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="maze">the maze for which we want the solution</param>
+        /// <param name="name">the maze for which we want the solution</param>
         /// <returns>If given maze has a solution, returns it's solution. Otherwise, returns null.</returns>
-        SolutionDetails GetSinglePlayertSolution(Maze maze);
+        SolutionDetails GetSinglePlayertSolution(string name);
 
         /// <summary>
         /// Adds given maze to maze list
         /// </summary>
-        /// <param name="maze">maze to add</param>
-        void AddSinglePlayerMaze(Maze maze);
+        /// <param name="room">room to add</param>
+        void AddSinglePlayerRoom(ISinglePlayerGameRoom room);
 
         /// <summary>
         /// 
@@ -65,11 +65,23 @@ namespace Server
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="maze">maze to find</param>
-        /// <returns>If given maze name exists, returns a maze with that name. Otherwise, returns null.</returns>
-        Maze GetSinglePlayertMaze(string maze);
+        /// <param name="name">room to find</param>
+        /// <returns>If given room name exists, returns a room with that name. Otherwise, returns null.</returns>
+        ISinglePlayerGameRoom GetSinglePlayertRoom(string name);
 
-        IGameRoom GetMultiPlayerRoom(string name);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">name of the room to return</param>
+        /// <returns>returns a room with given name if it exists. null otherwise</returns>
+        IMultiPlayerGameRoom GetMultiPlayerRoom(string name);
+
+        /// <summary>
+        /// Removes given game's name from list
+        /// </summary>
+        /// <param name="name">name of the room to remove</param>
+        void RemoveMultiplayerRoom(string name);
 
     }
 }

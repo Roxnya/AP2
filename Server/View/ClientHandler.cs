@@ -6,11 +6,18 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace Server.View
 {
     class ClientHandler : IClientHandler
     {
-        public void SendResponseToClient(TcpClient client, Result result)
+        TcpClient client;
+
+        public ClientHandler(TcpClient client)
+        {
+            this.client = client;
+        }
+
+        public void SendResponseToClient(Result result)
         {
             new Task(() =>
             {
@@ -36,7 +43,7 @@ namespace Server
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     if (stream != null) stream.Dispose();
                     //if (reader != null) stream.Dispose();
@@ -46,7 +53,7 @@ namespace Server
             }).Start();
         }
 
-        public void HandleClient(TcpClient client, IController controller)
+        public void HandleClient(IController controller)
         {
             new Task(() =>
             {
@@ -68,7 +75,7 @@ namespace Server
 
                     }
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
                     if (stream != null) stream.Dispose();
                     if (reader != null) stream.Dispose();

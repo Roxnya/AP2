@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -9,11 +10,17 @@ namespace Server.Commands
 {
     class PlayerQuitMultGameCommand : ICommand
     {
-        public Result Execute(string[] args, TcpClient client = null)
+        private IModel model;
+
+        public PlayerQuitMultGameCommand(IModel model)
         {
-            throw new NotImplementedException();
+            this.model = model;
         }
 
-
+        public Result Execute(string[] args, TcpClient client = null)
+        {
+            model.Quit(args[0]);
+            return new Result("close", Status.ReadOnly);
+        }
     }
 }

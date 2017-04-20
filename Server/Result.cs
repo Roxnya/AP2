@@ -22,6 +22,7 @@ namespace Server
     public enum Status
     {
         Close,
+        ReadOnly,
         Communicating
     }
 

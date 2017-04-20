@@ -53,12 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\GameData.cs" />
-    <Compile Include="Model\IGameData.cs" />
-    <Compile Include="Model\IGameRoom.cs" />
-    <Compile Include="Model\IObserver.cs" />
-    <Compile Include="Model\IObservable.cs" />
+    <Compile Include="Model\Interfaces\IGameData.cs" />
+    <Compile Include="Model\Interfaces\IGameRoom.cs" />
+    <Compile Include="Model\Interfaces\IMultiPlayerGameRoom.cs" />
+    <Compile Include="Model\Interfaces\IObserver.cs" />
+    <Compile Include="Model\Interfaces\IObservable.cs" />
     <Compile Include="Controller\IController.cs" />
+    <Compile Include="Model\Interfaces\ISinglePlayerGameRoom.cs" />
     <Compile Include="Model\PathDetailes.cs" />
+    <Compile Include="Model\SinglePlayerGameRoom.cs" />
     <Compile Include="Model\SolutionDetails.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Result.cs" />
@@ -73,13 +76,14 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\Commands\GenerateMazeCommand.cs" />
     <Compile Include="Model\GameRoom.cs" />
+    <Compile Include="ClientHandlerFactory.cs" />
     <Compile Include="View\IClientHandler.cs" />
     <Compile Include="Controller\Commands\ICommand.cs" />
-    <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\Interfaces\IModel.cs" />
     <Compile Include="Model\MazeModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\Server.cs" />
+    <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

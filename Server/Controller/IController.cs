@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Server.Model;
+using Server.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -43,7 +45,7 @@ namespace Server
         /// Set controller's game.
         /// </summary>
         /// <param name="room"></param>
-        void SetGame(IGameRoom room);
+        void SetGame(IMultiPlayerGameRoom room);
 
 
     }

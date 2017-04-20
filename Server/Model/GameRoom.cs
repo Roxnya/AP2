@@ -8,12 +8,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace Server.Model
 {
     /// <summary>
     /// Class that represents game room for 2 players.
     /// </summary>
-    class GameRoom : IGameRoom
+    class GameRoom : IMultiPlayerGameRoom
     {
         public Maze Maze { get; private set; }
         public Mode Mode { get; private set; }
@@ -52,24 +52,12 @@ namespace Server
 
         }
 
-        public string Move(Player player, string direction)
+        public void Move(Player player, string direction)
         {
-            Player toMove, toUpdate;
-            if (host == player)
-            {
-                toMove = host;
-                toUpdate = player2;
-            }
-            else
-            {
-                toMove = player2;
-                toUpdate = host;
-            }
-            //update the position
-            
-            MakeAMove(direction, toMove);
-            string result = ToJson(direction);
-            return result;
+            Player toUpdate;
+            toUpdate = (host.Equals(player) ? player2 : host);            
+            MakeAMove(direction, player);
+            toUpdate.CounterMove(ToJson(direction));
         }
 
         private string ToJson(string direction)
@@ -81,7 +69,7 @@ namespace Server
         }
         private void MakeAMove(string direction, Player toMove)
         {
-            if (direction == "left")
+            if (direction.Equals("left"))
             {
                 if (this.Maze.Cols >= toMove.position.Col - 1)
                 {
@@ -89,7 +77,7 @@ namespace Server
 
                 }
             }
-            if (direction == "right")
+            if (direction.Equals("right"))
             {
                 if (this.Maze.Cols >= toMove.position.Col + 1)
                 {
@@ -97,7 +85,7 @@ namespace Server
 
                 }
             }
-            if (direction == "up")
+            if (direction.Equals("up"))
             {
                 if (this.Maze.Rows >= toMove.position.Row + 1)
                 {
@@ -105,7 +93,7 @@ namespace Server
 
                 }
             }
-            if (direction == "down")
+            if (direction.Equals("down"))
             {
                 if (this.Maze.Rows >= toMove.position.Row - 1)
                 {
@@ -113,6 +101,12 @@ namespace Server
 
                 }
             }
+        }
+
+        public void Quit()
+        {
+            Result result = new Result("close", Status.Close);
+            Notify(this, new ResultEventArgs(result));
         }
     }
 

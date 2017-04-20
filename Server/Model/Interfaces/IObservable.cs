@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace Server.Model
 {
 
     delegate void EventHandler<EventArgs>(object sender, ResultEventArgs e);

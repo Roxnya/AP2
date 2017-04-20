@@ -5,7 +5,7 @@ using SearchAlgorithmsLib;
 using System.Net.Sockets;
 using Server.Model;
 
-namespace Server
+namespace Server.Model
 {
     interface IModel
     {
@@ -15,5 +15,6 @@ namespace Server
         string GetPathAsString(Solution<Position> sol);
         bool OpenRoom(string name, int rows, int cols);
         bool Join(string name);
+        void Quit(string name);
     }
 }

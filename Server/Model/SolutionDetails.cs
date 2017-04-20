@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using SearchAlgorithmsLib;
 using MazeLib;
+
 namespace Server.Model
 {
     class SolutionDetails
     {
-        public SolutionDetails(string name, int nodesEvaluated, Solution<Position> solution)
+        public SolutionDetails(string name, Solution<Position> solution)
         {
             this.solution = solution;
-            this.name = name;
-            this.nodesEvaluated = nodesEvaluated;
+            this.NodesEvaluated = solution.NodesEvaluated;
+            this.Name = name;
         }
         public Solution<Position> solution;
-        public int nodesEvaluated { get; set; }
-        public string name { get; set; }
+        public int NodesEvaluated { get; private set; }
+        public string Name { get; set; }
 
 
     }

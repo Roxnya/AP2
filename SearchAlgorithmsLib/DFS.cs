@@ -46,7 +46,7 @@ namespace SearchAlgorithmsLib
 
             }
 
-            return found ? BackTrace(v) : new Solution<T>();
+            return found ? BackTrace(v) : new Solution<T>(evaluatedNodes);
 
 
 
