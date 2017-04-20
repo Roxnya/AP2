@@ -18,12 +18,8 @@ C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Server.exe.config
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Server.exe
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Server.pdb
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\SearchAlgorithmsLib.exe
-C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Priority Queue.dll
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\SearchAlgorithmsLib.pdb
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Priority Queue.pdb
-C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Priority Queue.xml
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.csproj.Server.exe.config
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.exe
@@ -31,3 +27,17 @@ C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.pdb
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.exe
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.pdb
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.exe.config
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\SearchAlgorithmsLib.dll
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\DIBRIS.Hippie.dll
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\PommaLabs.Thrower.dll
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Finsa.CodeServices.Common.dll
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Troschuetz.Random.dll
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\SearchAlgorithmsLib.dll.config
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\DIBRIS.Hippie.pdb
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\DIBRIS.Hippie.xml
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\PommaLabs.Thrower.pdb
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\PommaLabs.Thrower.xml
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Finsa.CodeServices.Common.pdb
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Finsa.CodeServices.Common.xml
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Troschuetz.Random.pdb
+C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Troschuetz.Random.xml

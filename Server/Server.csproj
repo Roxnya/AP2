@@ -58,6 +58,8 @@
     <Compile Include="Model\IObserver.cs" />
     <Compile Include="Model\IObservable.cs" />
     <Compile Include="Controller\IController.cs" />
+    <Compile Include="Model\PathDetailes.cs" />
+    <Compile Include="Model\SolutionDetails.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="ResultEventArgs.cs" />

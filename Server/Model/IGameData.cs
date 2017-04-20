@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Server.Commands;
+using Server.Model;
+using System.Net.Sockets;
 
 namespace Server
 {
@@ -30,14 +33,14 @@ namespace Server
         /// </summary>
         /// <param name="m">the maze that was solved</param>
         /// <param name="sol">solution to add</param>
-        void AddSinglePlayerSolution(Maze m, Solution<Position> sol);
+        void AddSinglePlayerSolution(Maze m, SolutionDetails sol);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="maze">the maze for which we want the solution</param>
         /// <returns>If given maze has a solution, returns it's solution. Otherwise, returns null.</returns>
-        Solution<Position> GetSinglePlayertSolution(Maze maze);
+        SolutionDetails GetSinglePlayertSolution(Maze maze);
 
         /// <summary>
         /// Adds given maze to maze list
@@ -66,6 +69,7 @@ namespace Server
         /// <returns>If given maze name exists, returns a maze with that name. Otherwise, returns null.</returns>
         Maze GetSinglePlayertMaze(string maze);
 
-        IGameRoom GetRoom(string name);
+        IGameRoom GetMultiPlayerRoom(string name);
+
     }
 }

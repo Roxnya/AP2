@@ -17,7 +17,7 @@ namespace Server.Commands
         {
             this.model = model;
         }
-            
+
         public Result Execute(string[] args, TcpClient client = null)
         {
             List<string> rooms = model.GetJoinableGamesList();

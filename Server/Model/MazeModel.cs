@@ -8,6 +8,7 @@ using MazeGeneratorLib;
 using SearchAlgorithmsLib;
 using System.Net.Sockets;
 using CompareSolvers;
+using Server.Model;
 
 namespace Server
 {
@@ -31,37 +32,39 @@ namespace Server
             return maze;
         }
 
-        public Solution<Position> Solve(string name, Algorithm alg)
+        public SolutionDetails Solve(string name, Algorithm alg)
         {
-
             if (gameData.ContainsSingleGame(name))
             {
                 Maze m = gameData.GetSinglePlayertMaze(name);
-                Solution<Position> sol = gameData.GetSinglePlayertSolution(m);
-                if (sol != null)
+                SolutionDetails sd = gameData.GetSinglePlayertSolution(m);
+                if (sd != null)
                 {
-                    return sol;
+                    return sd;
                 }
 
                 MazeAdapter ma = new MazeAdapter(m);
                 if (alg == Algorithm.BFS)
                 {
                     ISearcher<Position> bfs = new BFS<Position>();
-                    sol = bfs.Search(ma);
-                    gameData.AddSinglePlayerSolution(m, sol);
+                    Solution<Position> sol = bfs.Search(ma);
+                    sd = new SolutionDetails(name, bfs.GetNumberOfNodesEvaluated(), sol);
+                    gameData.AddSinglePlayerSolution(m, sd);
+
                 }
                 if (alg == Algorithm.DFS)
                 {
                     ISearcher<Position> dfs = new DFS<Position>();
-                    sol = dfs.Search(ma);
-                    gameData.AddSinglePlayerSolution(m, sol);
-                }
+                    Solution<Position> sol = dfs.Search(ma);
+                    sd = new SolutionDetails(name, dfs.GetNumberOfNodesEvaluated(), sol);
+                    gameData.AddSinglePlayerSolution(m, sd);
 
-                return sol;
+                }
+                return sd;
+
             }
-            
-            return new Solution<Position>();
-            
+            return new SolutionDetails("", 0, new Solution<Position>());
+
         }
 
         public void Join(string name)
@@ -76,10 +79,8 @@ namespace Server
         public bool OpenRoom(string name, int rows, int cols)
         {
             if (gameData.ContainsMultGame(name)) return false;
-
             Maze m = new DFSMazeGenerator().Generate(rows, cols);
             m.Name = name;
-
             Player host = new Player();
             IGameRoom room = new GameRoom(m, host);
 
@@ -90,10 +91,35 @@ namespace Server
             return true;
         }
 
+        public bool Join(string name)
+        {
+            if (!gameData.ContainsMultGame(name)) return false;
+            Player player2 = new Player();
+            IGameRoom room = gameData.GetMultiPlayerRoom(name);
+            room.player2 = player2;
+            controller.SetPlayer(player2);
+            controller.SetGame(room);
+            room.Join(player2);
+            return true;
+        }
+
+        public void TurnStep()
+        {
+
+        }
+
         public List<string> GetJoinableGamesList()
         {
             return gameData.GetJoinableRooms();
         }
+
+        public string GetPathAsString(Solution<Position> sol)
+        {
+            string result = Model.PathDetails.ConvertSolutionToString(sol);
+            return result;
+        }
+
+
     }
 
     public enum Algorithm

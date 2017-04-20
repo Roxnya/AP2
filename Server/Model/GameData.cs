@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Server.Model;
+using System.Net.Sockets;
 
 namespace Server
 {
@@ -14,7 +16,7 @@ namespace Server
     class GameData : IGameData
     {
         private Dictionary<string, Maze> singlePlayerMazeList;
-        private Dictionary<Maze, Solution<Position>> singlePlayerSolutions;
+        private Dictionary<Maze, SolutionDetails> singlePlayerSolutions;
         private Dictionary<string, IGameRoom> rooms;
 
         /// <summary>
@@ -23,7 +25,7 @@ namespace Server
         public GameData()
         {
             singlePlayerMazeList = new Dictionary<string, Maze>();
-            singlePlayerSolutions = new Dictionary<Maze, Solution<Position>>();
+            singlePlayerSolutions = new Dictionary<Maze, SolutionDetails>();
             rooms = new Dictionary<string, IGameRoom>();
         }
 
@@ -72,7 +74,7 @@ namespace Server
         /// </summary>
         /// <param name="m">the maze that was solved</param>
         /// <param name="sol">solution to add</param>
-        public void AddSinglePlayerSolution(Maze m, Solution<Position> sol)
+        public void AddSinglePlayerSolution(Maze m, SolutionDetails sol)
         {
             singlePlayerSolutions.Add(m, sol);
         }
@@ -82,7 +84,7 @@ namespace Server
         /// </summary>
         /// <param name="maze">the maze for which we want the solution</param>
         /// <returns>If given maze has a solution, returns it's solution. Otherwise, returns null.</returns>
-        public Solution<Position> GetSinglePlayertSolution(Maze maze)
+        public SolutionDetails GetSinglePlayertSolution(Maze maze)
         {
             return singlePlayerSolutions.ContainsKey(maze) ? singlePlayerSolutions[maze] : null;
         }
@@ -107,9 +109,10 @@ namespace Server
             return singlePlayerMazeList.ContainsKey(maze) ? singlePlayerMazeList[maze] : null;
         }
 
-        public IGameRoom GetRoom(string name)
+
+        public IGameRoom GetMultiPlayerRoom(string name)
         {
-            return rooms[name];
+            return rooms.ContainsKey(name) ? rooms[name] : null;
         }
     }
 }

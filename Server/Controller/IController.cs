@@ -44,5 +44,7 @@ namespace Server
         /// </summary>
         /// <param name="room"></param>
         void SetGame(IGameRoom room);
+
+
     }
 }
