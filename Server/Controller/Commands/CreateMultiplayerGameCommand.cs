@@ -27,7 +27,8 @@ namespace Server.Commands
             bool result =  model.OpenRoom(name, rows, cols);
             if (result)
             {
-                return new Result("", Status.Communicating);
+                Result r = new Result("", Status.Communicating);
+                return r;
             }
             return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
         }

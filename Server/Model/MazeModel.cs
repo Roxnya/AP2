@@ -82,16 +82,17 @@ namespace Server
             return true;
         }
 
-        public bool Join(string name)
+        public Maze Join(string name)
         {
-            if (!gameData.ContainsMultGame(name)) return false;
+            if (!gameData.ContainsMultGame(name)) return null;
             Player player2 = new Player();
             IGameRoom room = gameData.GetMultiPlayerRoom(name);
+            Maze m = room.Maze;
             room.player2 = player2;
             controller.SetPlayer(player2);
             controller.SetGame(room);
             room.Join(player2);
-            return true;
+            return m;
         }
 
         public void TurnStep()

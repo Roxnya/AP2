@@ -14,6 +14,6 @@ namespace Server
         List<string> GetJoinableGamesList();
         string GetPathAsString(Solution<Position> sol);
         bool OpenRoom(string name, int rows, int cols);
-        bool Join(string name);
+        Maze Join(string name);
     }
 }

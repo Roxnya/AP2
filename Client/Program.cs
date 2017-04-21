@@ -11,7 +11,8 @@ namespace Client
         static void Main(string[] args)
         {
             Player p = new Player();
-            //p.Menu();
+            p.Handle();
+           // p.Menu();
         }
     }
 }

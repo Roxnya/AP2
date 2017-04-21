@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MazeLib;
 namespace Server
 {
     /// <summary>
@@ -14,6 +14,7 @@ namespace Server
     interface IGameRoom : IObservable
     {
         string Name { get; }
+        Maze Maze { get; }
         Mode Mode { get; }
         Player player2 { get; set; }
         
