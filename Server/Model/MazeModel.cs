@@ -77,9 +77,13 @@ namespace Server.Model
             Player player2 = new Player();
             controller.SetPlayer(player2);
             controller.SetGame(room);
-            //test if join successeded
-            if (!room.Join(player2)) return false;
             room.Notify += controller.Update;
+            //test if join successeded
+            if (!room.Join(player2))
+            {
+                room.Notify -= controller.Update;
+                return false;
+            }
             return true;
         }
 

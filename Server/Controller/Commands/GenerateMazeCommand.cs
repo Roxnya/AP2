@@ -20,6 +20,9 @@ namespace Server
 
         public Result Execute(string[] args, TcpClient client)
         {
+            if(args.Count() != 3)
+                throw new InvalidOperationException("Not enough arguemnts for generate command.");
+
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);

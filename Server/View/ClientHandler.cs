@@ -39,7 +39,7 @@ namespace Server.View
                         HandleTermination();
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     HandleTermination();
                 }
@@ -61,14 +61,15 @@ namespace Server.View
                         //Clears all buffers for the current writer and causes
                         //any buffered data to be written to the underlying stream.
                         Status status = controller.ExecuteCommand(commandLine, client);
-                        if (status == Status.Close)
-                        {
-                            HandleTermination();
-                        }
                     }
                 }
-                catch(Exception)
+                catch(Exception ex)
                 {
+                                        if (client != null && writer != null)
+                    {
+                        writer.Flush();
+                        writer.Write(ex.Message);
+                    }
                     HandleTermination();
                 }
             }).Start();
@@ -77,8 +78,8 @@ namespace Server.View
         private void HandleTermination()
         {
             if (stream != null) stream.Dispose();
-            if (reader != null) stream.Dispose();
-            if (writer != null) stream.Dispose();
+            if (reader != null) reader.Dispose();
+            if (writer != null) writer.Dispose();
             if (client != null)
             {
                 client.Close();

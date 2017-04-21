@@ -18,7 +18,7 @@ namespace Client
         TcpClient client;
         BinaryReader reader;
         BinaryWriter writer;
-        Boolean KeepCom;
+        NetworkStream stream;
         int command;
         private IPEndPoint ep;
         private int port;
@@ -27,52 +27,63 @@ namespace Client
         {
             this.ep = new IPEndPoint(IPAddress.Parse(ip), 5555);
             this.port = port;
-            this.client = ConnectToServer();
-            KeepCom = true;
+        }
 
+        private void ConnectToServer()
+        {
+            if (reader != null) reader.Dispose();
+            if (writer != null) writer.Dispose();
+            if (this.stream != null) this.stream.Dispose();
+
+            if (this.client != null)
+            {
+                this.client.Close();
+                this.client = null;
+            }
+            this.client = new TcpClient();
+            client.Connect(ep);
+            stream = client.GetStream();
             writer = new BinaryWriter(client.GetStream());
             reader = new BinaryReader(client.GetStream());
         }
-        private TcpClient ConnectToServer()
-        {
-            TcpClient client = new TcpClient();
-            client.Connect(ep);
-            return client;
-        }
+
         public void Handle()
         {
-            Action a = new Action(Listen);
-            Task task = new Task(a);
-            task.Start();
-
             Console.WriteLine("Please enter command...");
             string s = Console.ReadLine();
             string[] words = s.Split();
             string command = words[0];
             Option(command);
-            while (KeepCom)
+            while (this.command != 0)
             {
-                
+                EstablishConnection();
+                Task task = new Task(Listen);
+                task.Start();
                 writer.Write(s);
                 s = Console.ReadLine();
-
+                EstablishConnection();
                 words = s.Split();
                 command = words[0];
                 Option(command);
 
             }
+        }
 
-            task.Wait();
+        public void EstablishConnection()
+        {
+            if(command == 1 || command == 2 || command == 3 || command == 4 || command == 5 || command == 0)
+            ConnectToServer();
         }
 
         public void Listen()
         {
-
+            bool KeepCom = true;
             do
             {
-
+                StringBuilder sb = new StringBuilder();
                 string s = reader.ReadString();
                 Console.WriteLine(s);
+                Console.WriteLine(sb.ToString());
 
                 switch (this.command)
                 {
@@ -83,7 +94,7 @@ namespace Client
                     case 2:
                         KeepCom = false;
                         break;
-                        
+
                     case 4:
 
                         KeepCom = false;
@@ -97,9 +108,7 @@ namespace Client
                         break;
 
                 }
-               
             } while (KeepCom);
-            Console.WriteLine("Connection is closed. Press enter to continue...");
         }
 
 
