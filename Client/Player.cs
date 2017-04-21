@@ -31,7 +31,15 @@ namespace Client
 
         private void ConnectToServer()
         {
-            TerminateConnection();
+            if (reader != null) reader.Dispose();
+            if (writer != null) writer.Dispose();
+            if (this.stream != null) this.stream.Dispose();
+
+            if (this.client != null)
+            {
+                this.client.Close();
+                this.client = null;
+            }
             this.client = new TcpClient();
             client.Connect(ep);
             stream = client.GetStream();
@@ -59,21 +67,8 @@ namespace Client
                 Option(command);
 
             }
-            TerminateConnection();
         }
 
-        private void TerminateConnection()
-        {
-            if (reader != null) reader.Dispose();
-            if (writer != null) writer.Dispose();
-            if (this.stream != null) this.stream.Dispose();
-
-            if (this.client != null)
-            {
-                this.client.Close();
-                this.client = null;
-            }
-        }
         public void EstablishConnection()
         {
             if(command == 1 || command == 2 || command == 3 || command == 4 || command == 5 || command == 0)
