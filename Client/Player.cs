@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using Newtonsoft.Json;
 using MazeLib;
 using Newtonsoft.Json.Linq;
@@ -14,10 +15,11 @@ namespace Client
 {
     class Player
     {
-        private StreamReader reader;
-        private StreamWriter writer;
-        private TcpClient client;
-        private NetworkStream stream;
+        TcpClient client;
+        BinaryReader reader;
+        BinaryWriter writer;
+        Boolean KeepCom;
+        int command;
         private IPEndPoint ep;
         private int port;
 
@@ -26,31 +28,160 @@ namespace Client
             this.ep = new IPEndPoint(IPAddress.Parse(ip), 5555);
             this.port = port;
             this.client = ConnectToServer();
-            this.reader = new StreamReader(this.stream);
-            this.writer = new StreamWriter(this.stream);
+            KeepCom = true;
 
+            writer = new BinaryWriter(client.GetStream());
+            reader = new BinaryReader(client.GetStream());
         }
-
         private TcpClient ConnectToServer()
         {
             TcpClient client = new TcpClient();
-            client.Connect(this.ep);
-            this.stream = client.GetStream();
+            client.Connect(ep);
             return client;
         }
-
         public void Handle()
         {
             Action a = new Action(Listen);
             Task task = new Task(a);
+            task.Start();
 
+            Console.WriteLine("Please enter command...");
+            string s = Console.ReadLine();
+            string[] words = s.Split();
+            string command = words[0];
+            Option(command);
+            while (KeepCom)
+            {
+                
+                writer.Write(s);
+                s = Console.ReadLine();
+                words = s.Split();
+                command = words[0];
+                Option(command);
+
+            }
+
+            task.Wait();
         }
-
 
         public void Listen()
         {
+            JObject mazeObj;
+            string mazeRep;
+            Maze maze;
+            do
+            {
+                string s = reader.ReadString();
 
+                switch (this.command)
+                {
+                    case 1:
+                        mazeObj = JObject.Parse(s);
+                        mazeRep = (string)mazeObj["Maze"];
+                        maze = ParseMaze(s);
+                        if (maze != null)
+                        {
+                            Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
+                                maze.Rows, maze.Cols, mazeRep);
+                        }
+                        KeepCom = false;
+                        break;
+
+                    case 2:
+                        mazeObj = JObject.Parse(s);
+                        string name = (string)mazeObj["name"];
+                        string solution = (string)mazeObj["path"];
+                        int nodesEvaluated = (int)mazeObj["NodesEvaluated"];
+                        //maybe need to check of the strings are not empty
+                        Console.WriteLine("Name: {0}, Solution: {1}, NodesEvaluated: {2} ", name, solution, nodesEvaluated);
+                        KeepCom = false;
+                        break;
+
+                    case 3:
+                        mazeObj = JObject.Parse(s);
+                        mazeRep = (string)mazeObj["Maze"];
+                        maze = ParseMaze(s);
+                        if (maze != null)
+                        {
+                            Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
+                                maze.Rows, maze.Cols, mazeRep);
+                        }
+                        KeepCom = false;
+                        break;
+
+                    case 4:
+                        if (s == "[]") Console.WriteLine("There are no games to join");
+                        else Console.WriteLine(s);
+                        KeepCom = false;
+                        break;
+                    case 5:
+                        mazeObj = JObject.Parse(s);
+                        mazeRep = (string)mazeObj["Maze"];
+                        maze = ParseMaze(s);
+                        if (maze != null)
+                        {
+                            Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
+                                maze.Rows, maze.Cols, mazeRep);
+                        }
+                        KeepCom = false;
+                        break;
+                }
+               
+            } while (KeepCom);
+            Console.WriteLine("Connection is closed. Press enter to continue...");
         }
+
+
+        private void Option(string command)
+        {
+            switch (command)
+            {
+                case "generate":
+                    this.command = 1;
+                    break;
+                case "solve":
+                    this.command = 2;
+                    break;
+                case "start":
+                    this.command = 3;
+                    break;
+                case "list":
+                    this.command = 4;
+                    break;
+                case "join":
+                    this.command = 5;
+                    break;
+                case "play":
+                    this.command = 6;
+                    break;
+                case "exit":
+                    this.command = 0;
+                    break;
+            }
+            
+        }
+
+        private Maze ParseMaze(String str)
+        {
+            Maze maze = null;
+            try
+            {
+                JObject mazeObj = JObject.Parse(str);
+                maze = new Maze((int)mazeObj["Rows"], (int)mazeObj["Cols"]);
+                string mazeRep = (string)mazeObj["Maze"];
+                maze.Name = (string)mazeObj["Name"];
+
+                maze.InitialPos = new Position((int)mazeObj["Start"]["Row"], (int)mazeObj["Start"]["Col"]);
+                maze.GoalPos = new Position((int)mazeObj["End"]["Row"], (int)mazeObj["End"]["Col"]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return maze;
+        }
+
     }
 }
 
@@ -60,15 +191,11 @@ namespace Client
 
 
 
-
-
-
-
-
-
-
-
- /*       //private Mode mode;
+/*
+ namespace Client
+{
+    class Player
+    {
         private TcpClient ConnectToServer()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
@@ -99,14 +226,14 @@ namespace Client
                         break;
                     case 4:
                         //doesnt!!!
-                        ListRequest();
+                        //ListRequest();
                         break;
                     case 5:
                         //need connect
-                        JoinRequest();
+                        //JoinRequest();
                         break;
-                    //all the others doesnt need connect , it creates a new tcp !!!
-                
+                        //all the others doesnt need connect , it creates a new tcp !!!
+
 
                 }
                 option = GetCommand();
@@ -129,6 +256,7 @@ namespace Client
             return option;
         }
 
+
         private void GenerateRequest()
         {
             Console.WriteLine("Insert maze name, number of rows, number of columns:");
@@ -139,8 +267,8 @@ namespace Client
             {
                 client = ConnectToServer();
                 using (NetworkStream stream = client.GetStream())
+                using(StreamWriter writer = new StreamWriter(stream))
                 using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.WriteLine("generate " + line);
                     writer.Flush();
@@ -166,7 +294,7 @@ namespace Client
                                 maze.Rows, maze.Cols, mazeRep);
                         }
                     }
-            
+
                 }
                 client.Close();
             }
@@ -183,7 +311,6 @@ namespace Client
             }
 
         }
-
 
         private void SolveRequest()
         {
@@ -231,141 +358,6 @@ namespace Client
 
         }
 
-        private void ListRequest()
-        {
-            TcpClient client = null;
-            try
-            {
-                client = ConnectToServer();
-                using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    writer.WriteLine("list");
-                    writer.Flush();
-                    // Get result from server
-                    StringBuilder sb = new StringBuilder();
-                    while (reader.Peek() > 0)
-                    {
-                        sb.Append(reader.ReadLine());
-                    }
-
-                    JObject mazeObj = JObject.Parse(sb.ToString());
-                    //print the list here
-                }
-                client.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An Error Has Occured");
-            }
-            finally
-            {
-                if (client != null)
-                {
-                    client.Close();
-                }
-            }
-
-        }
-
-        private void StartRequest()
-        {
-            Console.WriteLine("Insert maze name, number of rows, number of columns:");
-            string line = Console.ReadLine();
-            TcpClient client = null;
-
-            try
-            {
-                client = ConnectToServer();
-                using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    writer.WriteLine("start " + line);
-                    writer.Flush();
-                    // Get result from server
-                    StringBuilder sb = new StringBuilder();
-                    while (reader.Peek() > 0)
-                    {
-                        sb.Append(reader.ReadLine());
-                    }
-
-
-                    //JObject mazeObj = JObject.Parse(sb.ToString());
-                    //string mazeRep = (string)mazeObj["Maze"];
-                    //Maze maze = ParseMaze(sb.ToString());
-                    //if (maze != null)
-                    //{
-                        Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
-                            maze.Rows, maze.Cols, mazeRep);
-                    }
-
-               }
-                client.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An Error Has Occured");
-            }
-            finally
-            {
-                if (client != null)
-                {
-                    client.Close();
-                }
-            }
-
-        }
-
-        private void JoinRequest()
-        {
-            Console.WriteLine("Insert maze name:");
-            string line = Console.ReadLine();
-
-            TcpClient client = null;
-            try
-            {
-                client = ConnectToServer();
-                using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    writer.WriteLine("join " + line);
-                    writer.Flush();
-                    // Get result from server
-                    StringBuilder sb = new StringBuilder();
-                    while (reader.Peek() > 0)
-                    {
-                        sb.Append(reader.ReadLine());
-                    }
-
-                    JObject mazeObj = JObject.Parse(sb.ToString());
-                    string mazeRep = (string)mazeObj["Maze"];
-                    Maze maze = ParseMaze(sb.ToString());
-                    if (maze != null)
-                    {
-                        Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
-                            maze.Rows, maze.Cols, mazeRep);
-                    }
-
-                }
-                client.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An Error Has Occured");
-            }
-            finally
-            {
-                if (client != null)
-                {
-                    client.Close();
-                }
-            }
-
-        }
-
         private Maze ParseMaze(String str)
         {
             Maze maze = null;
@@ -387,10 +379,58 @@ namespace Client
             return maze;
         }
 
-        private bool IsInitialCommandValid(int command)
+
+        
+
+        private void StartRequest()
         {
-            return command > 0 && command < 6;
+            Console.WriteLine("Insert maze name and size:");
+            string line = Console.ReadLine();
+
+            TcpClient client = null;
+            try
+            {
+                client = ConnectToServer();
+                using (NetworkStream stream = client.GetStream())
+                using (StreamReader reader = new StreamReader(stream))
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine("solve " + line);
+                    writer.Flush();
+                    // Get result from server
+                    StringBuilder sb = new StringBuilder();
+                    while (reader.Peek() > 0)
+                    {
+                        sb.Append(reader.ReadLine());
+                    }
+
+                    JObject mazeObj = JObject.Parse(sb.ToString());
+                    string mazeRep = (string)mazeObj["Maze"];
+                    Maze maze = ParseMaze(sb.ToString());
+                    //Maze maze = ParseResult(sb);
+                    if (maze != null)
+                    {
+                        Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
+                            maze.Rows, maze.Cols, mazeRep);
+                    }
+                }
+                client.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An Error Has Occured");
+            }
+            finally
+            {
+                if (client != null)
+                {
+                    client.Close();
+                }
+            }
+
         }
+
     }
 }
+
 */

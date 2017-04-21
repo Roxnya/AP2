@@ -11,15 +11,15 @@ namespace Server.View
     class ClientHandler : IClientHandler
     {
         private TcpClient client;
-        private StreamWriter writer = null;
-        private StreamReader reader = null;
+        private BinaryWriter writer = null;
+        private BinaryReader reader = null;
         private NetworkStream stream = null;
 
         public ClientHandler(TcpClient client)
         {
             this.client = client;
             this.stream = client.GetStream();
-            this.writer = new StreamWriter(stream);
+            this.writer = new BinaryWriter(stream);
         }
 
         public void SendResponseToClient(Result result)
@@ -32,7 +32,7 @@ namespace Server.View
                     //Clears all buffers for the current writer and causes
                     //any buffered data to be written to the underlying stream.
                     writer.Flush();
-                    writer.WriteLine(result.Json);
+                    writer.Write(result.Json);
                     writer.Flush();
                     if(result.Status == Status.Close)
                     {
@@ -53,10 +53,10 @@ namespace Server.View
                // StreamWriter writer = null;
                 try
                 {
-                    this.reader = new StreamReader(stream);
+                    this.reader = new BinaryReader(stream);
                     while (client != null)
                     {
-                        string commandLine = reader.ReadLine();
+                        string commandLine = reader.ReadString();
                         Console.WriteLine("Got command: {0}", commandLine);
                         //Clears all buffers for the current writer and causes
                         //any buffered data to be written to the underlying stream.
