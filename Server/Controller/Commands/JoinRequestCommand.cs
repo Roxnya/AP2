@@ -24,7 +24,7 @@ namespace Server.Commands
             bool result = model.Join(name);
             if (result)
             {
-                return new Result("", Status.Close);
+                return new Result("", Status.ReadOnly);
             }
             return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
 
