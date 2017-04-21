@@ -26,7 +26,7 @@ namespace Server.Commands
             {
                 return new Result("", Status.ReadOnly);
             }
-            return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
+            return new Result(JsonConvert.SerializeObject("failed to join game"), Status.Close);
 
 
         }

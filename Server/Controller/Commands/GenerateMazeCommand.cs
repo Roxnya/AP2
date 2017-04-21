@@ -23,9 +23,14 @@ namespace Server
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
+
             Maze maze = model.GenerateMaze(name, rows, cols);
-            if (maze == null) return new Result("Error. Game name already exists".ToString(), Status.Close);
-            return new Result(maze.ToJSON(), Status.Close);
+            return new Result(Serialize(maze), Status.Close);
+        }
+
+        private string Serialize(Maze maze)
+        {
+            return maze != null ? maze.ToJSON() : "Error. Game name already exists";
         }
 
     }

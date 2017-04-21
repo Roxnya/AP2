@@ -18,7 +18,8 @@ namespace Server.Model
         /// Allows a player to join the room if it has an open place.
         /// </summary>
         /// <param name="player2">The player that wants to join game</param>
-        void Join(Player player2);
+        ///<returns>true if playered was added successfully to the room. false otherwise.</returns>
+        bool Join(Player player2);
 
         /// <summary>
         /// Moves player in game

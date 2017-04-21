@@ -20,6 +20,8 @@ namespace Server.Model
         private Player host;
         public Player player2 { get; set; }
 
+        private readonly object joinLocker = new object();
+
         //event through which listeners will be notified of relevant room events such as game started, move was made, etc.
         public event EventHandler<EventArgs> Notify;
 
@@ -40,15 +42,19 @@ namespace Server.Model
         /// Allows a player to join the room if it has an open place.
         /// </summary>
         /// <param name="player2">The player that wants to join game</param>
-        public void Join(Player player2)
+        public bool Join(Player player2)
         {
-            //if room already reached players capacity return
-            if (Mode != Mode.WaitingForPlayer) return;
-            this.Mode = Mode.InProgress;
-            this.player2 = player2;
+            lock (joinLocker)
+            {
+                //if room already reached players capacity return
+                if (Mode != Mode.WaitingForPlayer) return false;
+                this.Mode = Mode.InProgress;
+                this.player2 = player2;
+            }
             //init position
             Result res = new Result(Maze.ToJSON(), Status.Communicating);
             Notify?.Invoke(this, new ResultEventArgs(res));
+            return true;
 
         }
 
@@ -67,6 +73,7 @@ namespace Server.Model
             mazeObj["direction"] = direction;
             return mazeObj.ToString();
         }
+
         private void MakeAMove(string direction, Player toMove)
         {
             if (direction.Equals("left"))
