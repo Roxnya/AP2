@@ -34,5 +34,7 @@ namespace Server
         void SetModel(IModel model);
         void SetPlayer(Player player);
         void SetGame(IGameRoom room);
+
+
     }
 }

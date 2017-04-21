@@ -1,4 +1,5 @@
 ﻿using MazeLib;
+using Newtonsoft.Json.Linq;
 using SearchAlgorithmsLib;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Server
         public Maze Maze { get; private set; }
         public Mode Mode { get; private set; }
         private Player host;
-        private Player player2;
+        public Player player2 { get; set; }
 
         //event through which listeners will be notified of relevant room events such as game started, move was made, etc.
         public event EventHandler<EventArgs> Notify;
@@ -49,6 +50,69 @@ namespace Server
             Result res = new Result(Maze.ToJSON(), Status.Communicating);
             Notify?.Invoke(this, new ResultEventArgs(res));
 
+        }
+
+        public string Move(Player player, string direction)
+        {
+            Player toMove, toUpdate;
+            if (host == player)
+            {
+                toMove = host;
+                toUpdate = player2;
+            }
+            else
+            {
+                toMove = player2;
+                toUpdate = host;
+            }
+            //update the position
+            
+            MakeAMove(direction, toMove);
+            string result = ToJson(direction);
+            return result;
+        }
+
+        private string ToJson(string direction)
+        {
+            JObject mazeObj = new JObject();
+            mazeObj["name"] = this.Maze.Name;
+            mazeObj["direction"] = direction;
+            return mazeObj.ToString();
+        }
+        private void MakeAMove(string direction, Player toMove)
+        {
+            if (direction == "left")
+            {
+                if (this.Maze.Cols >= toMove.position.Col - 1)
+                {
+                    toMove.position = new Position(toMove.position.Row, toMove.position.Col - 1);
+
+                }
+            }
+            if (direction == "right")
+            {
+                if (this.Maze.Cols >= toMove.position.Col + 1)
+                {
+                    toMove.position = new Position(toMove.position.Row, toMove.position.Col + 1);
+
+                }
+            }
+            if (direction == "up")
+            {
+                if (this.Maze.Rows >= toMove.position.Row + 1)
+                {
+                    toMove.position = new Position(toMove.position.Row + 1, toMove.position.Col);
+
+                }
+            }
+            if (direction == "down")
+            {
+                if (this.Maze.Rows >= toMove.position.Row - 1)
+                {
+                    toMove.position = new Position(toMove.position.Row - 1, toMove.position.Col);
+
+                }
+            }
         }
     }
 

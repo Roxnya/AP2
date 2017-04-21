@@ -57,20 +57,21 @@ namespace Server
                     ISearcher<Position> dfs = new DFS<Position>();
                     Solution<Position> sol = dfs.Search(ma);
                     sd = new SolutionDetails(name, dfs.GetNumberOfNodesEvaluated(), sol);
-                    gameData.AddSinglePlayerSolution(m, sd);                 
+                    gameData.AddSinglePlayerSolution(m, sd);
 
                 }
                 return sd;
 
             }
             return new SolutionDetails("", 0, new Solution<Position>());
-            
+
         }
 
         public bool OpenRoom(string name, int rows, int cols)
         {
             if (gameData.ContainsMultGame(name)) return false;
             Maze m = new DFSMazeGenerator().Generate(rows, cols);
+            m.Name = name;
             Player host = new Player();
             IGameRoom room = new GameRoom(m, host);
 
@@ -81,17 +82,35 @@ namespace Server
             return true;
         }
 
+        public bool Join(string name)
+        {
+            if (!gameData.ContainsMultGame(name)) return false;
+            Player player2 = new Player();
+            IGameRoom room = gameData.GetMultiPlayerRoom(name);
+            room.player2 = player2;
+            controller.SetPlayer(player2);
+            controller.SetGame(room);
+            room.Join(player2);
+            return true;
+        }
+
+        public void TurnStep()
+        {
+
+        }
 
         public List<string> GetJoinableGamesList()
         {
             return gameData.GetJoinableRooms();
         }
-        
+
         public string GetPathAsString(Solution<Position> sol)
         {
             string result = Model.PathDetails.ConvertSolutionToString(sol);
             return result;
         }
+
+
     }
 
     public enum Algorithm

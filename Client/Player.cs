@@ -14,7 +14,58 @@ namespace Client
 {
     class Player
     {
-        //private Mode mode;
+        private StreamReader reader;
+        private StreamWriter writer;
+        private TcpClient client;
+        private NetworkStream stream;
+
+        public Player()
+        {
+            this.client = ConnectToServer();
+            this.reader = new StreamReader(this.stream);
+            this.writer = new StreamWriter(this.stream);
+
+        }
+
+        private TcpClient ConnectToServer()
+        {
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
+            TcpClient client = new TcpClient();
+            client.Connect(ep);
+            this.stream = client.GetStream();
+            return client;
+        }
+
+        public void Handle()
+        {
+            Action a = new Action(Listen);
+            Task task = new Task(a);
+
+        }
+
+
+        public void Listen()
+        {
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*       //private Mode mode;
         private TcpClient ConnectToServer()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
@@ -32,20 +83,26 @@ namespace Client
                 switch (option)
                 {
                     case 1:
+                        //need connect
                         GenerateRequest();
                         break;
                     case 2:
+                        //need connect
                         SolveRequest();
                         break;
                     case 3:
+                        //need connect
                         StartRequest();
                         break;
                     case 4:
+                        //doesnt!!!
                         ListRequest();
                         break;
                     case 5:
+                        //need connect
                         JoinRequest();
                         break;
+                    //all the others doesnt need connect , it creates a new tcp !!!
                 
 
                 }
@@ -214,6 +271,7 @@ namespace Client
             Console.WriteLine("Insert maze name, number of rows, number of columns:");
             string line = Console.ReadLine();
             TcpClient client = null;
+
             try
             {
                 client = ConnectToServer();
@@ -230,16 +288,17 @@ namespace Client
                         sb.Append(reader.ReadLine());
                     }
 
-                    JObject mazeObj = JObject.Parse(sb.ToString());
-                    string mazeRep = (string)mazeObj["Maze"];
-                    Maze maze = ParseMaze(sb.ToString());
-                    if (maze != null)
-                    {
+
+                    //JObject mazeObj = JObject.Parse(sb.ToString());
+                    //string mazeRep = (string)mazeObj["Maze"];
+                    //Maze maze = ParseMaze(sb.ToString());
+                    //if (maze != null)
+                    //{
                         Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
                             maze.Rows, maze.Cols, mazeRep);
                     }
 
-                }
+               }
                 client.Close();
             }
             catch (Exception e)
@@ -331,3 +390,4 @@ namespace Client
         }
     }
 }
+*/

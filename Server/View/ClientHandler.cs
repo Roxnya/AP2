@@ -57,27 +57,21 @@ namespace Server
                 {
                     stream = client.GetStream();
                     reader = new StreamReader(stream);
-                    //writer = new StreamWriter(stream);
                     while (true)
                     {
                         string commandLine = reader.ReadLine();
                         Console.WriteLine("Got command: {0}", commandLine);
                         //Clears all buffers for the current writer and causes
                         //any buffered data to be written to the underlying stream.
-                        //writer.Flush();
-                        /*string result = */
-                        //Result res = 
                         Status status = controller.ExecuteCommand(commandLine, client);
                         if (status == Status.Close) break;
-                        /*writer.WriteLine(result);
-                        writer.Flush();*/
+
                     }
                 }
                 catch(Exception ex)
                 {
                     if (stream != null) stream.Dispose();
                     if (reader != null) stream.Dispose();
-                   // if (writer != null) stream.Dispose();
                     client.Close();
                 }
             }).Start();

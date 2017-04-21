@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-
+using MazeLib;
 namespace Server.Commands
 {
     /**
@@ -12,9 +12,19 @@ namespace Server.Commands
      **/
     class TurnPerformedCommand : ICommand
     {
+        private IGameRoom gameRoom;
+        private Player player;
+        public TurnPerformedCommand(IGameRoom gameRoom, Player player)
+        {
+            this.gameRoom = gameRoom;
+        }
         public Result Execute(string[] args, TcpClient client = null)
         {
-            string move = args[0];
+            //make it in the maze model . Here noone has to know sth about position
+            string direction = args[0];
+            
+            //update the second player
+                
             return new Result("", Status.Communicating);
         }
     }

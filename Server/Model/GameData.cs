@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Server.Model;
+using System.Net.Sockets;
+
 namespace Server
 {
     /// <summary>
@@ -105,6 +107,12 @@ namespace Server
         public Maze GetSinglePlayertMaze(string maze)
         {
             return singlePlayerMazeList.ContainsKey(maze) ? singlePlayerMazeList[maze] : null;
+        }
+
+
+        public IGameRoom GetMultiPlayerRoom(string name)
+        {
+            return rooms.ContainsKey(name) ? rooms[name] : null;
         }
     }
 }

@@ -15,11 +15,15 @@ namespace Server
     {
         string Name { get; }
         Mode Mode { get; }
+        Player player2 { get; set; }
+        
 
         /// <summary>
         /// Allows a player to join the room if it has an open place.
         /// </summary>
         /// <param name="player2">The player that wants to join game</param>
         void Join(Player player2);
+
+        string Move(Player player, string Direction);
     }
 }

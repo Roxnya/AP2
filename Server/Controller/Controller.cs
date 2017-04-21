@@ -19,21 +19,7 @@ namespace Server
         private Player player;
         private TcpClient client;
 
-        public Controller()
-        {
-          /*  commands = new Dictionary<string, ICommand>
-            {
-                { "generate", new GenerateMazeCommand(model) },
-                { "solve", new SolveMazeCommand(model) },
-                { "start", new CreateMultiplayerGameCommand(model) },
-                { "list", new GetJoinableGamesCommand(model) },
-                { "join", new JoinRequestCommand(model) },
-                { "play", new TurnPerformedCommand() },
-                { "close", new PlayerQuitMultGameCommand() }
-            };*/
-        }
-
-
+        
         public Status ExecuteCommand(string commandLine, TcpClient client)
         {
             this.client = client;
@@ -61,13 +47,14 @@ namespace Server
         {
             this.gameRoom = room;
             //These commands should be available only if there is a room to play in
-            commands.Add("play", new TurnPerformedCommand());
+            commands.Add("play", new TurnPerformedCommand(this.gameRoom, this.player));
             commands.Add("close", new PlayerQuitMultGameCommand());
         }
 
         public void SetModel(IModel model)
         {
             this.model = model;
+            //all the commands are available only if there's a specific model
             commands = new Dictionary<string, ICommand>
             {
                 { "generate", new GenerateMazeCommand(model) },
@@ -75,8 +62,7 @@ namespace Server
                 { "start", new CreateMultiplayerGameCommand(model) },
                 { "list", new GetJoinableGamesCommand(model) },
                 { "join", new JoinRequestCommand(model) },
-                { "play", new TurnPerformedCommand() },
-                { "close", new PlayerQuitMultGameCommand() }
+                
             };
         }
 
@@ -94,6 +80,15 @@ namespace Server
         {
             if (e == null) return;
             clientHandler.SendResponseToClient(this.client, e.Result);
+        }
+        //!!!!!
+        public void MoveUpdate(Player p, Result result)
+        {
+            if(this.player == p)
+            {
+                clientHandler.SendResponseToClient(this.client, result);
+
+            }
         }
 
         private Result GetErrorResult()

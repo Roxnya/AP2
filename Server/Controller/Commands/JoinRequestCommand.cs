@@ -19,8 +19,14 @@ namespace Server.Commands
 
         public Result Execute(string[] args, TcpClient client = null)
         {
-            List<string> list = model.GetJoinableGamesList();
-            return new Result(JsonConvert.SerializeObject(list), Status.Close);
+            string name = args[0];
+            bool result = model.Join(name);
+            if (result)
+            {
+                return new Result("", Status.Close);
+            }
+            return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
+
 
         }
     }

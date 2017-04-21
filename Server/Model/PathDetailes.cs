@@ -23,7 +23,7 @@ namespace Server.Model
                     result.Append("0");
                 }
                 if (next.Col == current.Col + 1)
-                {
+                 {
                     result.Append("1");
                 }
                 if (next.Row == current.Row + 1)
