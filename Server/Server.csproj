@@ -61,6 +61,7 @@
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Model\Interfaces\ISinglePlayerGameRoom.cs" />
     <Compile Include="Model\PathDetailes.cs" />
+    <Compile Include="Model\SearcherFactory.cs" />
     <Compile Include="Model\SinglePlayerGameRoom.cs" />
     <Compile Include="Model\SolutionDetails.cs" />
     <Compile Include="Model\Player.cs" />

@@ -43,22 +43,10 @@ namespace Server.Model
                 }
 
                 MazeAdapter ma = new MazeAdapter(m);
-                if (alg == Algorithm.BFS)
-                {
-                    ISearcher<Position> bfs = new BFS<Position>();
-                    Solution<Position> sol = bfs.Search(ma);
-                    sd = new SolutionDetails(name, sol);
-                    gameData.AddSinglePlayerSolution(m.Name, sd);
+                ISearcher<Position> searcher = SearcherFactory.GetSearcher(alg);
+                sd = new SolutionDetails(name, searcher.Search(ma));
+                gameData.AddSinglePlayerSolution(m.Name, sd);
 
-                }
-                if (alg == Algorithm.DFS)
-                {
-                    ISearcher<Position> dfs = new DFS<Position>();
-                    Solution<Position> sol = dfs.Search(ma);
-                    sd = new SolutionDetails(name, sol);
-                    gameData.AddSinglePlayerSolution(m.Name, sd);
-
-                }
                 return sd;
 
             }
