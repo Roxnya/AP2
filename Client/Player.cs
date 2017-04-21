@@ -44,8 +44,6 @@ namespace Client
             task.Start();
 
             Console.WriteLine("Please enter command...");
-            //int command = GetCommand();
-            //string send = Option(command);
             string s = Console.ReadLine();
             string[] words = s.Split();
             string command = words[0];
@@ -69,7 +67,6 @@ namespace Client
             JObject mazeObj;
             string mazeRep;
             Maze maze;
-            //Result r;
             do
             {
                 string s = reader.ReadString();
@@ -176,26 +173,7 @@ namespace Client
 
             return maze;
         }
-        private int GetCommand()
-        {
-            Console.WriteLine("Please Select Your Action Number:");
-            Console.WriteLine("0.exit\n1.generate\n2.solve\n3.start\n4.list\n5.join");
-            string line = Console.ReadLine();
-            int option;
-            bool isNum = int.TryParse(line, out option);
-            while (!isNum || !IsInitialCommandValid(option))
-            {
-                Console.WriteLine("Invalid Input, Please Insert A Valid Option");
-                Console.WriteLine("1.generate\n2.solve\n3.start\n4.list\n5.join\n");
-                isNum = int.TryParse(line, out option);
-            }
-            return option;
-        }
 
-        private bool IsInitialCommandValid(int command)
-        {
-            return command > 0 && command < 6;
-        }
     }
 }
 
