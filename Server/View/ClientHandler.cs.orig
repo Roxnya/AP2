@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Server.View
+{
+    class ClientHandler : IClientHandler
+    {
+        private TcpClient client;
+        private StreamWriter writer = null;
+        private StreamReader reader = null;
+        private NetworkStream stream = null;
+
+        public ClientHandler(TcpClient client)
+        {
+            this.client = client;
+            this.stream = client.GetStream();
+            this.writer = new StreamWriter(stream);
+        }
+
+        public void SendResponseToClient(Result result)
+        {
+            new Task(() =>
+            {
+<<<<<<< HEAD
+                try
+                {
+                    Console.WriteLine("Sending Response");
+                    //Clears all buffers for the current writer and causes
+                    //any buffered data to be written to the underlying stream.
+                    writer.Flush();
+                    writer.WriteLine(result.Json);
+                    writer.Flush();
+                    if(result.Status == Status.Close)
+                    {
+                        HandleTermination();
+=======
+                NetworkStream stream = null;
+                //StreamReader reader = null;
+                BinaryWriter writer = null;
+                try
+                {
+                    stream = client.GetStream();
+                    writer = new BinaryWriter(stream);
+                    while (true)
+                    {
+                        Console.WriteLine("Sending Response");
+                        //Clears all buffers for the current writer and causes
+                        //any buffered data to be written to the underlying stream.
+                        //writer.Flush();
+                        writer.Write(result.Json);
+                        //writer.Flush();
+                        if(result.Status == Status.Close)
+                        {
+                            client.Close();
+                            break;
+                        }
+>>>>>>> 191427f212ba32f5834fdaba15dd40767a45f696
+                    }
+                }
+                catch (Exception)
+                {
+<<<<<<< HEAD
+                    HandleTermination();
+=======
+                    if (stream != null) stream.Dispose();
+                    //if (reader != null) stream.Dispose();
+                   // if (writer != null) stream.Dispose();
+                    client.Close();
+>>>>>>> 191427f212ba32f5834fdaba15dd40767a45f696
+                }
+            }).Start();
+        }
+
+        public void HandleClient(IController controller)
+        {
+            new Task(() =>
+            {
+<<<<<<< HEAD
+               // StreamWriter writer = null;
+                try
+                {
+                    this.reader = new StreamReader(stream);
+                    while (client != null)
+=======
+                NetworkStream stream = null;
+                BinaryReader reader = null;
+               // StreamWriter writer = null;
+                try
+                {
+                    stream = client.GetStream();
+                    reader = new BinaryReader(stream);
+                    while (true)
+>>>>>>> 191427f212ba32f5834fdaba15dd40767a45f696
+                    {
+                        string commandLine = reader.ReadString();
+                        Console.WriteLine("Got command: {0}", commandLine);
+                        //Clears all buffers for the current writer and causes
+                        //any buffered data to be written to the underlying stream.
+                        Status status = controller.ExecuteCommand(commandLine, client);
+                        if (status == Status.Close)
+                        {
+                            HandleTermination();
+                        }
+                    }
+                }
+                catch(Exception)
+                {
+<<<<<<< HEAD
+                    HandleTermination();
+=======
+                    if (stream != null) stream.Dispose();
+                    //if (reader != null) stream.Dispose();
+                    client.Close();
+>>>>>>> 191427f212ba32f5834fdaba15dd40767a45f696
+                }
+            }).Start();
+        }
+
+        private void HandleTermination()
+        {
+            if (stream != null) stream.Dispose();
+            if (reader != null) stream.Dispose();
+            if (writer != null) stream.Dispose();
+            if (client != null)
+            {
+                client.Close();
+                client = null;
+            }
+        }
+    }
+}
