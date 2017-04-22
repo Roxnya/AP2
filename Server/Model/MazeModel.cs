@@ -57,6 +57,7 @@ namespace Server.Model
         public bool OpenRoom(string name, int rows, int cols)
         {
             if (gameData.ContainsMultGame(name)) return false;
+
             Maze m = CreateMaze(name, rows, cols);
             Player host = new Player();
             IMultiPlayerGameRoom room = new GameRoom(m, host);
@@ -76,9 +77,9 @@ namespace Server.Model
             Player player2 = new Player();
             controller.SetPlayer(player2);
             controller.SetGame(room);
-            room.Notify += controller.Update;
             //test if join successeded
-            room.Join(player2);
+            if (!room.Join(player2)) return false;
+            room.Notify += controller.Update;
             return true;
         }
 

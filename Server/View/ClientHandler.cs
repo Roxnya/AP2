@@ -10,45 +10,38 @@ namespace Server.View
 {
     class ClientHandler : IClientHandler
     {
-        TcpClient client;
+        private TcpClient client;
+        private BinaryWriter writer = null;
+        private BinaryReader reader = null;
+        private NetworkStream stream = null;
 
         public ClientHandler(TcpClient client)
         {
             this.client = client;
+            this.stream = client.GetStream();
+            this.writer = new BinaryWriter(stream);
         }
 
         public void SendResponseToClient(Result result)
         {
             new Task(() =>
             {
-                NetworkStream stream = null;
-                //StreamReader reader = null;
-                BinaryWriter writer = null;
                 try
                 {
-                    stream = client.GetStream();
-                    writer = new BinaryWriter(stream);
-                    while (true)
+                    Console.WriteLine("Sending Response");
+                    //Clears all buffers for the current writer and causes
+                    //any buffered data to be written to the underlying stream.
+                    writer.Flush();
+                    writer.Write(result.Json);
+                    writer.Flush();
+                    if(result.Status == Status.Close)
                     {
-                        Console.WriteLine("Sending Response");
-                        //Clears all buffers for the current writer and causes
-                        //any buffered data to be written to the underlying stream.
-                        //writer.Flush();
-                        writer.Write(result.Json);
-                        //writer.Flush();
-                        if(result.Status == Status.Close)
-                        {
-                            client.Close();
-                            break;
-                        }
+                        HandleTermination();
                     }
                 }
                 catch (Exception)
                 {
-                    if (stream != null) stream.Dispose();
-                    //if (reader != null) stream.Dispose();
-                   // if (writer != null) stream.Dispose();
-                    client.Close();
+                    HandleTermination();
                 }
             }).Start();
         }
@@ -57,31 +50,40 @@ namespace Server.View
         {
             new Task(() =>
             {
-                NetworkStream stream = null;
-                BinaryReader reader = null;
                // StreamWriter writer = null;
                 try
                 {
-                    stream = client.GetStream();
-                    reader = new BinaryReader(stream);
-                    while (true)
+                    this.reader = new BinaryReader(stream);
+                    while (client != null)
                     {
                         string commandLine = reader.ReadString();
                         Console.WriteLine("Got command: {0}", commandLine);
                         //Clears all buffers for the current writer and causes
                         //any buffered data to be written to the underlying stream.
                         Status status = controller.ExecuteCommand(commandLine, client);
-                        if (status == Status.Close) break;
-
+                        if (status == Status.Close)
+                        {
+                            HandleTermination();
+                        }
                     }
                 }
                 catch(Exception)
                 {
-                    if (stream != null) stream.Dispose();
-                    //if (reader != null) stream.Dispose();
-                    client.Close();
+                    HandleTermination();
                 }
             }).Start();
+        }
+
+        private void HandleTermination()
+        {
+            if (stream != null) stream.Dispose();
+            if (reader != null) stream.Dispose();
+            if (writer != null) stream.Dispose();
+            if (client != null)
+            {
+                client.Close();
+                client = null;
+            }
         }
     }
 }
