@@ -35,7 +35,8 @@ namespace Server.Commands
         /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
-            //get the name of the maze 
+            if (args.Count() != 2)
+                throw new InvalidOperationException("Not enough arguemnts for generate command.");
             string name = args[0];
             //get the algotithm to solve the maze with
             Algorithm algorithm = (Algorithm)Enum.Parse(typeof(Algorithm), args[1]);
@@ -44,8 +45,12 @@ namespace Server.Commands
             //get the solution
             SolutionDetails sol = model.Solve(name, algorithm);
 
-            //convert the solution to the needed form
-            string result = model.GetPathAsString(sol.solution);
+            string result = string.Empty;
+            if (sol != null)
+            {
+                //convert the solution to the needed form
+                result = model.GetPathAsString(sol.solution);
+            }
 
             return new Result(ToJSON(result, sol), Status.Close);
 

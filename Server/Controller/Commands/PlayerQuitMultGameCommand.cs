@@ -32,6 +32,9 @@ namespace Server.Commands
         /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
+            if (args.Count() != 1)
+                throw new InvalidOperationException("Not enough arguemnts for generate command.");
+
             model.Quit(args[0]);
             return new Result("close", Status.ReadOnly);
         }

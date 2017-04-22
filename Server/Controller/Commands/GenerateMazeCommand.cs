@@ -51,7 +51,7 @@ namespace Server
         /// <returns>maze in JSon format</returns>
         private string Serialize(Maze maze)
         {
-            return maze != null ? maze.ToJSON() : "Error. Game name already exists";
+            return maze != null ? maze.ToJSON() : "error Game name already exists";
         }
 
     }

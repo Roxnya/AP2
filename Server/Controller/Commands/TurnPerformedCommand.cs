@@ -36,6 +36,9 @@ namespace Server.Commands
         /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
+            if (args.Count() != 1)
+                throw new InvalidOperationException("Not enough arguemnts for generate command.");
+
             string direction = args[0];
             gameRoom.Move(player, direction);
             return new Result("", Status.ReadOnly);

@@ -15,13 +15,16 @@ namespace Client
 {
     class Player
     {
-        TcpClient client;
-        BinaryReader reader;
-        BinaryWriter writer;
-        NetworkStream stream;
-        int command;
+        private TcpClient client;
+        private BinaryReader reader;
+        private BinaryWriter writer;
+        private NetworkStream stream;
+        private int command;
         private IPEndPoint ep;
         private int port;
+        private bool keepCom;
+        private string message;
+        private bool result;
 
         public Player(int port, string ip)
         {
@@ -42,23 +45,72 @@ namespace Client
         public void Handle()
         {
             Console.WriteLine("Please enter command...");
-            string s = Console.ReadLine();
-            string[] words = s.Split();
-            string command = words[0];
-            Option(command);
+            message = Console.ReadLine();
+            string[] words = message.Split();
+            Option(words[0]);
+
             while (this.command != 0)
             {
                 EstablishConnection();
-                Task task = new Task(Listen);
-                task.Start();
-                writer.Write(s);
-                s = Console.ReadLine();
-                EstablishConnection();
-                words = s.Split();
-                command = words[0];
-                Option(command);
-
+                writer.Write(message);
+                if (HandleCommand())
+                {
+                    continue;
+                }
+                message = Console.ReadLine();
+                words = message.Split();
+                Option(words[0]);
             }
+        }
+
+        private bool HandleCommand()
+        {
+            string s = reader.ReadString();
+            Console.WriteLine(s);
+            if (s.Contains("error")) return false;
+            if (!IsCommandSinglePlayer())
+            {
+                //if the command is start/join init multiplayer flow
+                return HandleMultiplayerFlow();
+            }
+            return false;
+        }
+
+        private bool HandleMultiplayerFlow()
+        {
+            Task task = new Task(Listen);
+            task.Start();
+            string[] words;
+            try
+            {
+                do
+                {
+                    message = Console.ReadLine();
+                    words = message.Split();
+                    Option(words[0]);
+                    if (client != null)
+                    {
+                        writer.Write(message);
+                    }
+                    else
+                    {
+                        result = true;
+                    }
+                }
+                while (keepCom);
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        private bool IsCommandSinglePlayer()
+        {
+            //if command is not join or start - we are inside the main while loop and still in single player mode
+            //in which close/play are invalid anyways.
+            return (this.command != 3 && this.command != 5);
         }
 
         private void TerminateConnection()
@@ -76,46 +128,26 @@ namespace Client
 
         private void EstablishConnection()
         {
-            if(command == 1 || command == 2 || command == 3 || command == 4 || command == 5 || command == 0)
-            ConnectToServer();
+            if (command == -1 || command == 1 || command == 2 || command == 3 || command == 4 || command == 5 || command == 0)
+            {
+                ConnectToServer();
+            }
         }
 
         public void Listen()
         {
-            bool KeepCom = true;
+            keepCom = true;
             do
             {
-                StringBuilder sb = new StringBuilder();
                 string s = reader.ReadString();
                 Console.WriteLine(s);
-                Console.WriteLine(sb.ToString());
-
-                switch (this.command)
+                if (s.Equals("close"))
                 {
-                    case 1:
-                        KeepCom = false;
-                        break;
-
-                    case 2:
-                        KeepCom = false;
-                        break;
-
-                    case 4:
-
-                        KeepCom = false;
-                        break;
-
-                    case 0:
-                        KeepCom = false;
-                        break;
-
-                    default:
-                        break;
-
+                    keepCom = false;
+                    TerminateConnection();
                 }
-            } while (KeepCom);
+            } while (keepCom);
         }
-
 
         private void Option(string command)
         {
@@ -141,6 +173,9 @@ namespace Client
                     break;
                 case "close":
                     this.command = 0;
+                    break;
+                default:
+                    this.command = -1;
                     break;
             }
             

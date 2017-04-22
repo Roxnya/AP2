@@ -34,6 +34,9 @@ namespace Server.Commands
         /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
+            if (args.Count() != 3)
+                throw new InvalidOperationException("error: Not enough arguemnts for generate command.");
+
             string name = args[0];
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);

@@ -74,7 +74,7 @@ namespace Server.Model
                 return sd;
 
             }
-            return new SolutionDetails("", new Solution<Position>(0));
+            throw new InvalidOperationException("game name doesn't exist");
 
         }
 

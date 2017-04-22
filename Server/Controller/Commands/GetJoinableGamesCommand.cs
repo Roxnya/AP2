@@ -34,6 +34,9 @@ namespace Server.Commands
         /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
+            if (args.Count() != 0)
+                throw new InvalidOperationException("Not enough arguemnts for generate command.");
+
             List<string> rooms = model.GetJoinableGamesList();
             return new Result(JsonConvert.SerializeObject(rooms), Status.Close);
         }

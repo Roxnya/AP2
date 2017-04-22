@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server.View
@@ -46,6 +48,7 @@ namespace Server.View
                     writer.Flush();
                     writer.Write(result.Json);
                     writer.Flush();
+                    Thread.Sleep(1000);
                     if(result.Status == Status.Close)
                     {
                         HandleTermination();
@@ -84,7 +87,7 @@ namespace Server.View
                    if (client != null && writer != null)
                     {
                         writer.Flush();
-                        writer.Write(ex.Message);
+                        writer.Write(JsonConvert.SerializeObject("error " + ex.Message));
                     }
                     HandleTermination();
                 }
