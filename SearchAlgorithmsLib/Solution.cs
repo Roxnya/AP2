@@ -18,10 +18,13 @@ namespace SearchAlgorithmsLib
         /// <summary>
         /// Ctor
         /// </summary>
-        public Solution()
+        public Solution(int nodesEvaluated)
         {
             states = new List<State<T>>();
+            this.NodesEvaluated = nodesEvaluated;
         }
+
+        public int NodesEvaluated { get; private set; }
 
         public int RouteSize
         {

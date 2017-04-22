@@ -20,10 +20,17 @@ namespace Client
         BinaryWriter writer;
         Boolean KeepCom;
         int command;
+        private StreamReader reader;
+        private StreamWriter writer;
+        private TcpClient client;
+        private NetworkStream stream;
+        private IPEndPoint ep;
+        private int port;
 
-
-        public Player()
+        public Player(int port, string ip)
         {
+            this.ep = new IPEndPoint(IPAddress.Parse(ip), 5555);
+            this.port = port;
             this.client = ConnectToServer();
             KeepCom = true;
 
@@ -32,7 +39,6 @@ namespace Client
         }
         private TcpClient ConnectToServer()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5555);
             TcpClient client = new TcpClient();
             client.Connect(ep);
             return client;

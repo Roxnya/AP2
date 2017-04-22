@@ -56,7 +56,7 @@ namespace SearchAlgorithmsLib
                     }
                 }
             }
-            return new Solution<T>();
+            return new Solution<T>(evaluatedNodes);
         }
 
         /// <summary>

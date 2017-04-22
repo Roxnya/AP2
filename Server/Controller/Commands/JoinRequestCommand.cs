@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Server.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using MazeLib;
+
 namespace Server.Commands
 {
     class JoinRequestCommand : ICommand
@@ -20,10 +21,10 @@ namespace Server.Commands
         public Result Execute(string[] args, TcpClient client = null)
         {
             string name = args[0];
-            Maze result = model.Join(name);
-            if (result!=null)
+            bool result = model.Join(name);
+            if (result)
             {
-                return new Result(result.ToJSON(), Status.Close);
+                return new Result("", Status.ReadOnly);
             }
             return new Result(JsonConvert.SerializeObject("Game name already exists"), Status.Close);
             

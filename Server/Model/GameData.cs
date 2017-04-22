@@ -8,25 +8,23 @@ using System.Threading.Tasks;
 using Server.Model;
 using System.Net.Sockets;
 
-namespace Server
+namespace Server.Model
 {
     /// <summary>
     /// Container Class for relevant game data such as rooms, maze list, solutions, etc.
     /// </summary>
     class GameData : IGameData
     {
-        private Dictionary<string, Maze> singlePlayerMazeList;
-        private Dictionary<Maze, SolutionDetails> singlePlayerSolutions;
-        private Dictionary<string, IGameRoom> rooms;
+        private Dictionary<string, ISinglePlayerGameRoom> singlePlayerRoomsList;
+        private Dictionary<string, IMultiPlayerGameRoom> rooms;
 
         /// <summary>
         /// Ctor. Inits containers.
         /// </summary>
         public GameData()
         {
-            singlePlayerMazeList = new Dictionary<string, Maze>();
-            singlePlayerSolutions = new Dictionary<Maze, SolutionDetails>();
-            rooms = new Dictionary<string, IGameRoom>();
+            singlePlayerRoomsList = new Dictionary<string, ISinglePlayerGameRoom>();
+            rooms = new Dictionary<string, IMultiPlayerGameRoom>();
         }
 
         /// <summary>
@@ -35,8 +33,11 @@ namespace Server
         /// <returns>returns list of room names that are waiting for another player</returns>
         public List<string> GetJoinableRooms()
         {
-            return rooms.Values.Where(r => r.Mode == Mode.WaitingForPlayer)
-                                                .Select(r => r.Name).ToList();
+            lock (rooms)
+            {
+                return rooms.Values.Where(r => r.Mode == Mode.WaitingForPlayer)
+                                                    .Select(r => r.Name).ToList();
+            }
         }
 
         /// <summary>
@@ -44,9 +45,12 @@ namespace Server
         /// </summary>
         /// <param name="room">room to add</param>
         /// <returns>true if game was added, false otherwise</returns>
-        public void AddGame(IGameRoom room)
+        public void AddGame(IMultiPlayerGameRoom room)
         {
-            rooms.Add(room.Name, room);
+            lock (rooms)
+            {
+                rooms.Add(room.Name, room);
+            }
         }
 
         /// <summary>
@@ -56,7 +60,10 @@ namespace Server
         /// <returns>true if exists, false otherwise</returns>
         public bool ContainsMultGame(string name)
         {
-            return rooms.ContainsKey(name);
+            lock (rooms)
+            {
+                return rooms.ContainsKey(name);
+            }
         }
 
         /// <summary>
@@ -66,17 +73,23 @@ namespace Server
         /// <returns>true if exists, false otherwise</returns>
         public bool ContainsSingleGame(string name)
         {
-            return singlePlayerMazeList.ContainsKey(name);
+            lock (singlePlayerRoomsList)
+            {
+                return singlePlayerRoomsList.ContainsKey(name);
+            }
         }
 
         /// <summary>
         /// Adds given solution to game data
         /// </summary>
-        /// <param name="m">the maze that was solved</param>
+        /// <param name="name">name of the maze that was solved</param>
         /// <param name="sol">solution to add</param>
-        public void AddSinglePlayerSolution(Maze m, SolutionDetails sol)
+        public void AddSinglePlayerSolution(string name, SolutionDetails sol)
         {
-            singlePlayerSolutions.Add(m, sol);
+            lock (singlePlayerRoomsList)
+            {
+                singlePlayerRoomsList[name].AddSolution(sol);
+            }
         }
 
         /// <summary>
@@ -84,19 +97,24 @@ namespace Server
         /// </summary>
         /// <param name="maze">the maze for which we want the solution</param>
         /// <returns>If given maze has a solution, returns it's solution. Otherwise, returns null.</returns>
-        public SolutionDetails GetSinglePlayertSolution(Maze maze)
+        public SolutionDetails GetSinglePlayertSolution(string name)
         {
-            return singlePlayerSolutions.ContainsKey(maze) ? singlePlayerSolutions[maze] : null;
+            lock (singlePlayerRoomsList)
+            {
+                return singlePlayerRoomsList.ContainsKey(name) ? singlePlayerRoomsList[name].Solution : null;
+            }
         }
 
         /// <summary>
-        /// Adds given maze to maze list
+        /// Adds given room to single player rooms list
         /// </summary>
-        /// <param name="maze">maze to add</param>
-        /// <returns>true if maze was added, false otherwise</returns>
-        public void AddSinglePlayerMaze(Maze maze)
+        /// <param name="room">room to add</param>
+        public void AddSinglePlayerRoom(ISinglePlayerGameRoom room)
         {
-            singlePlayerMazeList.Add(maze.Name, maze);
+            lock (singlePlayerRoomsList)
+            {
+                singlePlayerRoomsList.Add(room.Name, room);
+            }
         }
 
         /// <summary>
@@ -104,15 +122,32 @@ namespace Server
         /// </summary>
         /// <param name="maze">maze to find</param>
         /// <returns>If given maze name exists, returns a maze with that name. Otherwise, returns null.</returns>
-        public Maze GetSinglePlayertMaze(string maze)
+        public ISinglePlayerGameRoom GetSinglePlayertRoom(string maze)
         {
-            return singlePlayerMazeList.ContainsKey(maze) ? singlePlayerMazeList[maze] : null;
+            lock (singlePlayerRoomsList)
+            {
+                return singlePlayerRoomsList.ContainsKey(maze) ? singlePlayerRoomsList[maze] : null;
+            }
         }
 
 
-        public IGameRoom GetMultiPlayerRoom(string name)
+        public IMultiPlayerGameRoom GetMultiPlayerRoom(string name)
         {
-            return rooms.ContainsKey(name) ? rooms[name] : null;
+            lock (rooms)
+            {
+                return rooms.ContainsKey(name) ? rooms[name] : null;
+            }
+        }
+
+        public void RemoveMultiplayerRoom(string name)
+        {
+            if (ContainsMultGame(name))
+            {
+                lock(rooms)
+                {
+                    rooms.Remove(name);
+                }
+            }
         }
     }
 }

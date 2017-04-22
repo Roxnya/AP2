@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Server.Model;
+using Server.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,7 +17,6 @@ namespace Server
     {
         private int port;
         private TcpListener listener;
-        private IClientHandler ch;
         private IGameData data;
         private bool stop;
 
@@ -24,10 +25,9 @@ namespace Server
         /// </summary>
         /// <param name="port">Server's port through which clients will connect</param>
         /// <param name="ch">View class that will handle clients</param>
-        public Server(int port, IClientHandler ch)
+        public Server(int port)
         {
             this.port = port;
-            this.ch = ch;
             //initialize game's content class (maze list, solutions, game romms..)
             this.data = new GameData();
             stop = false;
@@ -54,10 +54,11 @@ namespace Server
                         //Init controller and model for new specific client
                         IController controller = new Controller();
                         IModel model = new MazeModel(controller, this.data);
+                        IClientHandler ch = ClientHandlerFactory.GenerateClientHandler(client);
                         controller.SetModel(model);
                         controller.SetView(ch);
                         //delegate client handling
-                        ch.HandleClient(client, controller);
+                        ch.HandleClient(controller);
                     }
                     catch (SocketException ex)
                     {

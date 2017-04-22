@@ -46,7 +46,7 @@ namespace SearchAlgorithmsLib
         /// <returns>Solution of goal state. </returns>
         protected Solution<T> BackTrace(State<T> goalState, State<T> initialState = null)
         {
-            Solution<T> solution = new Solution<T>();
+            Solution<T> solution = new Solution<T>(evaluatedNodes);
             while (goalState != null)
             {
                 solution.AddState(goalState);
