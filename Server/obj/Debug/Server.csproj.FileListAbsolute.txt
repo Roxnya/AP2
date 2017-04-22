@@ -21,7 +21,6 @@ C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\SearchAlgorithmsLib.pdb
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
-C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.csproj.Server.exe.config
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.exe
 C:\Users\Виктория\Desktop\AP2\Server\obj\Debug\Server.pdb
 C:\Users\Виктория\Desktop\AP2\Server\bin\Debug\CompareSolvers.exe

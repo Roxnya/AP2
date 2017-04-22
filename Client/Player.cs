@@ -20,10 +20,6 @@ namespace Client
         BinaryWriter writer;
         Boolean KeepCom;
         int command;
-        private StreamReader reader;
-        private StreamWriter writer;
-        private TcpClient client;
-        private NetworkStream stream;
         private IPEndPoint ep;
         private int port;
 
