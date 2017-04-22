@@ -106,7 +106,7 @@ namespace Client
                             Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
                                 maze.Rows, maze.Cols, mazeRep);
                         }
-                        KeepCom = false;
+                        //KeepCom = false;
                         break;
 
                     case 4:
@@ -123,7 +123,19 @@ namespace Client
                             Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
                                 maze.Rows, maze.Cols, mazeRep);
                         }
-                        KeepCom = false;
+                        //KeepCom = false;
+                        break;
+
+                    case 6:
+                        mazeObj = JObject.Parse(s);
+                        mazeRep = (string)mazeObj["Maze"];
+                        maze = ParseMaze(s);
+                        if (maze != null)
+                        {
+                            Console.WriteLine("Created Maze Name: {0}, Rows: {1}, Columns: {2}, Maze representation: {3}", maze.Name,
+                                maze.Rows, maze.Cols, mazeRep);
+                        }
+                        //KeepCom = false;
                         break;
                 }
                
