@@ -108,6 +108,12 @@ namespace Client
                         }
                         KeepCom = false;
                         break;
+
+                    case 4:
+                        if (s == "[]") Console.WriteLine("There are no games to join");
+                        else Console.WriteLine(s);
+                        KeepCom = false;
+                        break;
                     case 5:
                         mazeObj = JObject.Parse(s);
                         mazeRep = (string)mazeObj["Maze"];
