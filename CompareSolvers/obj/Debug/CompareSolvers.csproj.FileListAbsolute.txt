@@ -5,14 +5,6 @@ C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareS
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.exe
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\obj\Debug\CompareSolvers.pdb
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.exe.config
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.exe
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.pdb
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\MazeLib.dll
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.exe
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.pdb
-C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.pdb
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\DIBRIS.Hippie.dll
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\PommaLabs.Thrower.dll
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Finsa.CodeServices.Common.dll
@@ -28,11 +20,16 @@ C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareS
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\Troschuetz.Random.xml
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\SearchAlgorithmsLib.dll
 C:\Users\demo\Documents\Visual Studio 2012\Projects\SearchAlgorithmsLib\CompareSolvers\bin\Debug\SearchAlgorithmsLib.dll.config
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.exe.config
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.exe
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\CompareSolvers.pdb
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\MazeLib.dll
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.dll
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\DIBRIS.Hippie.dll
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\PommaLabs.Thrower.dll
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Finsa.CodeServices.Common.dll
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Troschuetz.Random.dll
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.pdb
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\SearchAlgorithmsLib.dll.config
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\DIBRIS.Hippie.pdb
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\DIBRIS.Hippie.xml
@@ -42,3 +39,6 @@ C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Finsa.CodeService
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Finsa.CodeServices.Common.xml
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Troschuetz.Random.pdb
 C:\Users\Виктория\Desktop\AP2\CompareSolvers\bin\Debug\Troschuetz.Random.xml
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.csprojResolveAssemblyReference.cache
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.exe
+C:\Users\Виктория\Desktop\AP2\CompareSolvers\obj\Debug\CompareSolvers.pdb

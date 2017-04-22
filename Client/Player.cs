@@ -132,26 +132,7 @@ namespace Client
             
         }
 
-        private Maze ParseMaze(String str)
-        {
-            Maze maze = null;
-            try
-            {
-                JObject mazeObj = JObject.Parse(str);
-                maze = new Maze((int)mazeObj["Rows"], (int)mazeObj["Cols"]);
-                string mazeRep = (string)mazeObj["Maze"];
-                maze.Name = (string)mazeObj["Name"];
 
-                maze.InitialPos = new Position((int)mazeObj["Start"]["Row"], (int)mazeObj["Start"]["Col"]);
-                maze.GoalPos = new Position((int)mazeObj["End"]["Row"], (int)mazeObj["End"]["Col"]);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            return maze;
-        }
 
     }
 }

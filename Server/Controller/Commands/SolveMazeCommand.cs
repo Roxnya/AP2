@@ -23,7 +23,6 @@ namespace Server.Commands
         public Result Execute(string[] args, TcpClient client = null)
         {
             string name = args[0];
-            
             Algorithm algorithm = (Algorithm)Enum.Parse(typeof(Algorithm), args[1]);
             if (!Enum.IsDefined(typeof(Algorithm), algorithm) && !algorithm.ToString().Contains(","))
                 throw new InvalidOperationException("Invalid algorithm. Algorithm type is not defined.");
