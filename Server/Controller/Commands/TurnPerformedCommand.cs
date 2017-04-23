@@ -9,19 +9,31 @@ using Server.Model;
 
 namespace Server.Commands
 {
-    /**
-     * Relevant only for multiplayer game.
-     **/
+    /// <summary>
+    /// Play command class
+    /// </summary>
     class TurnPerformedCommand : ICommand
     {
         private IMultiPlayerGameRoom gameRoom;
         private Player player;
 
+        /// <summary>
+        /// Constructor for TurnPerformedCommand.
+        /// </summary>
+        /// <param name="gameRoom">relevant gameroom</param>
+        /// <param name="player">player that performs a step</param>
         public TurnPerformedCommand(IMultiPlayerGameRoom gameRoom, Player player)
         {
             this.gameRoom = gameRoom;
             this.player = player;
         }
+
+        /// <summary>
+        /// Executes play command.
+        /// </summary>
+        /// <param name="args">user input</param>
+        /// <param name="client">user</param>
+        /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
             string direction = args[0];

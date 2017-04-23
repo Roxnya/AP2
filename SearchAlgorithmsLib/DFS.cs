@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// DFS algrithm class
+    /// </summary>
+    /// <typeparam name="T">type</typeparam>
     public class DFS<T> : StackSearcher<T>
     {
 
@@ -11,8 +15,14 @@ namespace SearchAlgorithmsLib
         {
         }
 
+        /// <summary>
+        /// Search func
+        /// </summary>
+        /// <param name="searchable">searchable</param>
+        /// <returns>solution</returns>
         public override Solution<T> Search(ISearchable<T> searchable)
         {
+            //discovered nodes set
             HashSet<State<T>> discovered = new HashSet<State<T>>();
             State<T> v = searchable.GetInitialState();
             v.CameFrom = null;

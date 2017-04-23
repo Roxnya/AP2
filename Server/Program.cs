@@ -7,6 +7,9 @@ using System.Configuration;
 
 namespace Server
 {
+    /// <summary>
+    /// Program class
+    /// </summary>
     class Program
     {
         static void Main(string[] args)

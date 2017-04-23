@@ -10,15 +10,28 @@ using System.Threading.Tasks;
 
 namespace Server.Commands
 {
+    /// <summary>
+    /// Get Joinable Games  list Command class
+    /// </summary>
     class GetJoinableGamesCommand : ICommand
     {
         IModel model;
 
+        /// <summary>
+        /// Constructor for GetJoinableGamesCommand.
+        /// </summary>
+        /// <param name="model">model</param>
         public GetJoinableGamesCommand(IModel model)
         {
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes list command.
+        /// </summary>
+        /// <param name="args">user input</param>
+        /// <param name="client">user</param>
+        /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
             List<string> rooms = model.GetJoinableGamesList();

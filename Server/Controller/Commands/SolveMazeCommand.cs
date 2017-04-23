@@ -11,21 +11,37 @@ using Server.Model;
 
 namespace Server.Commands
 {
+    /// <summary>
+    /// Solve maze command class
+    /// </summary>
     class SolveMazeCommand : ICommand
     {
         IModel model;
 
+        /// <summary>
+        /// Constructor for SolveMazeCommand.
+        /// </summary>
+        /// <param name="model">model</param>
         public SolveMazeCommand(IModel model)
         {
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes solve command.
+        /// </summary>
+        /// <param name="args">user input</param>
+        /// <param name="client">user</param>
+        /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
+            //get the name of the maze 
             string name = args[0];
+            //get the algotithm to solve the maze with
             Algorithm algorithm = (Algorithm)Enum.Parse(typeof(Algorithm), args[1]);
             if (!Enum.IsDefined(typeof(Algorithm), algorithm) && !algorithm.ToString().Contains(","))
                 throw new InvalidOperationException("Invalid algorithm. Algorithm type is not defined.");
+            //get the solution
             SolutionDetails sol = model.Solve(name, algorithm);
 
             //convert the solution to the needed form
@@ -35,6 +51,12 @@ namespace Server.Commands
 
         }
 
+        /// <summary>
+        /// Converts the solution to Json format.
+        /// </summary>
+        /// <param name="result">solution path as stirng</param>
+        /// <param name="sd">solution details</param>
+        /// <returns>the result in the Json format</returns>
         private string ToJSON(string result, SolutionDetails sd)
         {
             JObject mazeObj = new JObject();

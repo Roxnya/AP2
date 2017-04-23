@@ -9,15 +9,28 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /// <summary>
+    /// Generate Maze Command class
+    /// </summary>
     class GenerateMazeCommand : ICommand
     {
         private IModel model;
 
+        /// <summary>
+        /// Constructor for GenerateMazeCommand.
+        /// </summary>
+        /// <param name="model">model</param>
         public GenerateMazeCommand(IModel model)
         {
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes generate command.
+        /// </summary>
+        /// <param name="args">user input</param>
+        /// <param name="client">user</param>
+        /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client)
         {
             if(args.Count() != 3)
@@ -31,6 +44,11 @@ namespace Server
             return new Result(Serialize(maze), Status.Close);
         }
 
+        /// <summary>
+        /// Convert maze to JSon format.
+        /// </summary>
+        /// <param name="maze">maze to convert</param>
+        /// <returns>maze in JSon format</returns>
         private string Serialize(Maze maze)
         {
             return maze != null ? maze.ToJSON() : "Error. Game name already exists";

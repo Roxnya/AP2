@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /// <summary>
+    /// ClientHandlerFactory.
+    /// </summary>
     class ClientHandlerFactory
     {
+        /// <summary>
+        /// GenerateClientHandler
+        /// </summary>
+        /// <param name="client">client to handle</param>
+        /// <returns>client handler</returns>
         public static IClientHandler GenerateClientHandler(TcpClient client)
         {
             return new ClientHandler(client);

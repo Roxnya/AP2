@@ -8,7 +8,14 @@ namespace Server.Model
     /// </summary>
     internal interface ISinglePlayerGameRoom : IGameRoom
     {
+        /// <summary>
+        /// Get the solution
+        /// </summary>
         SolutionDetails Solution { get; }
+
+        /// <summary>
+        /// get the maze
+        /// </summary>
         Maze Maze { get; }
 
         /// <summary>

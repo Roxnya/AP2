@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Server.Model
 {
+    /// <summary>
+    /// Searvher factory
+    /// </summary>
     class SearcherFactory
     {
+        /// <summary>
+        /// Get the searcher
+        /// </summary>
+        /// <param name="alg">algorithm</param>
+        /// <returns>searching algorithm</returns>
         public static ISearcher<Position> GetSearcher(Algorithm alg)
         {
             ISearcher<Position> searcher = null;

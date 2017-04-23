@@ -24,8 +24,14 @@ namespace SearchAlgorithmsLib
             this.NodesEvaluated = nodesEvaluated;
         }
 
+        /// <summary>
+        /// Nodes evaluated get and set
+        /// </summary>
         public int NodesEvaluated { get; private set; }
 
+        /// <summary>
+        /// route size get and set
+        /// </summary>
         public int RouteSize
         {
             get { return states.Count; }

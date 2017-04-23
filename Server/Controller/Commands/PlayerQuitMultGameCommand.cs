@@ -8,15 +8,28 @@ using System.Threading.Tasks;
 
 namespace Server.Commands
 {
+    /// <summary>
+    /// Quit command class
+    /// </summary>
     class PlayerQuitMultGameCommand : ICommand
     {
         private IModel model;
 
+        /// <summary>
+        /// Constructor for PlayerQuitMultGameCommand.
+        /// </summary>
+        /// <param name="model">model</param>
         public PlayerQuitMultGameCommand(IModel model)
         {
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes quit command.
+        /// </summary>
+        /// <param name="args">user input</param>
+        /// <param name="client">user</param>
+        /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
             model.Quit(args[0]);

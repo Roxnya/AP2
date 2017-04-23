@@ -10,15 +10,28 @@ using Server.Model;
 
 namespace Server.Commands
 {
+    /// <summary>
+    /// Start a multiplayer game command class.
+    /// </summary>
     class CreateMultiplayerGameCommand : ICommand
     {
         IModel model;
 
+        /// <summary>
+        /// Constructor for CreateMultiplayerGameCommand.
+        /// </summary>
+        /// <param name="model">model</param>
         public CreateMultiplayerGameCommand(IModel model)
         {
             this.model = model;
         }
 
+        /// <summary>
+        /// Executes start command.
+        /// </summary>
+        /// <param name="args">user input</param>
+        /// <param name="client">user</param>
+        /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
             string name = args[0];

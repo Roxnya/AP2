@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Server.View
 {
+    /// <summary>
+    /// Client handler class.
+    /// </summary>
     class ClientHandler : IClientHandler
     {
         private TcpClient client;
@@ -15,6 +18,10 @@ namespace Server.View
         private BinaryReader reader = null;
         private NetworkStream stream = null;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="client">client to handle</param>
         public ClientHandler(TcpClient client)
         {
             this.client = client;
@@ -22,8 +29,13 @@ namespace Server.View
             this.writer = new BinaryWriter(stream);
         }
 
+        /// <summary>
+        /// Sending response to the client
+        /// </summary>
+        /// <param name="result"></param>
         public void SendResponseToClient(Result result)
         {
+            //creating a new task for sending response
             new Task(() =>
             {
                 try
@@ -46,11 +58,15 @@ namespace Server.View
             }).Start();
         }
 
+        /// <summary>
+        /// Handling the client
+        /// </summary>
+        /// <param name="controller">controller</param>
         public void HandleClient(IController controller)
         {
+            //creating a new task for handling a client
             new Task(() =>
             {
-               // StreamWriter writer = null;
                 try
                 {
                     this.reader = new BinaryReader(stream);
@@ -65,7 +81,7 @@ namespace Server.View
                 }
                 catch(Exception ex)
                 {
-                                        if (client != null && writer != null)
+                   if (client != null && writer != null)
                     {
                         writer.Flush();
                         writer.Write(ex.Message);
@@ -75,8 +91,12 @@ namespace Server.View
             }).Start();
         }
 
+        /// <summary>
+        /// Handle termination
+        /// </summary>
         private void HandleTermination()
         {
+            //disposing stream and reader/writer streamers
             if (stream != null) stream.Dispose();
             if (reader != null) reader.Dispose();
             if (writer != null) writer.Dispose();

@@ -130,7 +130,11 @@ namespace Server.Model
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">name of the room to return</param>
+        /// <returns>returns a room with given name if it exists. null otherwise</returns>
         public IMultiPlayerGameRoom GetMultiPlayerRoom(string name)
         {
             lock (rooms)
@@ -139,6 +143,10 @@ namespace Server.Model
             }
         }
 
+        /// <summary>
+        /// Removes given game's name from list
+        /// </summary>
+        /// <param name="name">name of the room to remove</param>
         public void RemoveMultiplayerRoom(string name)
         {
             if (ContainsMultGame(name))

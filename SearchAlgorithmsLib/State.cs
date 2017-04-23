@@ -21,8 +21,14 @@ namespace SearchAlgorithmsLib
             this.state = state;
         }
 
+        /// <summary>
+        /// State get 
+        /// </summary>
         public T state { get;}
 
+        /// <summary>
+        /// Cost get and set
+        /// </summary>
         public double Cost { get; set; }
 
         // the state we came from to this state (setter)

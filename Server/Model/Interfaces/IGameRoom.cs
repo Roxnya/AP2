@@ -12,8 +12,10 @@ namespace Server.Model
     /// </summary>
     interface IGameRoom
     {
+        /// <summary>
+        /// get the name of the game
+        /// </summary>
         string Name { get; }
-        //Player player2 { get; set; }
        
     }
 }

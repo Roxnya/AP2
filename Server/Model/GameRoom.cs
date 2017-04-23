@@ -15,9 +15,21 @@ namespace Server.Model
     /// </summary>
     class GameRoom : IMultiPlayerGameRoom
     {
+        /// <summary>
+        /// Get and set for maze of the gameroom
+        /// </summary>
         public Maze Maze { get; private set; }
+
+        /// <summary>
+        /// GEt and SEt for mode of the gameroom
+        /// </summary>
         public Mode Mode { get; private set; }
+
         private Player host;
+
+        /// <summary>
+        /// get and set the second player
+        /// </summary>
         public Player player2 { get; set; }
 
         private readonly object joinLocker = new object();
@@ -25,6 +37,9 @@ namespace Server.Model
         //event through which listeners will be notified of relevant room events such as game started, move was made, etc.
         public event EventHandler<EventArgs> Notify;
 
+        /// <summary>
+        /// Get the name of the maze
+        /// </summary>
         public string Name { get { return Maze.Name; } }
 
         /// <summary>
@@ -58,6 +73,11 @@ namespace Server.Model
 
         }
 
+        /// <summary>
+        /// Move the player
+        /// </summary>
+        /// <param name="player">player to move</param>
+        /// <param name="direction">direction to move to</param>
         public void Move(Player player, string direction)
         {
             Player toUpdate;
@@ -66,6 +86,11 @@ namespace Server.Model
             toUpdate.CounterMove(ToJson(direction));
         }
 
+        /// <summary>
+        /// Convert the result to the json format
+        /// </summary>
+        /// <param name="direction">direction</param>
+        /// <returns>result as json string</returns>
         private string ToJson(string direction)
         {
             JObject mazeObj = new JObject();
@@ -74,8 +99,14 @@ namespace Server.Model
             return mazeObj.ToString();
         }
 
+        /// <summary>
+        /// Making a move to the direction
+        /// </summary>
+        /// <param name="direction">direction to move to</param>
+        /// <param name="toMove">player to move</param>
         private void MakeAMove(string direction, Player toMove)
         {
+            //moving to the left direction
             if (direction.Equals("left"))
             {
                 if (this.Maze.Cols >= toMove.position.Col - 1)
@@ -84,6 +115,7 @@ namespace Server.Model
 
                 }
             }
+            //moving to the right
             if (direction.Equals("right"))
             {
                 if (this.Maze.Cols >= toMove.position.Col + 1)
@@ -92,6 +124,8 @@ namespace Server.Model
 
                 }
             }
+
+            //moving up
             if (direction.Equals("up"))
             {
                 if (this.Maze.Rows >= toMove.position.Row + 1)
@@ -100,6 +134,8 @@ namespace Server.Model
 
                 }
             }
+
+            //moving down
             if (direction.Equals("down"))
             {
                 if (this.Maze.Rows >= toMove.position.Row - 1)
@@ -110,6 +146,9 @@ namespace Server.Model
             }
         }
 
+        /// <summary>
+        /// Quit the game room
+        /// </summary>
         public void Quit()
         {
             Result result = new Result("close", Status.Close);

@@ -15,6 +15,9 @@ class Program
 
     }
 
+    /// <summary>
+    /// Comparing dfs and Bfs algorithms 
+    /// </summary>
     private static void CompareSolvers()
     {
         Maze m = new Maze(40, 40);
