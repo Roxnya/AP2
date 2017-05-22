@@ -24,7 +24,7 @@ namespace SearchAlgorithmsLib
         /// <summary>
         /// State get 
         /// </summary>
-        public T state { get;}
+        public T state { get; private set; }
 
         /// <summary>
         /// Cost get and set

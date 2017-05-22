@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchAlgorithmsLib", "SearchAlgorithmsLib\SearchAlgorithmsLib.csproj", "{240D5D5D-E325-41E4-AC8F-1649CCB36262}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{59C969E2-986B-42FF-B549-2F28A5CF721A}"
@@ -10,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{DC02D43E-640C-4B2B-839C-A6BE7D5B8B75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareSolvers", "CompareSolvers\CompareSolvers.csproj", "{32EC0DC2-D019-47DD-9822-D85C18EBDAD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFClient", "WPFClient\WPFClient.csproj", "{242892F9-6AC8-4E60-BB9B-ECE9AF750666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +33,10 @@ Global
 		{32EC0DC2-D019-47DD-9822-D85C18EBDAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32EC0DC2-D019-47DD-9822-D85C18EBDAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32EC0DC2-D019-47DD-9822-D85C18EBDAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242892F9-6AC8-4E60-BB9B-ECE9AF750666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242892F9-6AC8-4E60-BB9B-ECE9AF750666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242892F9-6AC8-4E60-BB9B-ECE9AF750666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242892F9-6AC8-4E60-BB9B-ECE9AF750666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,25 +29,29 @@ namespace Server.Model
                 Position next = sol[i].state;
                 if (next.Col == current.Col - 1)
                 {
-                    result.Append("0");
+                    result.Append((int)Direction.Left);
                 }
 
                 //1 for going right
-                if (next.Col == current.Col + 1)
-                 {
-                    result.Append("1");
+                else if (next.Col == current.Col + 1)
+                {
+                    result.Append((int)Direction.Right);
                 }
 
                 //2 for going up
-                if (next.Row == current.Row + 1)
+                else if (next.Row == current.Row + 1)
                 {
-                    result.Append("2");
+                    result.Append((int)Direction.Down);
                 }
 
                 //3 for going down
-                if (next.Row == current.Row - 1)
+                else if (next.Row == current.Row - 1)
                 {
-                    result.Append("3");
+                    result.Append((int)Direction.Up);
+                }
+                else
+                {
+                    result.Append((int)Direction.Unknown);
                 }
                 current = next;
             }

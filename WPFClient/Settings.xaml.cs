@@ -22,11 +22,14 @@ namespace WPFClient
     public partial class Settings : Window
     {
         SettingsViewModel vm;
+        private bool userClickedButton;
+
         public Settings(ISettingsModel sm)
         {
             InitializeComponent();
             vm = new SettingsViewModel(sm);
             DataContext = vm;
+            this.userClickedButton = false;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -43,9 +46,22 @@ namespace WPFClient
 
         private void CloseWindow()
         {
-            MainWindow win = (MainWindow)Application.Current.MainWindow;
-            win.Show();
+            this.userClickedButton = true;
             this.Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!userClickedButton)
+            {
+                if (!DialogHelper.ShowAreYouSureDialog())
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                vm.CancelSettings();
+            }
+            DialogHelper.ShowMenu();
         }
     }
 }

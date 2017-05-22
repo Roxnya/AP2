@@ -1,4 +1,5 @@
 ﻿using MazeLib;
+using SearchAlgorithmsLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WPFClient.UserControls
 {
@@ -21,11 +23,15 @@ namespace WPFClient.UserControls
     /// </summary>
     public partial class MazeDisplay : UserControl
     {
+        private object _locker = new object();
         private const int squareSize = 30;
         private const int baseMargin = 30;
-        //private Position? initialPosition = null;
         private Image image;
-        private Position currPosition;
+        private string solution;
+        private DispatcherTimer timer;
+        private int tick;
+
+        private Position CurrentPosition { get; set; }
 
         public enum PlayerImage { CHICKEN, DARTH_VAIDER };
 
@@ -39,6 +45,12 @@ namespace WPFClient.UserControls
             }
         }
 
+        public delegate void PlayerMovedEventHandler (DirectionEventArgs e);
+        public event PlayerMovedEventHandler PlayerMoved;
+        
+        public event EventHandler PlayerReachedExit;
+
+        #region Dependency Properties
         public static readonly DependencyProperty PlayerProperty =
         DependencyProperty.Register("Player", typeof(PlayerImage), typeof(MazeDisplay), new UIPropertyMetadata(IconChanged));
 
@@ -71,10 +83,14 @@ namespace WPFClient.UserControls
 
         public Maze Maze
         {
-            get { return (Maze)GetValue(MazeProperty); }
+            get
+            {
+                return (Maze)GetValue(MazeProperty);
+            }
             set 
             {
-                SetValue(MazeProperty, value);
+
+                SetValue(MazeProperty, value.ToJSON());
                 DrawMaze();
             }
         }
@@ -87,7 +103,8 @@ namespace WPFClient.UserControls
                 SetValue(MazeStrProperty, value);
                 try
                 {
-                    Maze = Maze.FromJSON(MazeStr);
+                    if(MazeStr != string.Empty)
+                        Maze = Maze.FromJSON(MazeStr);
                 }
                 catch (Exception ex)
                 {
@@ -97,32 +114,14 @@ namespace WPFClient.UserControls
 
         // Using a DependencyProperty as the backing store for MazeStr.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MazeStrProperty =
-            DependencyProperty.Register("MazeStr", typeof(string), typeof(MazeDisplay), new PropertyMetadata(0));
-
-
+            DependencyProperty.Register("MazeStr", typeof(string), typeof(MazeDisplay), new PropertyMetadata(String.Empty));
 
         // Using a DependencyProperty as the backing store for Maze.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MazeProperty =
-            DependencyProperty.Register("Maze", typeof(Maze), typeof(MazeDisplay), new UIPropertyMetadata(MazeChanged));
+            DependencyProperty.Register("Maze", typeof(Maze), typeof(MazeDisplay), new UIPropertyMetadata(null, new PropertyChangedCallback( MazeChanged)));
+        #endregion
 
-        public MazeDisplay()
-        {
-            InitializeComponent();
-            SetImage();
-
-        }
-
-        public void MovePlayer(Position position)
-        {
-            if (canvas.Children.Contains(image))
-            {
-                canvas.Children.Remove(image);
-            }
-            canvas.Children.Add(image);
-            Canvas.SetLeft(image, position.Col * baseMargin);
-            Canvas.SetTop(image, position.Row * baseMargin);
-        }
-
+        #region PropertyChanged Events
         private static void MazeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             MazeDisplay display = (MazeDisplay)d;
@@ -134,7 +133,26 @@ namespace WPFClient.UserControls
             MazeDisplay display = (MazeDisplay)d;
             display.SetImage();
         }
+        #endregion
 
+        private void ExitReached()
+        {
+            this.IsEnabled = false;
+            PlayerReachedExit?.Invoke(this, EventArgs.Empty);
+        }
+
+        public MazeDisplay()
+        {
+            InitializeComponent();
+            SetImage();
+            this.timer = new DispatcherTimer();
+            this.timer.Interval = TimeSpan.FromMilliseconds(200);
+            this.timer.Tick += SolutionAnimation_Tick;
+            this.tick = 0;
+            this.Focusable = true;
+        }
+        
+        #region Initial Drawing related methods
         private void DrawMaze()
         {
             string mazeStr = Maze.ToString();
@@ -166,9 +184,7 @@ namespace WPFClient.UserControls
 
         private Rectangle AddWallToCanvas(int topMargin, int leftMargin)
         {
-            var rect = new Rectangle() { Height = squareSize, Width = squareSize, 
-                                        Fill = new SolidColorBrush(Colors.Black)
-            };
+            var rect = new Rectangle();
             canvas.Children.Add(rect);
             Canvas.SetLeft(rect, leftMargin * baseMargin);
             Canvas.SetTop(rect, topMargin * baseMargin);
@@ -198,39 +214,144 @@ namespace WPFClient.UserControls
             }
         }
 
-        private void KeyPressed(object sender, KeyEventArgs e)
+        #endregion
+
+        #region Player Drawing methods
+        internal void KeyPressed(object sender, KeyEventArgs e)
         {
+            e.Handled = true;
+            Direction direction = Direction.Unknown;
             if (e.Key == Key.Up)
             {
-                TryMove(new Position(currPosition.Row - 1, currPosition.Col));
+                if (TryMove(new Position(CurrentPosition.Row - 1, CurrentPosition.Col)))
+                    direction = Direction.Up;
+
             }
             else if (e.Key == Key.Down)
             {
-                TryMove(new Position(currPosition.Row + 1, currPosition.Col));
+                if (TryMove(new Position(CurrentPosition.Row + 1, CurrentPosition.Col)))
+                    direction = Direction.Down;
             }
             else if (e.Key == Key.Left)
             {
-                TryMove(new Position(currPosition.Row, currPosition.Col - 1));
+                if (TryMove(new Position(CurrentPosition.Row, CurrentPosition.Col - 1)))
+                    direction = Direction.Left;
             }
             else if (e.Key == Key.Right)
             {
-                TryMove(new Position(currPosition.Row, currPosition.Col + 1));
+                if (TryMove(new Position(CurrentPosition.Row, CurrentPosition.Col + 1)))
+                    direction = Direction.Right;
+            }
+
+            if (direction != Direction.Unknown)
+                PlayerMoved?.Invoke(new DirectionEventArgs(direction));
+        }
+
+        public void MovePlayer(Position pos)
+        {
+            if (canvas.Children.Contains(image))
+            {
+                canvas.Children.Remove(image);
+            }
+            canvas.Children.Add(image);
+            CurrentPosition = pos;
+            Canvas.SetLeft(image, pos.Col * baseMargin);
+            Canvas.SetTop(image, pos.Row * baseMargin);
+            if (CurrentPosition.Equals(Maze.GoalPos))
+            {
+                ExitReached();
             }
         }
 
-        private void TryMove(Position newPosition)
+        private bool TryMove(Position newPosition)
         {
-            if (Maze[currPosition.Row, currPosition.Col] == CellType.Free)
+            if (!(newPosition.Row < 0 || newPosition.Col < 0 || newPosition.Col >= Maze.Cols 
+                || newPosition.Row >= Maze.Cols) && Maze[newPosition.Row, newPosition.Col] == CellType.Free)
             {
-                currPosition = new Position(currPosition.Row, currPosition.Col);
                 MovePlayer(newPosition);
+                return true;
             }
+            return false;
+        }
+
+        public void TryMove(Direction direction)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                TryMove(GetPositionByDirection(direction));
+            });
         }
 
         public void Reset()
         {
-            currPosition = Maze.InitialPos;
-            MovePlayer(currPosition);
+            if (!this.IsEnabled)
+            {
+                this.IsEnabled = true;
+            }
+            MovePlayer(Maze.InitialPos);
         }
+
+        public void AnimateSolution(string solution)
+        {
+            this.solution = solution;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                MovePlayer(Maze.InitialPos);
+            });
+            //make sure to cancel the timer if it's already running
+            InitTimer();
+            timer.Start();
+        }
+
+        private void InitTimer()
+        {
+            if (timer.IsEnabled)
+            {
+                timer.Stop();
+                tick = 0;
+            }
+        }
+
+        private void SolutionAnimation_Tick(object sender, EventArgs e)
+        {
+            if (solution.Length == 0) return;
+
+            Direction direction;
+            if (Enum.TryParse<Direction>(solution[tick].ToString(), out direction))
+            {
+                MovePlayer(GetPositionByDirection(direction));
+                tick++;
+                if (tick.Equals(solution.Length))
+                {
+                    InitTimer();
+                }
+            }
+        }
+
+        private Position GetPositionByDirection(Direction direction)
+        {
+            Position pos;
+            switch (direction)
+            {
+                case Direction.Up:
+                    pos = new Position(CurrentPosition.Row - 1, CurrentPosition.Col);
+                break;
+                case Direction.Down:
+                    pos = new Position(CurrentPosition.Row + 1, CurrentPosition.Col);
+                break;
+                case Direction.Left:
+                    pos = new Position(CurrentPosition.Row, CurrentPosition.Col - 1);
+                break;
+                case Direction.Right:
+                    pos = new Position(CurrentPosition.Row, CurrentPosition.Col + 1);
+                break;
+                default:
+                    throw new Exception("Invalid position");
+                break;
+            }
+            return pos;
+        }
+        #endregion
     }
 }

@@ -16,8 +16,8 @@ namespace Server
         {
             //get port from configuration
             int port = Int32.Parse(ConfigurationManager.AppSettings["Server_Port"]);
-
-            Server s = new Server(port);
+            string ip = ConfigurationManager.AppSettings["Server_Ip"];
+            Server s = new Server(ip, port);
             s.Start();
             Console.WriteLine("Press any key to kill server");
             Console.ReadLine();

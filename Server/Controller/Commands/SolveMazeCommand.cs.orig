@@ -35,8 +35,12 @@ namespace Server.Commands
         /// <returns>result of requested command</returns>
         public Result Execute(string[] args, TcpClient client = null)
         {
+<<<<<<< Updated upstream
+            //get the name of the maze 
+=======
             if (args.Count() != 2)
                 throw new InvalidOperationException("Not enough arguemnts for generate command.");
+>>>>>>> Stashed changes
             string name = args[0];
             //get the algotithm to solve the maze with
             Algorithm algorithm = (Algorithm)Enum.Parse(typeof(Algorithm), args[1]);
@@ -65,8 +69,8 @@ namespace Server.Commands
         private string ToJSON(string result, SolutionDetails sd)
         {
             JObject mazeObj = new JObject();
-            mazeObj["Name"] = sd.Name;
-            mazeObj["Solution"] = result;
+            mazeObj["path"] = result;
+            mazeObj["name"] = sd.Name;
             mazeObj["NodesEvaluated"] = sd.NodesEvaluated;
             return mazeObj.ToString();
         }

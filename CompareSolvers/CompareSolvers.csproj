@@ -35,9 +35,8 @@
     <Reference Include="MazeGeneratorLib">
       <HintPath>..\..\..\..\..\Downloads\MazeGeneratorLib.dll</HintPath>
     </Reference>
-    <Reference Include="MazeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\Visual Studio 2017\Projects\ex1\main\MazeLib.dll</HintPath>
+    <Reference Include="MazeLib">
+      <HintPath>..\..\..\..\..\Downloads\MazeLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

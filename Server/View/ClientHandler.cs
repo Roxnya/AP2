@@ -73,13 +73,14 @@ namespace Server.View
                 try
                 {
                     this.reader = new BinaryReader(stream);
-                    while (client != null)
+                    Status status = Status.Communicating;
+                    while (client != null && status != Status.Close)
                     {
                         string commandLine = reader.ReadString();
                         Console.WriteLine("Got command: {0}", commandLine);
                         //Clears all buffers for the current writer and causes
                         //any buffered data to be written to the underlying stream.
-                        Status status = controller.ExecuteCommand(commandLine, client);
+                        status = controller.ExecuteCommand(commandLine, client);
                     }
                 }
                 catch(Exception ex)

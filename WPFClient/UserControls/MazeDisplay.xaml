@@ -3,9 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Viewbox Margin="10" KeyDown="KeyPressed">
-        <Canvas x:Name="canvas" Width="300" Height="300"/>
-    </Viewbox>
+    <ContentControl KeyDown="KeyPressed">
+        <Viewbox Margin="10" KeyUp="KeyPressed">
+            <Viewbox.Resources>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Width" Value="30" />
+                    <Setter Property="Fill" Value="#FF3F3A47" />
+                    <Setter Property="Stroke" Value="#FF36323C" />
+                    <Setter Property="StrokeThickness" Value="0.5"/>
+                    <Setter Property="BitmapEffect">
+                        <Setter.Value>
+                            <BevelBitmapEffect BevelWidth="15" EdgeProfile="CurvedOut" 
+                                           LightAngle="330" Relief="0.4" Smoothness="0.6"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Viewbox.Resources>
+            <Canvas x:Name="canvas" Width="300" Height="300">
+                <Border BorderBrush="Black" BorderThickness="1"/>
+                <ScrollBar Orientation="Vertical" Visibility="Collapsed"/>
+                <ScrollBar Orientation="Horizontal" Visibility="Collapsed" />
+            </Canvas>
+        </Viewbox>
+    </ContentControl>
 </UserControl>

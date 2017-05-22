@@ -20,7 +20,11 @@
                BasedOn="{StaticResource {x:Type Window}}"/>
         <Style TargetType="{x:Type local:SinglePlayerSetUp}"
                BasedOn="{StaticResource {x:Type Window}}"/>
-        
+        <Style TargetType="{x:Type local:MultiPlayerSetUp}"
+               BasedOn="{StaticResource {x:Type Window}}"/>
+        <Style TargetType="{x:Type local:FinishMessage}"
+               BasedOn="{StaticResource {x:Type Window}}"/>
+
         <!--Define game's buttons style-->
         <Style TargetType="Button">
             <Setter Property="Margin" Value="0,10,0,10" />

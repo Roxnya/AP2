@@ -2,17 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uc="clr-namespace:WPFClient.UserControls"
-        Title="{Binding Maze.Name}" Height="300" Width="300">
-    <Grid>
+        x:Name="SpWindow" Title="{Binding Path=Name}" Height="300" Width="300" WindowState="Maximized" Closing="SpWindow_Closing">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=MazeDisplaySP}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" GotFocus="StackPanel_GotFocus">
             <Button Content="Solve Maze" Click="SolveMaze_Click" />
             <Button Content="Restart Game" Click="RestartGame_Click" />
             <Button Content="Main Menu" Click="MainMenu_Click" />
         </StackPanel>
-        <uc:MazeDisplay x:Name="MazeDisplay" Grid.Row="1" Rows="{Binding Maze.Rows}" Cols="{Binding Maze.Cols}" Maze="{Binding Maze}" MinHeight="300" MinWidth="300"/>
+        <uc:MazeDisplay x:Name="MazeDisplaySP" Grid.Row="1" Rows="{Binding Path=Rows,Mode=OneWay}" 
+                        Cols="{Binding Columns, Mode=OneWay}" Maze="{Binding Path=Maze, Mode=OneWay}"
+                        MinHeight="250" MinWidth="250" PlayerReachedExit="MazeDisplaySP_PlayerReachedExit"/>
     </Grid>
 </Window>

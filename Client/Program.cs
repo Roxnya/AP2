@@ -17,9 +17,9 @@ namespace Client
             //get port and ip from configuration
             int port = Int32.Parse(ConfigurationManager.AppSettings["Server_Port"]);
             string ip = ConfigurationManager.AppSettings["Server_Ip"];
-            Player p = new Player(port, ip);
-            p.Handle();
-           // p.Menu();
+            Player p = new Player(port, ip, true);
+            //p.Handle();
+            p.InitFlow();
         }
     }
 }

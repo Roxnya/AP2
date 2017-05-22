@@ -94,8 +94,8 @@ namespace Server.Model
         private string ToJson(string direction)
         {
             JObject mazeObj = new JObject();
-            mazeObj["name"] = this.Maze.Name;
-            mazeObj["direction"] = direction;
+            mazeObj["Name"] = this.Maze.Name;
+            mazeObj["Direction"] = direction;
             return mazeObj.ToString();
         }
 

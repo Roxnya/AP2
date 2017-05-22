@@ -12,6 +12,9 @@ namespace SearchAlgorithmsLib
     /// <typeparam name="T">searchables state type</typeparam>
     public abstract class Searcher<T> : ISearcher<T>
     {
+        /// <summary>
+        /// number of nodes that were evaluated for solution
+        /// </summary>
         protected int evaluatedNodes;
      
         /// <summary>

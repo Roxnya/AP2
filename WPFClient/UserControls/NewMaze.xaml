@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=txtName}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
@@ -25,9 +25,9 @@
             </Style>
         </Grid.Resources>
         <Label Content="Game Name:" Grid.Row="0"/>
-        <TextBox Name="txtName" Grid.Row="0" />
+        <TextBox Name="txtName" Text="{Binding Path=Name, Mode=TwoWay}" Grid.Row="0" />
         <Label Content="Maze Rows:" Grid.Row="1"/>
-        <TextBox Name="txtRows" Text="{Binding Rows}" Grid.Row="1" />
+        <TextBox Name="txtRows" Text="{Binding Rows, Mode=TwoWay}" Grid.Row="1" />
         <Label Content="Maze Columns:" Grid.Row="2"/>
         <TextBox Name="txtColumns" Text="{Binding Columns, Mode=TwoWay}" Grid.Row="2" />
         <Button Name="btnStartGame" Content="Start New Game" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10,10,10,10" Padding="10,0,10,0" Click="btnStartGame_Click"/>

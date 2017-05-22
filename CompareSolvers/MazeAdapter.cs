@@ -73,7 +73,7 @@ namespace CompareSolvers
         /// <returns>goal</returns>
         public State<Position> GetGoalState()
         {
-            return new State<Position>(maze.InitialPos);
+            return new State<Position>(maze.GoalPos);
 
         }
 
@@ -83,7 +83,7 @@ namespace CompareSolvers
         /// <returns>initial state</returns>
         public State<Position> GetInitialState()
         {
-            return new State<Position>(maze.GoalPos);
+            return new State<Position>(maze.InitialPos);
 
         }
 

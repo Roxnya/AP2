@@ -31,16 +31,19 @@ namespace WPFClient
 
         private void SinglePlayer_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             vm.OpenSinglePlayerRoom();
         }
 
         private void MultiPlayer_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             vm.OpenMultiPlayerRoom();
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             vm.OpenSettings();
         }
     }

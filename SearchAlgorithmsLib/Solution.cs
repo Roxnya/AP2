@@ -13,7 +13,10 @@ namespace SearchAlgorithmsLib
     /// <typeparam name="T">states type</typeparam>
     public class Solution<T>
     {
-        private List<State<T>> states;
+        /// <summary>
+        /// solution's states
+        /// </summary>
+        public List<State<T>> states;
 
         /// <summary>
         /// Ctor

@@ -38,7 +38,7 @@ namespace Server.Commands
                 throw new InvalidOperationException("Not enough arguemnts for generate command.");
 
             List<string> rooms = model.GetJoinableGamesList();
-            return new Result(JsonConvert.SerializeObject(rooms), Status.Close);
+            return new Result(JArray.FromObject(rooms).ToString(), Status.Close);
         }
     }
 }

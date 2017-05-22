@@ -28,5 +28,29 @@ namespace WPFClient
             catch (Exception ex)
             { }
         }
+
+        public static void ShowSuccessMessage()
+        {
+            new FinishMessage(FinishMessage.Mode.WIN).ShowDialog();
+        }
+
+        public static void ShowDefeatMessage()
+        {
+            new FinishMessage(FinishMessage.Mode.DEFEAT).ShowDialog();
+        }
+
+        public static bool ShowAreYouSureDialog()
+        {
+            var result = MessageBox.Show("Are you sure you want to procceed?", "Caution!", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+                return true;
+            return false;
+        }
+
+        public static void ShowMenu()
+        {
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            win.Show();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFClient.Models;
 using WPFClient.ViewModels;
 
 namespace WPFClient
@@ -21,29 +23,60 @@ namespace WPFClient
     public partial class SinglePlayerRoom : Window
     {
         SinglePlayerViewModel vm;
-        public SinglePlayerRoom()
+        private bool isUserButtonClicked;
+
+        public SinglePlayerRoom(SinglePlayerViewModel vm)
         {
             InitializeComponent();
-            vm = new SinglePlayerViewModel();
+            vm.SolutionChangedEvent += SolutionChanged;
             DataContext = vm;
+            this.vm = vm;
+            this.isUserButtonClicked = false;
         }
 
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            //insert are u sure message
-            this.Close();
+            if (DialogHelper.ShowAreYouSureDialog())
+            {
+                this.isUserButtonClicked = true;
+                this.Close();
+            }
         }
 
         private void SolveMaze_Click(object sender, RoutedEventArgs e)
         {
-            //vm.GetMazeSolution();
-            //loop solution
+            vm.RequestSolution();
         }
 
         private void RestartGame_Click(object sender, RoutedEventArgs e)
         {
-            //insert are you sure message
-            MazeDisplay.MovePlayer(vm.Maze.InitialPos);
+            if(DialogHelper.ShowAreYouSureDialog())
+                MazeDisplaySP.Reset();
+        }
+
+        private void SolutionChanged(object sender, EventArgs e)
+        {
+            MazeDisplaySP.AnimateSolution(vm.Solution);
+        }
+
+        private void StackPanel_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.MazeDisplaySP.Focus();
+        }
+
+        private void MazeDisplaySP_PlayerReachedExit(object sender, EventArgs e)
+        {
+            DialogHelper.ShowSuccessMessage();
+        }
+
+        private void SpWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!isUserButtonClicked && !DialogHelper.ShowAreYouSureDialog())
+            {
+                e.Cancel = true;
+                return;
+            }
+            DialogHelper.ShowMenu();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Server
     /// </summary>
     class Server
     {
+        private string ip;
         private int port;
         private TcpListener listener;
         private IGameData data;
@@ -25,8 +26,9 @@ namespace Server
         /// </summary>
         /// <param name="port">Server's port through which clients will connect</param>
         /// <param name="ch">View class that will handle clients</param>
-        public Server(int port)
+        public Server(string ip, int port)
         {
+            this.ip = ip;
             this.port = port;
             //initialize game's content class (maze list, solutions, game romms..)
             this.data = new GameData();
@@ -39,7 +41,7 @@ namespace Server
         /// </summary>
         public void Start()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
             listener = new TcpListener(ep);
 
             listener.Start();
