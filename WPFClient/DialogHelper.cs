@@ -47,6 +47,11 @@ namespace WPFClient
             return false;
         }
 
+        public static void ShowCommErrorMessage()
+        {
+            MessageBox.Show("No Communication With Server, Please Try To Reopen Room", "Error!", MessageBoxButton.OK);
+        }
+
         public static void ShowMenu()
         {
             MainWindow win = (MainWindow)Application.Current.MainWindow;

@@ -76,6 +76,8 @@ namespace WPFClient.ViewModels
                 this.spM.EnemyPositionChanged += PlayerMoved;
                 this.Maze = e.Maze;
                 NotifyPropertyChanged("Maze");
+                NotifyPropertyChanged("Maze.Rows");
+                NotifyPropertyChanged("Maze.Cols");
             }
         }
 

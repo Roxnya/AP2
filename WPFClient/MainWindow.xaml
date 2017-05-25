@@ -8,20 +8,23 @@
         Title="Maze Blob" Height="350" Width="525" MinHeight="350" MinWidth="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="Height" Value="40" />
-                <Setter Property="Width" Value="100" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="MinWidth" Value="105"/>
             </Style>
         </Grid.Resources>
-        <Image Source="Resources/maze.png" Grid.Row="0"/>
-        <StackPanel Name="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Grid.Row="1">
-            <Button Name="SinglePlayer" Content="Single Player" Click="SinglePlayer_Click" />
-            <Button Name="MultiPlayer" Content="Multi Player" Click="MultiPlayer_Click" />
-            <Button Name="Settings" Content="Settings" Click="Settings_Click" />
-        </StackPanel>
+        <Image Source="Resources/maze.png" Width="300" Grid.Row="0"/>
+        <Button Name="SinglePlayer"  Grid.Row="1" Content="Single Player" Click="SinglePlayer_Click" />
+        <Button Name="MultiPlayer" Grid.Row="2" Content="Multi Player" Click="MultiPlayer_Click" />
+        <Button Name="Settings" Grid.Row="3" Content="Settings" Click="Settings_Click" />
     </Grid>
 </Window>

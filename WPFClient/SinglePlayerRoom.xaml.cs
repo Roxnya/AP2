@@ -29,9 +29,16 @@ namespace WPFClient
         {
             InitializeComponent();
             vm.SolutionChangedEvent += SolutionChanged;
+            vm.CommErrorFailed += Vm_CommErrorFailed;
             DataContext = vm;
             this.vm = vm;
             this.isUserButtonClicked = false;
+            this.KeyDown += MazeDisplaySP.KeyPressed;
+        }
+
+        private void Vm_CommErrorFailed(object sender, EventArgs e)
+        {
+            DialogHelper.ShowCommErrorMessage();
         }
 
         private void MainMenu_Click(object sender, RoutedEventArgs e)
@@ -59,11 +66,6 @@ namespace WPFClient
             MazeDisplaySP.AnimateSolution(vm.Solution);
         }
 
-        private void StackPanel_GotFocus(object sender, RoutedEventArgs e)
-        {
-            this.MazeDisplaySP.Focus();
-        }
-
         private void MazeDisplaySP_PlayerReachedExit(object sender, EventArgs e)
         {
             DialogHelper.ShowSuccessMessage();
@@ -77,6 +79,11 @@ namespace WPFClient
                 return;
             }
             DialogHelper.ShowMenu();
+        }
+
+        private void MazeDisplay_LostFocus(object sender, RoutedEventArgs e)
+        {
+            MazeDisplaySP.Focus();
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="WPFClient.UserControls.Loader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFClient.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Name="uc">
+    <UserControl.Resources>
+        <Storyboard x:Key="LoaderStoryBoard" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="loader1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <SplineDoubleKeyFrame KeyTime="00:00:02" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource LoaderStoryBoard}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <Grid.Resources>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Path=Message, ElementName=uc}" Margin="5" Grid.Row="0" HorizontalAlignment="Center" 
+               VerticalAlignment="Center" Foreground="White" Visibility="Visible"/>
+        <Ellipse x:Name="loader1" Grid.Row="1" HorizontalAlignment="Center" Margin="139,10,141,0" StrokeThickness="20" RenderTransformOrigin="1,1">
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+            <Ellipse.Stroke>
+                <LinearGradientBrush EndPoint="0.445,0.997" StartPoint="0.555,0.003">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF470037" Offset="1"/>
+                </LinearGradientBrush>
+            </Ellipse.Stroke>
+        </Ellipse>
+    </Grid>
+</UserControl>

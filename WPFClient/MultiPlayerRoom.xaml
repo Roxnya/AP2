@@ -3,34 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uc="clr-namespace:WPFClient.UserControls"
         Title="{Binding Path=Maze.Name}" Height="300" Width="300" WindowState="Maximized" Closing="Window_Closing">
-    <Grid FocusManager.FocusedElement="{Binding ElementName=PlayerMazeDisplay}">
+    <Grid>
         <Grid.Resources>
+            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Maze}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
             <Style TargetType="uc:MazeDisplay">
-                <Setter Property="Maze" Value="{Binding Path=Maze, Mode=OneWay}" />
-                <Setter Property="Rows" Value="{Binding Path=Rows, Mode=OneWay}" />
-                <Setter Property="Cols" Value="{Binding Path=Columns, Mode=OneWay}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Maze}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding CommError,Mode=OneWay}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="uc:MazeDisplay.IsEnabled" Value="False" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <uc:Loader Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Message="Waiting For Opponent..."/>
         <Button Grid.ColumnSpan="3" Grid.Row="0" Content="Back To Main Menu" Click="BackToMenu_Click" HorizontalAlignment="Center" Padding="2" />
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"  GotFocus="PlayerMazeDisplay_LostFocus"/>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Label Content="You:" Foreground="White"/>
-            <uc:MazeDisplay x:Name="PlayerMazeDisplay" PlayerMoved="PlayerMazeDisplay_PlayerMoved"
-                        PlayerReachedExit="PlayerMazeDisplay_PlayerReachedExit"/>
-        </StackPanel>
-        <StackPanel Grid.Column="2" Grid.Row="1">
-            <Label Content="Enemy:" Foreground="White"/>
-            <uc:MazeDisplay x:Name="EnemyMazeDisplay" IsEnabled="False" Player="DARTH_VAIDER" 
-                        GotFocus="PlayerMazeDisplay_LostFocus" PlayerReachedExit="EnemyMazeDisplay_PlayerReachedExit"/>
-        </StackPanel>
+        <Label Content="You:" Foreground="White" Grid.Column="0" Grid.Row="1"/>
+        <uc:MazeDisplay x:Name="PlayerMazeDisplay" PlayerMoved="PlayerMazeDisplay_PlayerMoved"
+                        PlayerReachedExit="PlayerMazeDisplay_PlayerReachedExit" Grid.Column="0" Grid.Row="2"
+                         Rows="{Binding Path=Maze.Rows,Mode=OneWay}" 
+                        Cols="{Binding Maze.Cols, Mode=OneWay}" Maze="{Binding Path=Maze, Mode=OneWay}" Margin="0,0,10,0"/>
+        <Label Content="Enemy:" Foreground="White" Grid.Column="1" Grid.Row="1"/>
+        <uc:MazeDisplay x:Name="EnemyMazeDisplay" IsEnabled="False" Player="DARTH_VAIDER" Grid.Column="1" Grid.Row="2"
+                            PlayerReachedExit="EnemyMazeDisplay_PlayerReachedExit"
+                         Rows="{Binding Path=Maze.Rows,Mode=OneWay}" 
+                        Cols="{Binding Maze.Cols, Mode=OneWay}" Maze="{Binding Path=Maze, Mode=OneWay}"/>
     </Grid>
 </Window>

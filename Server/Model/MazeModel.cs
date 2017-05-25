@@ -176,6 +176,9 @@ namespace Server.Model
         {
             //create the maze with DFSMazeGenerator
             Maze m = new DFSMazeGenerator().Generate(rows, cols);
+            //generate maze anew if start point == end point
+            if((rows * cols >= 3 && m.InitialPos.Equals(m.GoalPos)))
+                m = new DFSMazeGenerator().Generate(rows, cols);
             m.Name = name;
             return m;
         }

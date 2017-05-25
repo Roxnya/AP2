@@ -33,10 +33,18 @@ namespace WPFClient
             this.DataContext = vm;
             this.vm.EnemyMoved += Vm_EnemyMoved;
             this.vm.GameClosed += Vm_GameClosed;
+            this.vm.CommErrorFailed += Vm_CommErrorFailed;
+            this.KeyDown += PlayerMazeDisplay.KeyPressed;
+        }
+
+        private void Vm_CommErrorFailed(object sender, EventArgs e)
+        {
+            DialogHelper.ShowCommErrorMessage();
         }
 
         private void Vm_GameClosed(object sender, EventArgs e)
         {
+            this.vm.CommErrorFailed -= Vm_CommErrorFailed;
             MessageBox.Show("Opponent left the room!", "Game Closed", MessageBoxButton.OK);
             Dispatcher.Invoke(() =>
             {
@@ -65,7 +73,7 @@ namespace WPFClient
         private void TerminateGame()
         {
             //send close message only if this player closed game(instead opponent)
-            if(!isClosedByEnemy)
+            if(!isClosedByEnemy && !vm.CommError)
                 vm.CloseGame();
         }
 
@@ -73,12 +81,7 @@ namespace WPFClient
         {
             vm.SendMoveCommand(e.Direction);
         }
-
-        private void PlayerMazeDisplay_LostFocus(object sender, RoutedEventArgs e)
-        {
-            PlayerMazeDisplay.Focus();
-        }
-
+        
         private void PlayerMazeDisplay_PlayerReachedExit(object sender, EventArgs e)
         {
            DialogHelper.ShowSuccessMessage();

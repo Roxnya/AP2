@@ -22,7 +22,6 @@ namespace WPFClient
     /// </summary>
     public partial class SinglePlayerSetUp : Window
     {
-        //SettingsViewModel settingsVM;
         SinglePlayerViewModel singlePlayerVM;
         ISettingsModel sm;
         private bool isUserButtonClick;
@@ -30,8 +29,6 @@ namespace WPFClient
         public SinglePlayerSetUp(ISettingsModel sm)
         {
             InitializeComponent();
-            //this.settingsVM = new SettingsViewModel(sm);
-            //this.DataContext = settingsVM;
             this.singlePlayerVM = new SinglePlayerViewModel(sm);
             this.sm = sm;
             this.DataContext = singlePlayerVM;

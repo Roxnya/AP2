@@ -81,6 +81,28 @@ namespace WPFClient.UserControls
 
 
 
+        public int CanvasWidth
+        {
+            get { return (int)GetValue(CanvasWidthProperty); }
+            set { SetValue(CanvasWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanvasWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanvasWidthProperty =
+            DependencyProperty.Register("CanvasWidth", typeof(int), typeof(MazeDisplay), new PropertyMetadata(300));
+
+        public int CanvasHeight
+        {
+            get { return (int)GetValue(CanvasHeightProperty); }
+            set { SetValue(CanvasHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanvasHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanvasHeightProperty =
+            DependencyProperty.Register("CanvasHeight", typeof(int), typeof(MazeDisplay), new PropertyMetadata(300));
+
+
+
         public Maze Maze
         {
             get
@@ -144,6 +166,7 @@ namespace WPFClient.UserControls
         public MazeDisplay()
         {
             InitializeComponent();
+            //set default player image
             SetImage();
             this.timer = new DispatcherTimer();
             this.timer.Interval = TimeSpan.FromMilliseconds(200);
@@ -151,10 +174,25 @@ namespace WPFClient.UserControls
             this.tick = 0;
             this.Focusable = true;
         }
-        
+
         #region Initial Drawing related methods
+        private void AdjustCanvasSize()
+        {
+            var newSize = Rows * baseMargin;
+            if (newSize > canvas.Height)
+            {
+                CanvasHeight = newSize;
+            }
+            newSize = Cols * baseMargin;
+            if (newSize > canvas.Width)
+            {
+                CanvasWidth = newSize;
+            }
+        }
+
         private void DrawMaze()
         {
+            AdjustCanvasSize();
             string mazeStr = Maze.ToString();
             for (int i = 0; i < Rows; i++)
             {
@@ -266,7 +304,7 @@ namespace WPFClient.UserControls
         private bool TryMove(Position newPosition)
         {
             if (!(newPosition.Row < 0 || newPosition.Col < 0 || newPosition.Col >= Maze.Cols 
-                || newPosition.Row >= Maze.Cols) && Maze[newPosition.Row, newPosition.Col] == CellType.Free)
+                || newPosition.Row >= Maze.Rows) && Maze[newPosition.Row, newPosition.Col] == CellType.Free)
             {
                 MovePlayer(newPosition);
                 return true;

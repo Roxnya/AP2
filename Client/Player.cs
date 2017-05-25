@@ -13,225 +13,12 @@ using Newtonsoft.Json.Linq;
 
 namespace Client
 {
-    //public class Player
-    //{
-    //    private bool isConsole;
-    //    private TcpClient client;
-    //    private BinaryReader reader;
-    //    private BinaryWriter writer;
-    //    private NetworkStream stream;
-    //    private Queue<string> tasks;
-    //    private int command;
-    //    private IPEndPoint ep;
-    //    private int port;
-    //    private bool keepCom;
-    //    private string message;
-    //    private bool result;
-
-    //    public delegate void JsonChangedEventHandler (JsonEventArgs e);
-    //    public event JsonChangedEventHandler JsonChanged;
-
-    //    public Player(int port, string ip)
-    //    {
-    //        this.ep = new IPEndPoint(IPAddress.Parse(ip), 5555);
-    //        this.port = port;
-    //        this.isConsole = true;
-    //        this.tasks = new Queue<string>();
-    //    }
-
-    //    private void ConnectToServer()
-    //    {
-    //        TerminateConnection();
-    //        this.client = new TcpClient();
-    //        client.Connect(ep);
-    //        stream = client.GetStream();
-    //        writer = new BinaryWriter(client.GetStream());
-    //        reader = new BinaryReader(client.GetStream());
-    //    }
-
-    //    public void Handle()
-    //    {
-    //        Console.WriteLine("Please enter command...");
-    //        GetMessage();
-    //        string[] words = message.Split();
-    //        Option(words[0]);
-
-    //        while (this.command != 0)
-    //        {
-    //            EstablishConnection();
-    //            writer.Write(message);
-    //            if (HandleCommand())
-    //            {
-    //                continue;
-    //            }
-    //            GetMessage();
-    //            words = message.Split();
-    //            Option(words[0]);
-    //        }
-    //    }
-
-    //    private void GetMessage()
-    //    {
-    //        if (isConsole)
-    //        {
-    //            message = Console.ReadLine();
-    //        }
-    //        else
-    //        {
-    //            while (tasks.Count == 0)
-    //            {
-    //                Thread.Sleep(5);
-    //            }
-    //            message = tasks.Dequeue();
-    //        }
-    //    }
-
-    //    private bool HandleCommand()
-    //    {
-    //        string s = reader.ReadString();
-
-    //        Console.WriteLine(s);
-    //        JsonChanged?.Invoke(new JsonEventArgs(s));
-
-    //        if (s.Contains("error")) return false;
-    //        if (!IsCommandSinglePlayer())
-    //        {
-    //            //if the command is start/join init multiplayer flow
-    //            return HandleMultiplayerFlow();
-    //        }
-    //        return false;
-    //    }
-
-    //    public void InjectCommand(string command)
-    //    {
-    //        tasks.Enqueue(command);
-    //        if (isConsole)
-    //        {
-    //            isConsole = false;
-    //            new Task(Handle).Start();
-    //        }
-    //    }
-
-    //    private bool HandleMultiplayerFlow()
-    //    {
-    //        Task task = new Task(Listen);
-    //        task.Start();
-    //        string[] words;
-    //        try
-    //        {
-    //            do
-    //            {
-    //                GetMessage();
-    //                words = message.Split();
-    //                Option(words[0]);
-    //                if (client != null)
-    //                {
-    //                    writer.Write(message);
-    //                }
-    //                else
-    //                {
-    //                    result = true;
-    //                }
-    //            }
-    //            while (keepCom);
-    //        }
-    //        catch (Exception)
-    //        {
-    //            result = false;
-    //        }
-    //        return result;
-    //    }
-
-    //    private bool IsCommandSinglePlayer()
-    //    {
-    //        //if command is not join or start - we are inside the main while loop and still in single player mode
-    //        //in which close/play are invalid anyways.
-    //        return (this.command != 3 && this.command != 5);
-    //    }
-
-    //    private void TerminateConnection()
-    //    {
-    //        if (reader != null) reader.Dispose();
-    //        if (writer != null) writer.Dispose();
-    //        if (this.stream != null) this.stream.Dispose();
-
-    //        if (this.client != null)
-    //        {
-    //            this.client.Close();
-    //            this.client = null;
-    //        }
-    //    }
-
-    //    private void EstablishConnection()
-    //    {
-    //        if (command == -1 || command == 1 || command == 2 || command == 3 || command == 4 || command == 5 || command == 0)
-    //        {
-    //            ConnectToServer();
-    //        }
-    //    }
-
-    //    public void Listen()
-    //    {
-    //        keepCom = true;
-    //        do
-    //        {
-    //            string s = reader.ReadString();
-
-    //            Console.WriteLine(s);
-    //            if (JsonChanged != null)
-    //                JsonChanged.Invoke(new JsonEventArgs(s));
-    //            if (s.Equals("close"))
-    //            {
-    //                keepCom = false;
-    //                TerminateConnection();
-    //            }
-    //        } while (keepCom);
-    //    }
-
-    //    private void Option(string command)
-    //    {
-    //        switch (command)
-    //        {
-    //            case "generate":
-    //                this.command = 1;
-    //                break;
-    //            case "solve":
-    //                this.command = 2;
-    //                break;
-    //            case "start":
-    //                this.command = 3;
-    //                break;
-    //            case "list":
-    //                this.command = 4;
-    //                break;
-    //            case "join":
-    //                this.command = 5;
-    //                break;
-    //            case "play":
-    //                this.command = 6;
-    //                break;
-    //            case "close":
-    //                this.command = 0;
-    //                break;
-    //            default:
-    //                this.command = -1;
-    //                break;
-    //        }
-
-    //    }
-
-
-
-    //}
-
     public class Player
     {
         //connection members
         private int port;
-        private string ip;
         private TcpClient client;
         private IPEndPoint ep;
-        private bool terminate;
         //read/write members
         private NetworkStream stream;
         private BinaryWriter writer;
@@ -253,6 +40,7 @@ namespace Client
         public event GameListChangedHandler GamesListChanged;
         public event EnemyMovedHandler EnemyPositionChanged;
         public event EventHandler GameClosed;
+        public event EventHandler CommunicationError;
 
         public Player(int port, string ip, bool isConsole)
         {
@@ -291,31 +79,39 @@ namespace Client
                     }
 
                 }
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                if (isConsole)
+                    Console.WriteLine(ex.Message);
+                else
+                    CommunicationError?.Invoke(this, EventArgs.Empty);
             }
         }
 
         private void Listen()
         {
-            while (true)
+            try
             {
-                string s = reader.ReadString();
+                while (true)
+                {
+                    string s = reader.ReadString();
 
-                if (isConsole)
-                    Console.WriteLine(s);
-                else
-                    ParseResponse(s);
-                if (!isMultiPlayerFlow)
-                    break;
+                    if (isConsole)
+                        Console.WriteLine(s);
+                    else
+                        ParseResponse(s);
+                    if (!isMultiPlayerFlow)
+                        break;
+                }
             }
-        
-            //JsonChanged?.Invoke(new JsonEventArgs(s));
-
-            //if (s.Contains("error")) return false;
-           
+            catch (Exception e)
+            {
+                if (isConsole)
+                    Console.WriteLine(e.Message);
+                else
+                    CommunicationError?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         #region Message Validation and Handling
