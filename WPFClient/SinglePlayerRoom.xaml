@@ -21,14 +21,15 @@
             </Style>
         </Grid.Resources>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
-            <Button Content="Solve Maze" Click="SolveMaze_Click"/>
-            <Button Content="Restart Game" Click="RestartGame_Click" />
-            <Button Content="Main Menu" Click="MainMenu_Click" IsEnabled="True"/>
+            <Button x:Name="BtnSolve" Content="Solve Maze" Click="SolveMaze_Click"/>
+            <Button x:Name="BtnRestart" Content="Restart Game" Click="RestartGame_Click" />
+            <Button x:Name="BtnReturn"  Content="Main Menu" Click="MainMenu_Click" IsEnabled="True"/>
         </StackPanel>
         <uc:Loader Message="Loading Maze..." Grid.Row="1"/>
-        <uc:MazeDisplay x:Name="MazeDisplaySP" Grid.Row="1" Rows="{Binding Path=Rows,Mode=OneWay}" 
-                        Cols="{Binding Columns, Mode=OneWay}" Maze="{Binding Path=Maze, Mode=OneWay}"
-                        MinHeight="250" MinWidth="250" PlayerReachedExit="MazeDisplaySP_PlayerReachedExit">
+        <uc:MazeDisplay x:Name="MazeDisplaySP" Grid.Row="1" Rows="{Binding Path=Maze.Rows,Mode=OneWay}" 
+                        Cols="{Binding Maze.Cols, Mode=OneWay}" Maze="{Binding Path=Maze, Mode=OneWay}"
+                        MinHeight="250" MinWidth="250" PlayerReachedExit="MazeDisplaySP_PlayerReachedExit" 
+                        AnimationEnded="MazeDisplaySP_AnimationEnded">
             <uc:MazeDisplay.Style>
                 <Style>
                     <Style.Triggers>

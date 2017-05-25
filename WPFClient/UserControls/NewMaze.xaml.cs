@@ -18,14 +18,23 @@ namespace WPFClient.UserControls
     /// <summary>
     /// Interaction logic for NewMaze.xaml
     /// </summary>
+    /// <seealso cref="System.Windows.Controls.UserControl" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class NewMaze : UserControl
     {
+        /// <summary>
+        /// Ctor.
+        /// </summary>
         public NewMaze()
         {
             InitializeComponent();
         }
 
         // Register the routed event
+        /// <summary>
+        /// The BTN start game clicked event
+        /// Invoke when btnStartGame is clicked.
+        /// </summary>
         public static readonly RoutedEvent btnStartGameClickedEvent =
             EventManager.RegisterRoutedEvent("btnStartGameClicked", RoutingStrategy.Bubble,
             typeof(RoutedEventHandler), typeof(NewMaze));
@@ -40,6 +49,11 @@ namespace WPFClient.UserControls
             remove { RemoveHandler(btnStartGameClickedEvent, value); }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnStartGame button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             RaiseEvent(new RoutedEventArgs(NewMaze.btnStartGameClickedEvent));

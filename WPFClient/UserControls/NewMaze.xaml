@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:validation="clr-namespace:WPFClient.ValidationRules"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtName}">
@@ -22,14 +23,56 @@
             </Style>
             <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
                 <Setter Property="Grid.Column" Value="1" />
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <!-- Placeholder for the TextBox itself -->
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </Grid.Resources>
         <Label Content="Game Name:" Grid.Row="0"/>
-        <TextBox Name="txtName" Text="{Binding Path=Name, Mode=TwoWay}" Grid.Row="0" />
+        <TextBox Name="txtName" Grid.Row="0" />
         <Label Content="Maze Rows:" Grid.Row="1"/>
-        <TextBox Name="txtRows" Text="{Binding Rows, Mode=TwoWay}" Grid.Row="1" />
+        <TextBox Name="txtRows" Grid.Row="1">
+            <TextBox.Text>
+                <Binding Path="Rows" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Maze Columns:" Grid.Row="2"/>
-        <TextBox Name="txtColumns" Text="{Binding Columns, Mode=TwoWay}" Grid.Row="2" />
-        <Button Name="btnStartGame" Content="Start New Game" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5" Padding="10,10" Click="btnStartGame_Click"/>
+        <TextBox Name="txtColumns" Grid.Row="2">
+            <TextBox.Text>
+                <Binding Path="Columns" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Name="btnStartGame" Content="Start New Game" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5" Padding="10,10" Click="btnStartGame_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="IsEnabled" Value="false" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=txtColumns, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtRows, Path=(Validation.HasError)}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </UserControl>

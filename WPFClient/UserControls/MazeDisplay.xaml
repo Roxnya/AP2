@@ -7,9 +7,10 @@
              d:DesignHeight="300" d:DesignWidth="300" Name="uc">
     <UserControl.Resources>
     </UserControl.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"> 
-    <ContentControl KeyDown="KeyPressed">
-        <Viewbox Margin="10" KeyUp="KeyPressed">
+    
+        <ContentControl KeyDown="KeyPressed">
+        <ScrollViewer Name="scroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Viewbox Margin="10" KeyUp="KeyPressed">
             <Viewbox.Resources>
                 <Style TargetType="Rectangle">
                     <Setter Property="Height" Value="30" />
@@ -33,6 +34,6 @@
                 <ScrollBar Orientation="Horizontal" Visibility="Collapsed" />
             </Canvas>
         </Viewbox>
-    </ContentControl>
     </ScrollViewer>
+    </ContentControl>
 </UserControl>

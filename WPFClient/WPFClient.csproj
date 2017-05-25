@@ -85,9 +85,12 @@
     <Compile Include="UserControls\NewMaze.xaml.cs">
       <DependentUpon>NewMaze.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationRules\StringToIntValidationRule.cs" />
+    <Compile Include="ViewModels\MultiPlayerSetupViewModel.cs" />
     <Compile Include="ViewModels\MultiPlayerViewModel.cs" />
     <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SinglePlayerSetUpViewModel.cs" />
     <Compile Include="ViewModels\SinglePlayerViewModel.cs" />
     <Compile Include="UserControls\MazeDisplay.xaml.cs">
       <DependentUpon>MazeDisplay.xaml</DependentUpon>

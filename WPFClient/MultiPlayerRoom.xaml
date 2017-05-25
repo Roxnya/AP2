@@ -3,7 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uc="clr-namespace:WPFClient.UserControls"
         Title="{Binding Path=Maze.Name}" Height="300" Width="300" WindowState="Maximized" Closing="Window_Closing">
-    <Grid>
+    <Grid Name="grid">
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=grid, Path=IsFocused}" Value="False">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=PlayerMazeDisplay}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.Resources>
             <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
                 <Style.Triggers>

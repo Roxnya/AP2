@@ -17,11 +17,19 @@ using WPFClient.ViewModels;
 namespace WPFClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main window.
     /// </summary>
+    /// <seealso cref="System.Windows.Window" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// The vm
+        /// </summary>
         MenuViewModel vm;
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -29,22 +37,38 @@ namespace WPFClient
             this.DataContext = vm;
         }
 
+        /// <summary>
+        /// Opens Single player set up window
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void SinglePlayer_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            vm.OpenSinglePlayerRoom();
+            DialogHelper.OpenModalWindow(new SinglePlayerSetUp(vm.SettingsModel));
         }
 
+        /// <summary>
+        /// Opens multiplayer player set up window
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MultiPlayer_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            vm.OpenMultiPlayerRoom();
+            DialogHelper.OpenModalWindow(new MultiPlayerSetUp(vm.SettingsModel));
         }
 
+        /// <summary>
+        /// Opens Settings window
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            vm.OpenSettings();
+
+            DialogHelper.OpenModalWindow(new Settings(vm.SettingsModel));
         }
     }
 }

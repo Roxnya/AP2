@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace WPFClient
 {
     /// <summary>
-    /// Interaction logic for FinishMessage.xaml
+    /// Window for displaying a message at the end of the game
     /// </summary>
     public partial class FinishMessage : Window
     {
+        /// <summary>
+        /// Enum Mode - window's mode
+        /// </summary>
         public enum Mode { WIN, DEFEAT};
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="mode">The mode.</param>
         public FinishMessage(Mode mode)
         {
             InitializeComponent();
@@ -34,6 +29,11 @@ namespace WPFClient
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnOk control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

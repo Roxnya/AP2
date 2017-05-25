@@ -19,11 +19,23 @@ namespace WPFClient
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
+    /// <seealso cref="System.Windows.Window" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class Settings : Window
     {
+        /// <summary>
+        /// The vm
+        /// </summary>
         SettingsViewModel vm;
+        /// <summary>
+        /// The user clicked button
+        /// </summary>
         private bool userClickedButton;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="sm">The sm.</param>
         public Settings(ISettingsModel sm)
         {
             InitializeComponent();
@@ -32,24 +44,42 @@ namespace WPFClient
             this.userClickedButton = false;
         }
 
+        /// <summary>
+        /// Saves changes
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             vm.SaveSettings();
             CloseWindow();
         }
 
+        /// <summary>
+        /// Cancels changes
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             vm.CancelSettings();
             CloseWindow();
         }
 
+        /// <summary>
+        /// Closes the window.
+        /// </summary>
         private void CloseWindow()
         {
             this.userClickedButton = true;
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Closing event of the Window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!userClickedButton)

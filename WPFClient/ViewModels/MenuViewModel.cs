@@ -7,29 +7,24 @@ using WPFClient.Models;
 
 namespace WPFClient.ViewModels
 {
+    /// <summary>
+    /// Class MenuViewModel.
+    /// </summary>
+    /// <seealso cref="WPFClient.ViewModels.ViewModel" />
     public class MenuViewModel : ViewModel
     {
-        ISettingsModel settingsModel;
+        /// <summary>
+        /// The settings model
+        /// </summary>
+        public ISettingsModel SettingsModel { get; set; }
+        /// <summary>
+        /// Ctor.
+        /// </summary>
         public MenuViewModel()
         {
             //settings always represents the same window - one for the entire game
             //thus we only need on view instance of it's vm.
-            settingsModel = new SettingsModel();
-        }
-
-        public void OpenSinglePlayerRoom()
-        {
-            DialogHelper.OpenModalWindow(new SinglePlayerSetUp(settingsModel));
-        }
-
-        public void OpenMultiPlayerRoom()
-        {
-            DialogHelper.OpenModalWindow(new MultiPlayerSetUp(settingsModel));
-        }
-
-        public void OpenSettings()
-        {
-            DialogHelper.OpenModalWindow(new Settings(settingsModel));
-        }
+            SettingsModel = new SettingsModel();
+        }        
     }
 }
