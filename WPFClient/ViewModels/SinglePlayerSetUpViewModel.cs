@@ -15,6 +15,8 @@ namespace WPFClient.ViewModels
         /// <value>The rows.</value>
         public int Rows { get; set; }
 
+        public string Name { get; set; }
+
         /// <summary>
         /// Gets or sets the columns.
         /// </summary>

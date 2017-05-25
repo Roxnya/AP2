@@ -37,7 +37,15 @@
             </Style>
         </Grid.Resources>
         <Label Content="Game Name:" Grid.Row="0"/>
-        <TextBox Name="txtName" Grid.Row="0" />
+        <TextBox Name="txtName" Grid.Row="0">
+            <TextBox.Text>
+                <Binding Path="Name" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:MazeNameValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Maze Rows:" Grid.Row="1"/>
         <TextBox Name="txtRows" Grid.Row="1">
             <TextBox.Text>
@@ -66,6 +74,7 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=txtColumns, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtName, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=txtRows, Path=(Validation.HasError)}" Value="false" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="true" />
